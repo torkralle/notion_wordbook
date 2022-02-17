@@ -1,6 +1,8 @@
 # notion_wordbook
+Notionで単語テストをするアプリです。
 
-A new Flutter project.
+## 開発情報
+https://www.notion.so/torkralle/Flutter-Notion-Wordbook-5f00dd3da30f412786784dadbcd3ff41
 
 ## Getting Started
 
