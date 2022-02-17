@@ -2,7 +2,9 @@
 Notionで単語テストをするアプリです。
 
 ## 開発情報
+
 議事録とかはいってます。
+
 https://www.notion.so/torkralle/Flutter-Notion-Wordbook-5f00dd3da30f412786784dadbcd3ff41
 
 ## Getting Started
