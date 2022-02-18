@@ -30,7 +30,6 @@ body:
         - [ ] `Icon` はちいかわにする
       value: |
         - [ ]
-      render: Markdown
     validations: 
       required: false
   - type: textarea
