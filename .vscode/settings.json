@@ -1,3 +1,7 @@
 {
-    "files.autoSave": "onWindowChange"
+    "files.autoSave": "onWindowChange",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.defaultFormatter": "Dart-Code.flutter"
 }
