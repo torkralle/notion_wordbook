@@ -1,6 +1,9 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:notion_wordbook/screens/home.dart';
+
+// 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
+import 'package:notion_wordbook/screens/home.dart';
 import 'package:notion_wordbook/screens/my_info.dart';
 import 'package:notion_wordbook/screens/wordbooks.dart';
 
