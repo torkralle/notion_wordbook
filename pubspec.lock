@@ -207,6 +207,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
   frontend_server_client:
     dependency: transitive
     description:
@@ -242,6 +243,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+=======
+>>>>>>> 7cceb82713c64b8ddb149386b1dbabb24ea395b3
   import_sorter:
     dependency: "direct main"
     description:
@@ -249,6 +252,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.0"
+<<<<<<< HEAD
   io:
     dependency: transitive
     description:
@@ -277,6 +281,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
+=======
+>>>>>>> 7cceb82713c64b8ddb149386b1dbabb24ea395b3
   lints:
     dependency: transitive
     description:
@@ -464,6 +470,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+<<<<<<< HEAD
   watcher:
     dependency: transitive
     description:
@@ -478,6 +485,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+=======
+>>>>>>> 7cceb82713c64b8ddb149386b1dbabb24ea395b3
   yaml:
     dependency: transitive
     description:
