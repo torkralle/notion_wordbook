@@ -18,34 +18,38 @@ class MyPageScreen extends StatelessWidget {
           backgroundColor: Colors.purple[800],
         ),
         body: Container(
-          margin: const EdgeInsets.only(top: 50, left: 35),
+          margin: const EdgeInsets.only(top: 60, left: 35),
           // alignment: Alignment.center,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 70,
-                    width: 70,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(
-                            'https://ca.slack-edge.com/T02PHQ48CBC-U02PL2L6804-7e740657a6c3-512'),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      height: 70,
+                      width: 70,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(
+                              'https://ca.slack-edge.com/T02PHQ48CBC-U02PL2L6804-7e740657a6c3-512'),
+                        ),
                       ),
                     ),
-                  ),
-                  const Text(
-                    'ほしこ',
-                    style: TextStyle(
-                      fontSize: 25,
+                    const Text(
+                      'ほしこ',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const IconText(
                   icon: Icon(Icons.settings_outlined), listName: '設定'),
@@ -75,12 +79,12 @@ class IconText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           icon,
-          const SizedBox(width: 8),
+          const SizedBox(width: 10),
           Text(
             listName,
             style: const TextStyle(
