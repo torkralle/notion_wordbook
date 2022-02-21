@@ -1,7 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:notion_wordbook/screens/connecting.dart';
-
+import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 // 🌎 Project imports:
 
 void main() {
