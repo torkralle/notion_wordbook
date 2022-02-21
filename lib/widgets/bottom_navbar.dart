@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:notion_wordbook/screens/connecting.dart';
 import 'package:notion_wordbook/screens/home.dart';
 import 'package:notion_wordbook/screens/my_info.dart';
-import 'package:notion_wordbook/screens/my_page.dart';
+import 'package:notion_wordbook/screens/user_page.dart';
 
 class NavigatedPages extends StatefulWidget {
   @override

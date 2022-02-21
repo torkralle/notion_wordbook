@@ -1,0 +1,94 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+class MyPageScreen extends StatelessWidget {
+  const MyPageScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          toolbarHeight: 80,
+          elevation: 10,
+          title: const Text(
+            'マイページ',
+            style: TextStyle(
+              fontSize: 27,
+            ),
+          ),
+          backgroundColor: Colors.purple[800],
+        ),
+        body: Container(
+          margin: const EdgeInsets.only(top: 50, left: 35),
+          // alignment: Alignment.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 70,
+                    width: 70,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                            'https://ca.slack-edge.com/T02PHQ48CBC-U02PL2L6804-7e740657a6c3-512'),
+                      ),
+                    ),
+                  ),
+                  const Text(
+                    'ほしこ',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ],
+              ),
+              const IconText(
+                  icon: Icon(Icons.settings_outlined), listName: '設定'),
+              const IconText(
+                  icon: Icon(Icons.notifications_none), listName: 'お知らせ'),
+              const IconText(
+                  icon: Icon(Icons.contact_support_outlined),
+                  listName: 'お問い合わせ'),
+              const IconText(
+                  icon: Icon(Icons.format_list_bulleted), listName: '利用規約'),
+            ],
+          ),
+        ),
+      );
+}
+
+class IconText extends StatelessWidget {
+  const IconText({
+    Key? key,
+    required this.icon,
+    required this.listName,
+  }) : super(key: key);
+
+  final Icon icon;
+  final String listName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          icon,
+          const SizedBox(width: 8),
+          Text(
+            listName,
+            style: const TextStyle(
+              fontSize: 25,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
