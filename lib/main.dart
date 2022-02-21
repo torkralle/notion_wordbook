@@ -1,9 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:notion_wordbook/screens/connecting.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => NavigatedPages(),
+        '/connecting': (context) => ConnectingPage(),
       },
       title: 'Navigation',
       theme: ThemeData(
