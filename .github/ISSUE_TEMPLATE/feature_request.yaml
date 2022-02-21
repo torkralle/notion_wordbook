@@ -1,0 +1,44 @@
+name: Feature Request Form
+description: Form for feature requests and suggestions
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: 目的
+      description: この機能の目的を書いてください
+      placeholder: ユーザがうれしくなる
+    validations:
+      required: false
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+      description: 実装の概要を書いてください
+      placeholder: AppBar の戻るボタンにかわいいキャラクターを表示する
+    validations:
+      required: false
+  - type: textarea
+    id: tasklist
+    attributes:
+      label: タスクリスト
+      description: どうやって実装するかをなるべく詳細に書いてください
+      placeholder: |
+        - [ ] `AppBar` を作る
+        - [ ] `leading` に `IconButton` を設定する 
+        - [ ] `IconButton` に `Icon` を設定する
+        - [ ] `Icon` はちいかわにする
+      value: |
+        - [ ]
+    validations: 
+      required: false
+  - type: textarea
+    id: reference
+    attributes:
+      label: 参考
+      description: 実装のために参考になるサイト・実装のイメージが湧く図や画像を挿入してください
+      placeholder: |
+        https://www.chiikawa.com
+        https://www.qiita.com/chiikawa
+    validations:
+      required: false
