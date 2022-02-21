@@ -20,35 +20,43 @@ class HomePage extends StatelessWidget {
         body: Container(
           margin: const EdgeInsets.only(top: 60),
           // alignment: Alignment.center,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Center(
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 30),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 90),
-                  color: const Color.fromARGB(255, 233, 225, 240),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        '単語帳を追加',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 30),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 90),
+                      color: const Color.fromARGB(255, 233, 225, 240),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            '単語帳を追加',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  const WordBookItem(
+                      rank: 'A', listName: 'はじめての英語', ratio: '23.4'),
+                  const WordBookItem(
+                      rank: 'B', listName: '基礎からの英語', ratio: '78.2'),
+                  const WordBookItem(
+                      rank: 'A', listName: '高校英語', ratio: '45.3'),
+                  const WordBookItem(rank: 'C', listName: '日常英語', ratio: '1.1'),
+                  const WordBookItem(
+                      rank: 'D', listName: 'NewYorkTimes', ratio: '0.5')
+                ],
               ),
-              const WordBookItem(rank: 'A', listName: 'はじめての英語', ratio: '23.4'),
-              const WordBookItem(rank: 'B', listName: '基礎からの英語', ratio: '78.2'),
-              const WordBookItem(rank: 'A', listName: '高校英語', ratio: '45.3'),
-              const WordBookItem(rank: 'C', listName: '日常英語', ratio: '1.1'),
-            ],
-          ),
+            )
+          
         ),
       );
 }
