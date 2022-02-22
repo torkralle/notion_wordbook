@@ -19,7 +19,6 @@ class MyPageScreen extends StatelessWidget {
         ),
         body: Container(
           margin: const EdgeInsets.only(top: 60, left: 35),
-          // alignment: Alignment.center,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
