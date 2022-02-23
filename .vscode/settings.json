@@ -3,5 +3,8 @@
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "modifications",
-    "editor.defaultFormatter": "Dart-Code.flutter"
+    "editor.defaultFormatter": "Dart-Code.flutter",
+    "[dart]": {
+        "editor.defaultFormatter": "Dart-Code.dart-code"
+    }
 }
