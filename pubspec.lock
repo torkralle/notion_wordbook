@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "34.0.0"
+    version: "35.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.2.0"
+    version: "3.3.0"
   args:
     dependency: transitive
     description:
@@ -113,13 +113,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  cli_util:
-    dependency: transitive
-    description:
-      name: cli_util
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.5"
   clock:
     dependency: transitive
     description:
@@ -207,7 +200,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
   frontend_server_client:
     dependency: transitive
     description:
@@ -243,8 +235,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-=======
->>>>>>> 7cceb82713c64b8ddb149386b1dbabb24ea395b3
   import_sorter:
     dependency: "direct main"
     description:
@@ -252,7 +242,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.6.0"
-<<<<<<< HEAD
   io:
     dependency: transitive
     description:
@@ -281,8 +270,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
-=======
->>>>>>> 7cceb82713c64b8ddb149386b1dbabb24ea395b3
   lints:
     dependency: transitive
     description:
@@ -338,7 +325,7 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.0"
   pool:
     dependency: transitive
     description:
@@ -441,7 +428,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.9"
+    version: "0.4.8"
   timing:
     dependency: transitive
     description:
@@ -470,7 +457,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
-<<<<<<< HEAD
   watcher:
     dependency: transitive
     description:
@@ -485,8 +471,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-=======
->>>>>>> 7cceb82713c64b8ddb149386b1dbabb24ea395b3
   yaml:
     dependency: transitive
     description:
