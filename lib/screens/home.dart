@@ -17,8 +17,7 @@ class HomePage extends StatelessWidget {
           ),
           backgroundColor: Colors.purple[800],
         ),
-        body: Container(
-            child: SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -51,8 +50,6 @@ class HomePage extends StatelessWidget {
               const WordBookItem(rank: 'D', listName: 'CNN', ratio: '0')
             ],
           ),
-        )
-          
         ),
       );
 }
@@ -85,7 +82,7 @@ class WordBookItem extends StatelessWidget {
           Row(
             children: [
               Container(
-                margin: const EdgeInsets.only(left: 14, right: 20),
+                margin: const EdgeInsets.only(left: 14, right: 14),
                 padding: const EdgeInsets.all(10),
                 width: 45,
                 height: 45,
@@ -103,54 +100,51 @@ class WordBookItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                // margin: const EdgeInsets.only(left: 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
-                      child: Text(
-                        listName,
-                        style: const TextStyle(
-                          fontSize: 19,
-                        ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: Text(
+                      listName,
+                      style: const TextStyle(
+                        fontSize: 19,
                       ),
                     ),
-                    Row(
-                      children: [
-                        const Text(
-                          '前回正答率',
-                          style: TextStyle(
-                            fontSize: 15,
-                          ),
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        '前回正答率',
+                        style: TextStyle(
+                          fontSize: 15,
                         ),
-                        const SizedBox(width: 8.0),
-                        Row(
-                          children: [
-                            Text(
-                              ratio,
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
+                      ),
+                      const SizedBox(width: 8.0),
+                      Row(
+                        children: [
+                          Text(
+                            ratio,
+                            style: const TextStyle(
+                              fontSize: 16,
                             ),
-                            const Text(
-                              '%',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
+                          ),
+                          const Text(
+                            '%',
+                            style: TextStyle(
+                              fontSize: 16,
                             ),
-                          ],
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
               ),
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(right: 15),
+            margin: const EdgeInsets.only(right: 17),
             child: const Icon(Icons.more_horiz),
           ),
         ],
