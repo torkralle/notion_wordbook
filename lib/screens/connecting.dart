@@ -19,10 +19,10 @@ class ConnectingPage extends StatelessWidget {
           backgroundColor: Colors.purple[800],
         ),
         body: Container(
-          margin: EdgeInsets.only(top: 60, left: 30),
+          margin: const EdgeInsets.only(top: 60, left: 30),
           child: Column(
             // mainAxisSize: MainAxisSize.min,
-            children: [
+            children: const [
               InputDecorator(labelName: 'API Key'),
               InputDecorator(labelName: 'DB Key'),
               Text('APIやDBのキーが分からない方はこちら')
@@ -47,7 +47,7 @@ class InputDecorator extends StatelessWidget {
       children: [
         Text(
           labelName + 'を入力',
-          style: TextStyle(
+          style: const TextStyle(
             backgroundColor: Colors.blue,
             fontSize: 28,
           ),
@@ -57,11 +57,11 @@ class InputDecorator extends StatelessWidget {
           decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.purple)),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.purple),
             ),
             labelText: labelName,
-            labelStyle: TextStyle(fontSize: 16),
+            labelStyle: const TextStyle(fontSize: 16),
             // The MaterialStateProperty's value is a text style that is orange
             // by default, but the theme's error color if the input decorator
             // is in its error state.
@@ -79,7 +79,7 @@ class InputDecorator extends StatelessWidget {
               icon: Icon(_isObscure
                   ? Icons.visibility_off
                   : Icons.visibility), //icon切り替え
-              color: Color.fromARGB(160, 0, 0, 0),
+              color: const Color.fromARGB(160, 0, 0, 0),
             ),
           ),
           validator: (String? value) {
