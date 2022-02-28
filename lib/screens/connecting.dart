@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 bool _isObscure = true;
 
 class ConnectingPage extends StatelessWidget {
+  const ConnectingPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -19,21 +20,22 @@ class ConnectingPage extends StatelessWidget {
           backgroundColor: Colors.purple[800],
         ),
         body: Container(
-          margin: EdgeInsets.only(top: 80, left: 30, right: 30),
+          margin: const EdgeInsets.only(top: 80, left: 30, right: 30),
           child: Column(
             // mainAxisSize: MainAxisSize.min,
             children: [
-              InputDecorator(labelName: 'API Key'),
-              InputDecorator(labelName: 'DB Key'),
+              const InputDecorator(labelName: 'API Key'),
+              const InputDecorator(labelName: 'DB Key'),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                margin: EdgeInsets.only(top: 20),
-                color: Color.fromARGB(255, 233, 225, 240),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                margin: const EdgeInsets.only(top: 20),
+                color: const Color.fromARGB(255, 233, 225, 240),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         style: TextStyle(color: Colors.black, fontSize: 14),
                         children: [
                           TextSpan(
@@ -47,7 +49,7 @@ class ConnectingPage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Icon(Icons.launch_outlined)
+                    const Icon(Icons.launch_outlined)
                   ],
                 ),
               )
@@ -68,14 +70,14 @@ class InputDecorator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 40),
+      margin: const EdgeInsets.only(bottom: 40),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(right: 155, bottom: 25),
+            margin: const EdgeInsets.only(right: 155, bottom: 25),
             child: Text(
               labelName + 'を入力',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 27,
               ),
             ),
@@ -85,11 +87,11 @@ class InputDecorator extends StatelessWidget {
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.purple)),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.purple),
               ),
               labelText: labelName,
-              labelStyle: TextStyle(fontSize: 16),
+              labelStyle: const TextStyle(fontSize: 16),
               // The MaterialStateProperty's value is a text style that is orange
               // by default, but the theme's error color if the input decorator
               // is in its error state.
@@ -107,7 +109,7 @@ class InputDecorator extends StatelessWidget {
                 icon: Icon(_isObscure
                     ? Icons.visibility_off
                     : Icons.visibility), //icon切り替え
-                color: Color.fromARGB(160, 0, 0, 0),
+                color: const Color.fromARGB(160, 0, 0, 0),
               ),
             ),
             validator: (String? value) {
