@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
 import 'package:notion_wordbook/screens/home.dart';
+import 'package:notion_wordbook/screens/hook_test.dart';
 import 'package:notion_wordbook/screens/my_info.dart';
 import 'package:notion_wordbook/screens/user_page.dart';
 
@@ -20,6 +21,7 @@ class _State extends State<NavigatedPages> {
     HomePage(),
     ConnectingPage(),
     MyInfoPage(),
+    HookPage(),
     const MyPageScreen(),
   ];
 
@@ -33,6 +35,7 @@ class _State extends State<NavigatedPages> {
                 icon: Icon(Icons.mode_edit_outline), label: '復習'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.auto_graph), label: '学習データ'),
+            BottomNavigationBarItem(icon: Icon(Icons.face), label: 'マイページ'),
             BottomNavigationBarItem(icon: Icon(Icons.face), label: 'マイページ'),
           ],
           type: BottomNavigationBarType.fixed,

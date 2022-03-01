@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   import_sorter: ^4.6.0
   json_annotation: ^4.4.0
+  http: ^0.13.4
+  dio: ^4.0.4
 
 dev_dependencies:
   flutter_test:
