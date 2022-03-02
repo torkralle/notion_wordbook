@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'package:notion_wordbook/models/word.dart';
 
 bool existsMeaning(wordsData, index) {
