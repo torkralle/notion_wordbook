@@ -1,4 +1,6 @@
 // ここはまだ考慮の余地あり
+
+// 🌎 Project imports:
 import 'package:notion_wordbook/helper/enum.dart';
 
 enum WordTag {
