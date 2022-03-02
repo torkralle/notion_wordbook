@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'package:notion_wordbook/models/enums/word_tag.dart';
 
 class WordModel {

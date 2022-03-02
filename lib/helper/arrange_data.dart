@@ -1,6 +1,7 @@
+// 🌎 Project imports:
+import 'package:notion_wordbook/helper/exists.dart';
 import 'package:notion_wordbook/models/enums/word_tag.dart';
 import 'package:notion_wordbook/models/word.dart';
-import 'package:notion_wordbook/helper/exists.dart';
 
 String getSpelling(wordData) {
   return wordData['Spelling']['title'][0]['text']['content'];
