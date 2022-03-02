@@ -1,18 +1,11 @@
-class WordModel {
-  String Spelling;
-  String? Meaning = '', ExampleSentence = '', Link = '', Correct = '';
-  List<WordTag>? Tags = [];
-  WordModel(this.Spelling,
-      [this.Meaning, this.Tags, this.ExampleSentence, this.Link, this.Correct]);
-}
+import 'package:notion_wordbook/models/enums/word_tag.dart';
 
-enum WordTag {
-  Adjective,
-  Idiom,
-  Noun,
-  Verb,
-  Adverb,
-  Abbreviation,
-  Response,
-  AuxiliaryVerb
+class WordModel {
+  String spelling;
+  String? meaning, exampleSentence, link;
+  // 正誤判定はAPIのJSON構造から必ず存在する
+  bool correct;
+  List<WordTag>? tags = [];
+  WordModel(this.spelling, this.correct, this.meaning, this.tags,
+      this.exampleSentence, this.link);
 }
