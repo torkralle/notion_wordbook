@@ -37,7 +37,7 @@ class MyPageScreen extends StatelessWidget {
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage(
-                              'https://ca.slack-edge.com/T02PHQ48CBC-U02PL2L6804-7e740657a6c3-512'),
+                              'https://ca.slack-edge.com/T02PHQ48CBC-U02PL2L6804-7e740657a6c3-512',),
                         ),
                       ),
                     ),
@@ -51,14 +51,14 @@ class MyPageScreen extends StatelessWidget {
                 ),
               ),
               const IconText(
-                  icon: Icon(Icons.settings_outlined), listName: '設定'),
+                  icon: Icon(Icons.settings_outlined), listName: '設定',),
               const IconText(
-                  icon: Icon(Icons.notifications_none), listName: 'お知らせ'),
+                  icon: Icon(Icons.notifications_none), listName: 'お知らせ',),
               const IconText(
                   icon: Icon(Icons.contact_support_outlined),
-                  listName: 'お問い合わせ'),
+                  listName: 'お問い合わせ',),
               const IconText(
-                  icon: Icon(Icons.format_list_bulleted), listName: '利用規約'),
+                  icon: Icon(Icons.format_list_bulleted), listName: '利用規約',),
             ],
           ),
         ),
