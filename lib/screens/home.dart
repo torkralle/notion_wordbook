@@ -27,17 +27,11 @@ class HomePage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 90),
                   color: const Color.fromARGB(255, 233, 225, 240),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        '単語帳を追加',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
+                  child: const Text(
+                    '単語帳を追加',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
@@ -83,21 +77,17 @@ class WordBookItem extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.only(left: 14, right: 14),
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.only(left: 16, top: 10),
                 width: 45,
                 height: 45,
                 decoration: BoxDecoration(
                     color: Colors.purple[800], shape: BoxShape.circle),
-                child: Column(
-                  children: [
-                    Text(
-                      rank,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+                child: Text(
+                  rank,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               Column(
