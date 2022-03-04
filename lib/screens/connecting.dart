@@ -11,6 +11,6 @@ class ConnectingPage extends StatelessWidget {
             child: Text(
           'Connecting',
           style: TextStyle(fontSize: 60),
-        )),
+        ),),
       );
 }
