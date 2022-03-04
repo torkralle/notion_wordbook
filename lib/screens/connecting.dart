@@ -34,39 +34,63 @@ class ConnectingPage extends StatelessWidget {
             ),
             body: SingleChildScrollView(
               child: Container(
-                margin: const EdgeInsets.only(top: 80, left: 30, right: 30),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 80, horizontal: 30),
                 child: Column(
                   children: [
                     const KeyField(labelName: 'API Key'),
                     const KeyField(labelName: 'DB Key'),
+                    TextButton(
+                      onPressed: () {},
+                      child: Container(
+                        color: Colors.purple[600],
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 25),
+                        child: const Text(
+                          '連携',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                    ),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 20),
                       margin: const EdgeInsets.only(top: 20),
-                      color: const Color.fromARGB(255, 233, 225, 240),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RichText(
-                            text: const TextSpan(
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
-                              children: [
-                                TextSpan(
-                                    text: 'API',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: 'や'),
-                                TextSpan(
-                                    text: 'DB',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: 'のキーが分からない方はこちら'),
-                              ],
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 20),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0)),
+                          backgroundColor:
+                              const Color.fromARGB(255, 233, 225, 240),
+                          side: const BorderSide(
+                              color: Color.fromARGB(255, 233, 225, 240)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            RichText(
+                              text: const TextSpan(
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 14),
+                                children: [
+                                  TextSpan(
+                                      text: 'API',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(text: 'や'),
+                                  TextSpan(
+                                      text: 'DB',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(text: 'のキーが分からない方はこちら'),
+                                ],
+                              ),
                             ),
-                          ),
-                          const Icon(Icons.launch_outlined)
-                        ],
+                            const Icon(Icons.launch_outlined,
+                                color: Color.fromARGB(141, 0, 0, 0))
+                          ],
+                        ),
                       ),
                     )
                   ],
