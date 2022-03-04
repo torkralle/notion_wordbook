@@ -1,57 +1,73 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notion_wordbook/viewmodels/toggle_password.dart';
 class ConnectingPage extends StatelessWidget {
-  const ConnectingPage({Key? key}) : super(key: key);
+  ConnectingPage({Key? key}) : super(key: key);
+
+  final _focusNode = FocusNode();
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: 80,
-          elevation: 10,
-          title: const Text(
-            'Notionと連携',
-            style: TextStyle(
-              fontSize: 27,
+  Widget build(BuildContext context) => Focus(
+        focusNode: _focusNode,
+        child: GestureDetector(
+          onTap: _focusNode.requestFocus,
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              centerTitle: true,
+              toolbarHeight: 80,
+              elevation: 10,
+              title: const Text(
+                'Notionと連携',
+                style: TextStyle(
+                  fontSize: 27,
+                ),
+              ),
+              backgroundColor: Colors.purple[800],
             ),
-          ),
-          backgroundColor: Colors.purple[800],
-        ),
-        body: Container(
-          margin: const EdgeInsets.only(top: 80, left: 30, right: 30),
-          child: Column(
-            children: [
-              const KeyField(labelName: 'API Key'),
-              const KeyField(labelName: 'DB Key'),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                margin: const EdgeInsets.only(top: 20),
-                color: const Color.fromARGB(255, 233, 225, 240),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            body: SingleChildScrollView(
+              child: Container(
+                margin: const EdgeInsets.only(top: 80, left: 30, right: 30),
+                child: Column(
                   children: [
-                    RichText(
-                      text: const TextSpan(
-                        style: TextStyle(color: Colors.black, fontSize: 14),
+                    const KeyField(labelName: 'API Key'),
+                    const KeyField(labelName: 'DB Key'),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 20),
+                      margin: const EdgeInsets.only(top: 20),
+                      color: const Color.fromARGB(255, 233, 225, 240),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextSpan(
-                              text: 'API',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(text: 'や'),
-                          TextSpan(
-                              text: 'DB',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextSpan(text: 'のキーが分からない方はこちら'),
+                          RichText(
+                            text: const TextSpan(
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 14),
+                              children: [
+                                TextSpan(
+                                    text: 'API',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                TextSpan(text: 'や'),
+                                TextSpan(
+                                    text: 'DB',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                TextSpan(text: 'のキーが分からない方はこちら'),
+                              ],
+                            ),
+                          ),
+                          const Icon(Icons.launch_outlined)
                         ],
                       ),
-                    ),
-                    const Icon(Icons.launch_outlined)
+                    )
                   ],
                 ),
-              )
-            ],
+              ),
+            ),
           ),
         ),
       );
@@ -82,6 +98,11 @@ class KeyField extends ConsumerWidget {
             ),
           ),
           TextFormField(
+            inputFormatters: [
+              FilteringTextInputFormatter.deny(RegExp('[\\.\\,\\ ]'))
+            ],
+            enableSuggestions: false,
+            autocorrect: false,
             obscureText: visiblitySwitch,
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
@@ -109,7 +130,7 @@ class KeyField extends ConsumerWidget {
             ),
             validator: (String? value) {
               if (value == null || value == '') {
-                return 'Enter ' + labelName;
+                return 'Enter $labelName';
               }
               return null;
             },

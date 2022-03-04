@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => NavigatedPages(),
-        '/connecting': (context) => const ConnectingPage(),
+        '/connecting': (context) => ConnectingPage(),
       },
       title: 'Navigation',
       theme: ThemeData(

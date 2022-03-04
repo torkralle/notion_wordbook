@@ -18,7 +18,7 @@ class _State extends State<NavigatedPages> {
   var _navIndex = 0;
   final screens = [
     HomePage(),
-    const ConnectingPage(),
+    ConnectingPage(),
     MyInfoPage(),
     const MyPageScreen(),
   ];
