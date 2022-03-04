@@ -1,10 +1,16 @@
 {
     "files.autoSave": "onWindowChange",
+    "editor.bracketPairColorization.enabled": true,
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+    },
     "editor.formatOnSaveMode": "modifications",
     "editor.defaultFormatter": "Dart-Code.flutter",
     "[dart]": {
         "editor.defaultFormatter": "Dart-Code.dart-code"
-    }
+    },
+    // always, prompt（選択制）, never のオプションあり
+    "dart.renameFilesWithClasses": "always",
 }
