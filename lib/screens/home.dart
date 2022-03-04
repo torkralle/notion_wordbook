@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
               const WordBookItem(rank: 'A', listName: '高校英語', ratio: '45.3'),
               const WordBookItem(rank: 'C', listName: '日常英語', ratio: '1.1'),
               const WordBookItem(
-                  rank: 'D', listName: 'NewYorkTimes', ratio: '0.5'),
+                  rank: 'D', listName: 'NewYorkTimes', ratio: '0.5',),
               const WordBookItem(rank: 'D', listName: 'CNN', ratio: '0')
             ],
           ),
@@ -81,7 +81,7 @@ class WordBookItem extends StatelessWidget {
                 width: 45,
                 height: 45,
                 decoration: BoxDecoration(
-                    color: Colors.purple[800], shape: BoxShape.circle),
+                    color: Colors.purple[800], shape: BoxShape.circle,),
                 child: Text(
                   rank,
                   style: const TextStyle(
