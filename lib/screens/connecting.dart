@@ -1,8 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
-bool _isObscure = true;
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notion_wordbook/viewmodels/toggle_password.dart';
 class ConnectingPage extends StatelessWidget {
   const ConnectingPage({Key? key}) : super(key: key);
   @override
@@ -22,10 +21,9 @@ class ConnectingPage extends StatelessWidget {
         body: Container(
           margin: const EdgeInsets.only(top: 80, left: 30, right: 30),
           child: Column(
-            // mainAxisSize: MainAxisSize.min,
             children: [
-              const InputDecorator(labelName: 'API Key'),
-              const InputDecorator(labelName: 'DB Key'),
+              const KeyField(labelName: 'API Key'),
+              const KeyField(labelName: 'DB Key'),
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -59,8 +57,8 @@ class ConnectingPage extends StatelessWidget {
       );
 }
 
-class InputDecorator extends StatelessWidget {
-  const InputDecorator({
+class KeyField extends ConsumerWidget {
+  const KeyField({
     Key? key,
     required this.labelName,
   }) : super(key: key);
@@ -68,7 +66,8 @@ class InputDecorator extends StatelessWidget {
   final String labelName;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final visiblitySwitch = ref.watch(visiblitySwitchProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: Column(
@@ -76,14 +75,14 @@ class InputDecorator extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(right: 155, bottom: 25),
             child: Text(
-              labelName + 'を入力',
+              '$labelNameを入力',
               style: const TextStyle(
                 fontSize: 27,
               ),
             ),
           ),
           TextFormField(
-            obscureText: true,
+            obscureText: visiblitySwitch,
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.purple)),
@@ -92,9 +91,6 @@ class InputDecorator extends StatelessWidget {
               ),
               labelText: labelName,
               labelStyle: const TextStyle(fontSize: 16),
-              // The MaterialStateProperty's value is a text style that is orange
-              // by default, but the theme's error color if the input decorator
-              // is in its error state.
               floatingLabelStyle: MaterialStateTextStyle.resolveWith(
                   (Set<MaterialState> states) {
                 final Color color = states.contains(MaterialState.error)
@@ -104,11 +100,10 @@ class InputDecorator extends StatelessWidget {
               }),
               suffixIcon: IconButton(
                 onPressed: () {
-                  _isObscure = !_isObscure;
+                  ref.read(visiblitySwitchProvider.notifier).switchVisiblity();
                 },
-                icon: Icon(_isObscure
-                    ? Icons.visibility_off
-                    : Icons.visibility), //icon切り替え
+                icon: Icon(
+                    visiblitySwitch ? Icons.visibility : Icons.visibility_off),
                 color: const Color.fromARGB(160, 0, 0, 0),
               ),
             ),
@@ -125,10 +120,3 @@ class InputDecorator extends StatelessWidget {
     );
   }
 }
-
-//       // アイコンがタップされたら現在と反対の状態をセットする
-//       onPressed: () {
-//         // setState(() {
-//         _isObscure = !_isObscure;
-//         // });
-//       },
