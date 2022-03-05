@@ -9,6 +9,8 @@ import 'package:notion_wordbook/screens/my_info.dart';
 import 'package:notion_wordbook/screens/user_page.dart';
 
 class NavigatedPages extends StatefulWidget {
+  const NavigatedPages({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _State();
@@ -21,7 +23,7 @@ class _State extends State<NavigatedPages> {
     HomePage(),
     ConnectingPage(),
     MyInfoPage(),
-    HookPage(),
+    const HookPage(),
     const MyPageScreen(),
   ];
 

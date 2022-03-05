@@ -1,4 +1,4 @@
-import 'package:notion_wordbook/models/enums/word_tag.dart';
+import 'package:notion_wordbook/objects/enums/ward_tag.dart';
 import 'package:notion_wordbook/helper/words/exists.dart';
 
 String getSpelling(wordData) {

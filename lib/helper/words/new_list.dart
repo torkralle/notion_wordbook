@@ -1,5 +1,5 @@
 import 'package:notion_wordbook/helper/words/retrieve.dart';
-import 'package:notion_wordbook/models/word.dart';
+import 'package:notion_wordbook/objects/models/ward.dart';
 
 List extractWordsDataFromResponse(Map response) {
   return response["results"].map((page) => page['properties']).toList();

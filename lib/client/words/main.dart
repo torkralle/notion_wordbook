@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:notion_wordbook/core/http.dart';
+import 'package:notion_wordbook/core/http/main.dart';
 
 Future getWordsData(String databaseID) async {
   try {
