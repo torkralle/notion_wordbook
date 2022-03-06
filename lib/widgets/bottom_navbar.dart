@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:notion_wordbook/screens/connecting.dart';
 import 'package:notion_wordbook/screens/home.dart';
+import 'package:notion_wordbook/screens/review.dart';
 import 'package:notion_wordbook/screens/my_info.dart';
 import 'package:notion_wordbook/screens/user_page.dart';
 
@@ -18,7 +18,7 @@ class _State extends State<NavigatedPages> {
   var _navIndex = 0;
   final screens = [
     HomePage(),
-    ConnectingPage(),
+    ReviewPage(),
     MyInfoPage(),
     const MyPageScreen(),
   ];
