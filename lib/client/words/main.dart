@@ -3,7 +3,7 @@ import 'package:notion_wordbook/core/http/main.dart';
 
 Future<ApiResult> getWordsData(String databaseID) async {
   try {
-    var response = await postHttp(databaseID + '/query');
+    var response = await callPostMethod(databaseID + '/query');
     return ApiResult.success(json.decode(response.response!.body)); //json->Map
   } catch (e) {
     return ApiResult.failure(e);
