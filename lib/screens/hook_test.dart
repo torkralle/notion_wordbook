@@ -1,9 +1,16 @@
-import 'package:flutter/material.dart';
+// 🎯 Dart imports:
 import 'dart:async';
-import 'package:notion_wordbook/helper/words/new_list.dart';
-import 'package:notion_wordbook/client/words/main.dart';
-import 'package:notion_wordbook/objects/enums/ward_tag.dart';
+
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+// 🌎 Project imports:
+import 'package:notion_wordbook/client/words/main.dart';
+import 'package:notion_wordbook/helper/words/new_list.dart';
+import 'package:notion_wordbook/objects/enums/ward_tag.dart';
 
 var dbKey = dotenv.env['DB_KEY'];
 
