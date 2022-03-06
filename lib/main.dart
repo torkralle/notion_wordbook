@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
+import 'package:notion_wordbook/screens/test.dart';
 import 'package:notion_wordbook/screens/wordbook_item.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => NavigatedPages(),
         '/connecting': (context) => ConnectingPage(),
         '/wordbook_item': (context) => const WordBookItemPage(),
+        '/test': (context) => TestPage()
       },
       title: 'Navigation',
       theme: ThemeData(
