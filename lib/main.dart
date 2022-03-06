@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
+import 'package:notion_wordbook/screens/home.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
 // 🌎 Project imports:
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => NavigatedPages(),
+        '/home': (context) => HomePage(),
         '/connecting': (context) => ConnectingPage(),
       },
       title: 'Navigation',

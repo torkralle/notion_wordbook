@@ -40,8 +40,10 @@ class ConnectingPage extends StatelessWidget {
                   children: [
                     const KeyField(labelName: 'API Key'),
                     const KeyField(labelName: 'DB Key'),
-                    TextButton(
-                      onPressed: () {},
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/home');
+                      },
                       child: Container(
                         color: Colors.purple[600],
                         padding: const EdgeInsets.symmetric(
@@ -52,44 +54,41 @@ class ConnectingPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/home');
+                        },
+                        child: Container(
                           padding: const EdgeInsets.symmetric(
                               vertical: 20, horizontal: 20),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0)),
-                          backgroundColor:
-                              const Color.fromARGB(255, 233, 225, 240),
-                          side: const BorderSide(
-                              color: Color.fromARGB(255, 233, 225, 240)),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            RichText(
-                              text: const TextSpan(
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 14),
-                                children: [
-                                  TextSpan(
-                                      text: 'API',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: 'や'),
-                                  TextSpan(
-                                      text: 'DB',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(text: 'のキーが分からない方はこちら'),
-                                ],
+                          color: const Color.fromARGB(255, 233, 225, 240),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              RichText(
+                                text: const TextSpan(
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 14),
+                                  children: [
+                                    TextSpan(
+                                        text: 'API',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: 'や'),
+                                    TextSpan(
+                                        text: 'DB',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: 'のキーが分からない方はこちら'),
+                                  ],
+                                ),
                               ),
-                            ),
-                            const Icon(Icons.launch_outlined,
-                                color: Color.fromARGB(141, 0, 0, 0))
-                          ],
+                              const Icon(Icons.launch_outlined,
+                                  color: Color.fromARGB(141, 0, 0, 0))
+                            ],
+                          ),
                         ),
                       ),
                     )
@@ -118,7 +117,7 @@ class KeyField extends ConsumerWidget {
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(right: 155, bottom: 25),
+            margin: const EdgeInsets.only(right: 155, bottom: 20),
             child: Text(
               '$labelNameを入力',
               style: const TextStyle(
