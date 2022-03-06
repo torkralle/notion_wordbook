@@ -1,13 +1,13 @@
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class VisiblitySwitchViewModel extends StateNotifier<bool> {
-  VisiblitySwitchViewModel() : super(true);
+class ObscuritySwitchViewModel extends StateNotifier<bool> {
+  ObscuritySwitchViewModel() : super(true);
 
   void switchVisiblity() => state = !state;
 }
 
 final visiblitySwitchProvider =
-    StateNotifierProvider<VisiblitySwitchViewModel, bool>((ref) {
-  return VisiblitySwitchViewModel();
+    StateNotifierProvider<ObscuritySwitchViewModel, bool>((ref) {
+  return ObscuritySwitchViewModel();
 });

@@ -111,7 +111,7 @@ class KeyField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final visiblitySwitch = ref.watch(visiblitySwitchProvider);
+    final obscuritySwitch = ref.watch(obscuritySwitchProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: Column(
@@ -131,7 +131,7 @@ class KeyField extends ConsumerWidget {
             ],
             enableSuggestions: false,
             autocorrect: false,
-            obscureText: visiblitySwitch,
+            obscureText: obscuritySwitch,
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.purple)),
@@ -149,10 +149,10 @@ class KeyField extends ConsumerWidget {
               }),
               suffixIcon: IconButton(
                 onPressed: () {
-                  ref.read(visiblitySwitchProvider.notifier).switchVisiblity();
+                  ref.read(obscuritySwitchProvider.notifier).switchVisiblity();
                 },
                 icon: Icon(
-                    visiblitySwitch ? Icons.visibility : Icons.visibility_off),
+                    obscuritySwitch ? Icons.visibility : Icons.visibility_off),
                 color: const Color.fromARGB(160, 0, 0, 0),
               ),
             ),
