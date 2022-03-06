@@ -48,7 +48,7 @@ class ConnectingPage extends StatelessWidget {
                       child: Container(
                         color: Colors.purple[600],
                         padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 25),
+                            vertical: 12, horizontal: 25,),
                         child: const Text(
                           '連携',
                           style: TextStyle(color: Colors.white, fontSize: 18),
@@ -60,11 +60,11 @@ class ConnectingPage extends StatelessWidget {
                       child: InkWell(
                         onTap: () async {
                           await launch(
-                              'https://torkralle.notion.site/Notion-Wordbook-d93132a576d846b0b3b5c10aa0c24908');
+                              'https://torkralle.notion.site/Notion-Wordbook-d93132a576d846b0b3b5c10aa0c24908',);
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 20),
+                              vertical: 20, horizontal: 20,),
                           color: const Color.fromARGB(255, 233, 225, 240),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,23 +72,23 @@ class ConnectingPage extends StatelessWidget {
                               RichText(
                                 text: const TextSpan(
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 14),
+                                      color: Colors.black, fontSize: 14,),
                                   children: [
                                     TextSpan(
                                         text: 'API',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
+                                            fontWeight: FontWeight.bold,),),
                                     TextSpan(text: 'や'),
                                     TextSpan(
                                         text: 'DB',
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
+                                            fontWeight: FontWeight.bold,),),
                                     TextSpan(text: 'のキーが分からない方はこちら'),
                                   ],
                                 ),
                               ),
                               const Icon(Icons.launch_outlined,
-                                  color: Color.fromARGB(141, 0, 0, 0))
+                                  color: Color.fromARGB(141, 0, 0, 0),)
                             ],
                           ),
                         ),
@@ -136,7 +136,7 @@ class KeyField extends ConsumerWidget {
             obscureText: obscuritySwitch,
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.purple)),
+                  borderSide: BorderSide(color: Colors.purple),),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.purple),
               ),
@@ -154,7 +154,7 @@ class KeyField extends ConsumerWidget {
                   ref.read(obscuritySwitchProvider.notifier).switchVisiblity();
                 },
                 icon: Icon(
-                    obscuritySwitch ? Icons.visibility : Icons.visibility_off),
+                    obscuritySwitch ? Icons.visibility : Icons.visibility_off,),
                 color: const Color.fromARGB(160, 0, 0, 0),
               ),
             ),

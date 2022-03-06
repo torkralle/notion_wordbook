@@ -11,6 +11,6 @@ class ReviewPage extends StatelessWidget {
             child: Text(
           'Review',
           style: TextStyle(fontSize: 60),
-        )),
+        ),),
       );
 }

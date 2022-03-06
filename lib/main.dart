@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => NavigatedPages(),
-        '/home': (context) => HomePage(),
+        '/home': (context) => const HomePage(),
         '/connecting': (context) => ConnectingPage(),
       },
       title: 'Navigation',
