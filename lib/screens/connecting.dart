@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/toggle_password.dart';
@@ -57,8 +58,9 @@ class ConnectingPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed('/home');
+                        onTap: () async {
+                          await launch(
+                              'https://torkralle.notion.site/Notion-Wordbook-d93132a576d846b0b3b5c10aa0c24908');
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
