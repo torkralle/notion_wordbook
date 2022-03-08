@@ -32,7 +32,7 @@ List<WordTag> getTags(wordData) {
   return existsTag(wordData)
       ? wordData['Tags']['multi_select']
           .map<WordTag>(
-              (tag) => WordTagHelper().valueOf(tag['name'].toString()))
+              (tag) => WordTagHelper().valueOf(tag['name'].toString()),)
           .toList()
       : <WordTag>[];
 }

@@ -19,7 +19,7 @@ Future<HttpResult> callPostMethod(String path) async {
         headers: {
           'Authorization': 'Bearer ' + secretKey!,
           'Notion-Version': '2021-08-16'
-        });
+        },);
     return HttpResult.success(response);
   } catch (e) {
     return HttpResult.failure(e);

@@ -44,7 +44,7 @@ class _HookPageState extends State<HookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("テスト用ページです。"),
+          title: const Text('テスト用ページです。'),
           backgroundColor: Colors.green,
         ),
         body: ListView.builder(
@@ -78,6 +78,6 @@ class _HookPageState extends State<HookPage> {
               ),
             );
           },
-        ));
+        ),);
   }
 }
