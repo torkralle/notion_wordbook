@@ -38,6 +38,7 @@ class _State extends State<NavigatedPages> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.auto_graph), label: '学習データ',),
             BottomNavigationBarItem(icon: Icon(Icons.face), label: 'マイページ'),
+          BottomNavigationBarItem(icon: Icon(Icons.face), label: 'マイページ'),
           ],
           type: BottomNavigationBarType.fixed,
           onTap: (int index) {
