@@ -8,9 +8,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:notion_wordbook/screens/connecting.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
-// 🌎 Project imports:
-
-
 void main() async {
   await dotenv.load(fileName: '.env');
   runApp(const MyApp());
