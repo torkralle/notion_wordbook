@@ -13,6 +13,6 @@ class MyInfoPage extends StatelessWidget {
             child: Text(
           'My Info',
           style: TextStyle(fontSize: 60),
-        )),
+        ),),
       );
 }
