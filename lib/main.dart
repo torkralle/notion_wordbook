@@ -1,13 +1,15 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
+// 📦 Package imports:
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
-// 🌎 Project imports:
-
-void main() {
+void main() async {
+  await dotenv.load(fileName: '.env');
   runApp(const MyApp());
 }
 
@@ -18,8 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => NavigatedPages(),
-        '/connecting': (context) => ConnectingPage(),
+        '/': (context) => const NavigatedPages(),
+        '/connecting': (context) => const ConnectingPage(),
       },
       title: 'Navigation',
       theme: ThemeData(

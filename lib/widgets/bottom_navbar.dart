@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
 import 'package:notion_wordbook/screens/home.dart';
+import 'package:notion_wordbook/screens/hook_test.dart';
 import 'package:notion_wordbook/screens/my_info.dart';
 import 'package:notion_wordbook/screens/user_page.dart';
 
 class NavigatedPages extends StatefulWidget {
+  const NavigatedPages({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _State();
@@ -18,8 +21,9 @@ class _State extends State<NavigatedPages> {
   var _navIndex = 0;
   final screens = [
     const HomePage(),
-    ConnectingPage(),
-    MyInfoPage(),
+    const ConnectingPage(),
+    const MyInfoPage(),
+    const HookPage(),
     const MyPageScreen(),
   ];
 
