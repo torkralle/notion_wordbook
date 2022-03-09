@@ -1,6 +1,6 @@
 // 🌎 Project imports:
 import 'package:notion_wordbook/helper/words/retrieve.dart';
-import 'package:notion_wordbook/objects/models/ward.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
 
 List extractWordsDataFromResponse(Map response) {
   return response['results'].map((page) => page['properties']).toList();
