@@ -6,6 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
+import 'package:notion_wordbook/screens/test.dart';
+import 'package:notion_wordbook/screens/wordbook_item.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
 void main() async {
@@ -20,8 +22,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => const NavigatedPages(),
-        '/connecting': (context) => const ConnectingPage(),
+        '/': (context) => NavigatedPages(),
+        '/connecting': (context) => ConnectingPage(),
+        '/wordbook_item': (context) => const WordBookItemPage(),
+        '/test': (context) => TestPage()
       },
       title: 'Navigation',
       theme: ThemeData(
