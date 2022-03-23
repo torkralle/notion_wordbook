@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => NavigatedPages(),
-        '/connecting': (context) => ConnectingPage(),
+        '/': (context) => const NavigatedPages(),
+        '/connecting': (context) => const ConnectingPage(),
         '/wordbook_item': (context) => const WordBookItemPage(),
         '/test': (context) => TestPage()
       },
