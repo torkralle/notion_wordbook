@@ -20,7 +20,7 @@ class NavigatedPages extends StatefulWidget {
 class _State extends State<NavigatedPages> {
   var _navIndex = 0;
   final screens = [
-    const HomePage(),
+    HomePage(),
     const ConnectingPage(),
     const MyInfoPage(),
     const HookPage(),
