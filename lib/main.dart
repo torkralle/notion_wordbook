@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/connecting': (context) => ConnectingPage(),
         '/wordbook_item': (context) => const WordBookItemPage(),
-        '/test': (context) => TestPage()
+        '/test': (context) => const TestPage()
       },
       title: 'Navigation',
       theme: ThemeData(
