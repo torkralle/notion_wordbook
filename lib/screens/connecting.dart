@@ -74,28 +74,30 @@ class ConnectingPage extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              RichText(
-                                text: const TextSpan(
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                              Flexible(
+                                child: RichText(
+                                  text: const TextSpan(
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: 'API',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      TextSpan(text: 'や'),
+                                      TextSpan(
+                                        text: 'DB',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      TextSpan(text: 'のキーが分からない方はこちら'),
+                                    ],
                                   ),
-                                  children: [
-                                    TextSpan(
-                                      text: 'API',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextSpan(text: 'や'),
-                                    TextSpan(
-                                      text: 'DB',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    TextSpan(text: 'のキーが分からない方はこちら'),
-                                  ],
                                 ),
                               ),
                               const Icon(
