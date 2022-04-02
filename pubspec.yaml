@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   import_sorter: ^4.6.0
   json_annotation: ^4.4.0
+  flutter_riverpod: ^1.0.3
+  url_launcher: ^6.0.20
   http: ^0.13.4
   flutter_dotenv: ^5.0.2
 

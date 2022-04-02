@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
+import 'package:notion_wordbook/screens/home.dart';
 import 'package:notion_wordbook/screens/test.dart';
 import 'package:notion_wordbook/screens/wordbook_item.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,9 +25,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const NavigatedPages(),
-        '/connecting': (context) => const ConnectingPage(),
+        '/home': (context) => const HomePage(),
+        '/connecting': (context) => ConnectingPage(),
         '/wordbook_item': (context) => const WordBookItemPage(),
-        '/test': (context) => TestPage()
+        '/test': (context) => const TestPage()
       },
       title: 'Navigation',
       theme: ThemeData(
