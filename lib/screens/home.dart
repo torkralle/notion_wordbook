@@ -64,6 +64,9 @@ class HomePage extends StatelessWidget {
                     ),
                     elevation: 2,
                     color: const Color.fromARGB(234, 250, 241, 252),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).pushNamed('/test');
@@ -77,16 +80,22 @@ class HomePage extends StatelessWidget {
                               fontSize: 19,
                             ),
                           ),
-                          subtitle: Text(
-                            '前回正答率 ' + _wordbook[index]['ratio'],
-                            style: const TextStyle(
-                              fontSize: 15,
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              '前回正答率 ' + _wordbook[index]['ratio'],
+                              style: const TextStyle(
+                                fontSize: 15,
+                              ),
                             ),
                           ),
-                          leading: const Icon(
-                            Icons.circle_sharp,
-                            color: Colors.white,
-                            size: 20,
+                          leading: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12.0),
+                            child: Icon(
+                              Icons.circle_sharp,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                           ),
                           trailing: InkWell(
                             onTap: () {
