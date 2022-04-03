@@ -27,7 +27,6 @@ class WordBookItemPage extends StatelessWidget {
           toolbarHeight: 80,
           title: const Text(
             '単語帳',
-
             style: TextStyle(
               fontSize: 27,
             ),
@@ -49,6 +48,9 @@ class WordBookItemPage extends StatelessWidget {
                   ),
                   elevation: 2,
                   color: const Color.fromARGB(234, 250, 241, 252),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
@@ -58,16 +60,22 @@ class WordBookItemPage extends StatelessWidget {
                           fontSize: 20,
                         ),
                       ),
-                      subtitle: Text(
-                        _word[index]['meaning'],
-                        style: const TextStyle(
-                          fontSize: 16,
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Text(
+                          _word[index]['meaning'],
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                      leading: const Icon(
-                        Icons.circle_sharp,
-                        color: Colors.white,
-                        size: 20,
+                      leading: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5),
+                        child: Icon(
+                          Icons.circle_sharp,
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ),
