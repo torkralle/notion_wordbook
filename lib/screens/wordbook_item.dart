@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class WordBookItemPage extends StatelessWidget {
   WordBookItemPage({Key? key}) : super(key: key);
 
-  final _word = <Map<String, dynamic>>[
+  final word = <Map<String, dynamic>>[
     {'wordName': 'refreshment', 'meaning': '軽食'},
     {'wordName': 'municipal', 'meaning': '市政の'},
     {'wordName': 'refill', 'meaning': '(飲み物の)おかわり'},
@@ -39,50 +39,66 @@ class WordBookItemPage extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _word.length,
+              itemCount: word.length,
               itemBuilder: (BuildContext context, index) {
-                return Card(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 7,
-                    horizontal: 20,
-                  ),
-                  elevation: 2,
-                  color: const Color.fromARGB(234, 250, 241, 252),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      title: Text(
-                        _word[index]['wordName'],
-                        style: const TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                      subtitle: Padding(
-                        padding: const EdgeInsets.only(top: 12),
-                        child: Text(
-                          _word[index]['meaning'],
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      leading: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        child: Icon(
-                          Icons.circle_sharp,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+                return WordCard(index: index, word: word);
               },
             ),
           ),
         ),
       );
+}
+
+class WordCard extends StatelessWidget {
+  const WordCard({
+    Key? key,
+    required this.index,
+    required this.word,
+  }) : super(key: key);
+
+  final int index;
+  final List<Map<String, dynamic>> word;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(
+        vertical: 7,
+        horizontal: 20,
+      ),
+      elevation: 2,
+      color: const Color.fromARGB(234, 250, 241, 252),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+          title: Text(
+            word[index]['wordName'],
+            style: const TextStyle(
+              fontSize: 23,
+            ),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
+              word[index]['meaning'],
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
+          leading: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: Icon(
+              Icons.circle_sharp,
+              color: Colors.white,
+              size: 20,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
