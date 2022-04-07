@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const NavigatedPages(),
         '/home': (context) => HomePage(),
         '/connecting': (context) => ConnectingPage(),
-        '/wordbook_item': (context) => const WordBookItemPage(),
+        '/wordbook_item': (context) => WordBookItemPage(),
         '/test': (context) => const TestPage()
       },
       title: 'Navigation',

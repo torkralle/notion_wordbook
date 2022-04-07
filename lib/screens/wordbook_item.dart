@@ -2,13 +2,29 @@
 import 'package:flutter/material.dart';
 
 class WordBookItemPage extends StatelessWidget {
-  const WordBookItemPage({Key? key}) : super(key: key);
+  WordBookItemPage({Key? key}) : super(key: key);
+
+  final word = <Map<String, dynamic>>[
+    {'wordName': 'refreshment', 'meaning': '軽食'},
+    {'wordName': 'municipal', 'meaning': '市政の'},
+    {'wordName': 'refill', 'meaning': '(飲み物の)おかわり'},
+    {'wordName': 'premise', 'meaning': '建物'},
+    {
+      'wordName': 'remark',
+      'meaning': '発言',
+    },
+    {'wordName': 'checkup', 'meaning': '健康診断/点検'},
+    {'wordName': 'fluctuate', 'meaning': '変動する'},
+    {'wordName': 'consecutive', 'meaning': '連続した'},
+    {'wordName': 'detour', 'meaning': '迂回路'},
+    {'wordName': 'streamline', 'meaning': '(仕事を)合理化する'},
+  ];
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
           toolbarHeight: 80,
-          elevation: 10,
           title: const Text(
             '単語帳',
             style: TextStyle(
@@ -20,87 +36,68 @@ class WordBookItemPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.only(top: 40),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                WordBookItem(wordName: 'refrechment', meaning: '軽食'),
-                WordBookItem(wordName: 'municipal', meaning: '市政の'),
-                WordBookItem(wordName: 'refill', meaning: '（飲み物の）おかわり'),
-                WordBookItem(wordName: 'premise', meaning: '建物'),
-                WordBookItem(
-                  wordName: 'remark',
-                  meaning: '発言',
-                ),
-                WordBookItem(wordName: 'checkup', meaning: '健康診断/点検'),
-                WordBookItem(wordName: 'fluctuate', meaning: '変動する'),
-                WordBookItem(wordName: 'consecutive', meaning: '連続した'),
-                WordBookItem(wordName: 'detour', meaning: '迂回路'),
-                WordBookItem(wordName: 'streamline', meaning: '（仕事を）合理化する'),
-              ],
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: word.length,
+              itemBuilder: (BuildContext context, index) {
+                return WordCard(index: index, word: word);
+              },
             ),
           ),
         ),
       );
 }
 
-class WordBookItem extends StatelessWidget {
-  const WordBookItem({
+class WordCard extends StatelessWidget {
+  const WordCard({
     Key? key,
-    required this.wordName,
-    required this.meaning,
+    required this.index,
+    required this.word,
   }) : super(key: key);
 
-  final String wordName;
-  final String meaning;
+  final int index;
+  final List<Map<String, dynamic>> word;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 17),
-      margin: const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(234, 255, 250, 254),
-        border: Border.all(color: Colors.black, width: 0.7),
-        borderRadius: BorderRadius.circular(12),
+    return Card(
+      margin: const EdgeInsets.symmetric(
+        vertical: 7,
+        horizontal: 20,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: Text(
-                  wordName,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  const Text(
-                    'meaning：',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        meaning,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              )
-            ],
+      elevation: 2,
+      color: const Color.fromARGB(234, 250, 241, 252),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+          title: Text(
+            word[index]['wordName'],
+            style: const TextStyle(
+              fontSize: 23,
+            ),
           ),
-        ],
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
+              word[index]['meaning'],
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
+          leading: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 5),
+            child: Icon(
+              Icons.circle_sharp,
+              color: Colors.white,
+              size: 20,
+            ),
+          ),
+        ),
       ),
     );
   }
