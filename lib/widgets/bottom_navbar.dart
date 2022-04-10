@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting_page.dart';
 import 'package:notion_wordbook/screens/home_page.dart';
