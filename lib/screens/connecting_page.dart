@@ -8,11 +8,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/toggle_password.dart';
+import 'package:notion_wordbook/viewmodels/key_set.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class ConnectingPage extends StatelessWidget {
   ConnectingPage({Key? key}) : super(key: key);
 
   final _focusNode = FocusNode();
+  // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   @override
   Widget build(BuildContext context) => Focus(
@@ -40,7 +43,7 @@ class ConnectingPage extends StatelessWidget {
                 child: Column(
                   children: [
                     const KeyField(labelName: 'API Key'),
-                    const KeyField(labelName: 'DB Key'),
+                    const KeyField(labelName: 'DB ID'),
                     InkWell(
                       onTap: () {
                         Navigator.of(context).pushNamed('/home');
@@ -128,7 +131,12 @@ class KeyField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final emailControllerStateProvider = StateProvider.autoDispose((ref) {
+      return TextEditingController(text: '');
+    });
+    final emailControllerProvider = ref.watch(emailControllerStateProvider);
     final obscuritySwitch = ref.watch(obscuritySwitchProvider);
+    final notionKeySet = ref.watch(notionKeySetProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: Column(
@@ -146,6 +154,7 @@ class KeyField extends ConsumerWidget {
             inputFormatters: [
               FilteringTextInputFormatter.deny(RegExp('[\\.\\,\\ ]'))
             ],
+            controller: emailControllerProvider,
             enableSuggestions: false,
             autocorrect: false,
             obscureText: obscuritySwitch,
@@ -156,7 +165,7 @@ class KeyField extends ConsumerWidget {
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.purple),
               ),
-              labelText: labelName,
+              labelText: labelName + notionKeySet.apiKey,
               labelStyle: const TextStyle(fontSize: 16),
               floatingLabelStyle: MaterialStateTextStyle.resolveWith(
                   (Set<MaterialState> states) {
@@ -167,7 +176,8 @@ class KeyField extends ConsumerWidget {
               }),
               suffixIcon: IconButton(
                 onPressed: () {
-                  ref.read(obscuritySwitchProvider.notifier).switchVisiblity();
+                  ref.read(obscuritySwitchProvider.notifier).switchVisibility();
+                  ref.read(notionKeySetProvider.notifier).updateAPIKey('aaa');
                 },
                 icon: Icon(
                   obscuritySwitch ? Icons.visibility : Icons.visibility_off,
