@@ -9,10 +9,7 @@ class WordBookItemPage extends StatelessWidget {
     {'wordName': 'municipal', 'meaning': '市政の'},
     {'wordName': 'refill', 'meaning': '(飲み物の)おかわり'},
     {'wordName': 'premise', 'meaning': '建物'},
-    {
-      'wordName': 'remark',
-      'meaning': '発言',
-    },
+    {'wordName': 'remark', 'meaning': '発言'},
     {'wordName': 'checkup', 'meaning': '健康診断/点検'},
     {'wordName': 'fluctuate', 'meaning': '変動する'},
     {'wordName': 'consecutive', 'meaning': '連続した'},
