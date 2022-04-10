@@ -6,10 +6,14 @@ List extractWordsDataFromResponse(Map response) {
   return response['results'].map((page) => page['properties']).toList();
 }
 
-List<WordModel> newWordsList(Map response) {
+List<Word> newWordsList(Map response) {
   final wordsData = extractWordsDataFromResponse(response);
   return wordsData
-      .map((w) => WordModel(getSpelling(w), getCorrect(w), getMeaning(w),
+      .map(
+        (w) => Word(
+          getSpelling(w),
+          getCorrect(w),
+          getMeaning(w),
           getTags(w), getExampleSentence(w), getLink(w),),)
       .toList();
 }
