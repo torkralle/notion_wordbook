@@ -91,7 +91,7 @@ class BookCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed('/test');
+          Navigator.of(context).pushNamed('/quiz_page');
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
