@@ -1,8 +1,8 @@
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// 🌎 Project imports:
 import 'package:notion_wordbook/objects/models/notion_key.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:notion_wordbook/core/local-db/main.dart';
 
 class NotionKeySetViewModel extends StateNotifier<NotionKeySet> {
   NotionKeySetViewModel() : super(const NotionKeySet('', ''));
