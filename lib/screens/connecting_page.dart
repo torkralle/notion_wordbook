@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
@@ -121,7 +123,7 @@ class ConnectingPage extends StatelessWidget {
       );
 }
 
-class KeyField extends ConsumerWidget {
+class KeyField extends HookConsumerWidget {
   const KeyField({
     Key? key,
     required this.labelName,
@@ -131,12 +133,18 @@ class KeyField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(() {
+      ref.read(sharedPreferencesProvider.notifier).initState();
+      ref.read(notionKeySetProvider.notifier).initState();
+      return ref.read(sharedPreferencesProvider.notifier).dispose;
+    }, []);
     final emailControllerStateProvider = StateProvider.autoDispose((ref) {
       return TextEditingController(text: '');
     });
     final emailControllerProvider = ref.watch(emailControllerStateProvider);
     final obscuritySwitch = ref.watch(obscuritySwitchProvider);
     final notionKeySet = ref.watch(notionKeySetProvider);
+    final tmp = ref.watch(sharedPreferencesProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: Column(
@@ -144,7 +152,7 @@ class KeyField extends ConsumerWidget {
           Container(
             margin: const EdgeInsets.only(right: 155, bottom: 20),
             child: Text(
-              '$labelNameを入力',
+              '$labelNameを入力$tmp$notionKeySet',
               style: const TextStyle(
                 fontSize: 27,
               ),
@@ -178,6 +186,9 @@ class KeyField extends ConsumerWidget {
                 onPressed: () {
                   ref.read(obscuritySwitchProvider.notifier).switchVisibility();
                   ref.read(notionKeySetProvider.notifier).updateAPIKey('aaa');
+                  ref
+                      .read(sharedPreferencesProvider.notifier)
+                      .setValue("hogehoge");
                 },
                 icon: Icon(
                   obscuritySwitch ? Icons.visibility : Icons.visibility_off,
