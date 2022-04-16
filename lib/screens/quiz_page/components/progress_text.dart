@@ -11,7 +11,7 @@ class ProgressText extends StatelessWidget {
     return const Text(
       '1/100',
       style: TextStyle(
-        fontSize: 17,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
         color: Color.fromARGB(255, 103, 20, 134),
       ),

@@ -15,7 +15,7 @@ class DefinitionText extends StatelessWidget {
         text:
             'Used by engineers and means notihing, but it is common expression.',
         style: TextStyle(
-          fontSize: 15,
+          fontSize: 19,
           fontWeight: FontWeight.bold,
           color: Color.fromARGB(255, 103, 20, 134),
         ),

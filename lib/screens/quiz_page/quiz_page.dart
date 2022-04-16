@@ -10,7 +10,7 @@ import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart'
 class QuizPage extends StatelessWidget {
   QuizPage({Key? key}) : super(key: key);
 
-  final word = <String>['a', 'b', 'c', 'd'];
+  final word = <String>['refreshment', 'municipal', 'refill', 'premise'];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -32,7 +32,7 @@ class QuizPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
         ),
         body: Container(
-          margin: const EdgeInsets.only(top: 90, right: 20, left: 20),
+          margin: const EdgeInsets.only(right: 20, left: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -41,7 +41,7 @@ class QuizPage extends StatelessWidget {
                 child: ProgressText(),
               ),
               const Padding(
-                padding: EdgeInsets.only(bottom: 70, right: 60, left: 60),
+                padding: EdgeInsets.only(bottom: 90, right: 60, left: 60),
                 child: DefinitionText(),
               ),
               Flexible(
