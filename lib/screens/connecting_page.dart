@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // 📦 Package imports:
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -138,7 +137,7 @@ class KeyField extends HookConsumerWidget {
       ref.read(sharedPreferencesProvider.notifier).initState();
       ref.read(notionKeySetProvider.notifier).initState();
       return ref.read(sharedPreferencesProvider.notifier).dispose;
-    }, []);
+    }, [],);
     final emailControllerStateProvider = StateProvider.autoDispose((ref) {
       return TextEditingController(text: '');
     });
@@ -189,7 +188,7 @@ class KeyField extends HookConsumerWidget {
                   ref.read(notionKeySetProvider.notifier).updateAPIKey('aaa');
                   ref
                       .read(sharedPreferencesProvider.notifier)
-                      .setValue("hogehoge");
+                      .setValue('hogehoge');
                 },
                 icon: Icon(
                   obscuritySwitch ? Icons.visibility : Icons.visibility_off,
