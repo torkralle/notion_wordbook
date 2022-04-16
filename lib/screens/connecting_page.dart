@@ -9,8 +9,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
-import 'package:notion_wordbook/viewmodels/toggle_password.dart';
 import 'package:notion_wordbook/viewmodels/key_set.dart';
+import 'package:notion_wordbook/viewmodels/toggle_password.dart';
+
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class ConnectingPage extends StatelessWidget {
