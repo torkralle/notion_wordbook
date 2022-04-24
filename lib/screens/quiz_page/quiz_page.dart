@@ -15,11 +15,91 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          leading: const Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Icon(
-              Icons.close,
-              color: Colors.black,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: InkWell(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                      ),
+                      title: const Text(
+                        '中断',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      content: Container(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              width: 1,
+                              color: Color.fromARGB(255, 192, 192, 192),
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          'ここまでの内容は保存せずにホームに戻ってもいいですか？',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      actions: <Widget>[
+                        // ボタン領域
+                        Container(
+                          margin: const EdgeInsets.only(
+                            bottom: 8,
+                            left: 32,
+                          ),
+                          child: TextButton(
+                            child: const Text(
+                              '続ける',
+                              style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                        const SizedBox(width: 45),
+                        Container(
+                          margin: const EdgeInsets.only(
+                            bottom: 8,
+                            right: 20,
+                          ),
+                          child: TextButton(
+                            child: const Text(
+                              '中断する',
+                              style: TextStyle(
+                                fontSize: 19,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 255, 64, 0),
+                              ),
+                            ),
+                            onPressed: () =>
+                                Navigator.of(context).pushNamed('/home'),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: const Icon(
+                Icons.close,
+                color: Colors.black,
+                size: 33,
+              ),
             ),
           ),
           centerTitle: true,

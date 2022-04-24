@@ -16,15 +16,18 @@ class AnswerCandidateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 65,
+      height: 75,
       child: Card(
         margin: const EdgeInsets.symmetric(
           vertical: 7,
           horizontal: 40,
         ),
-        elevation: 2,
+        elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
+          side: const BorderSide(
+            color: Color.fromARGB(255, 205, 205, 205),
+          ),
         ),
         child: InkWell(
           onTap: () {
