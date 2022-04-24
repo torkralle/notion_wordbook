@@ -92,7 +92,7 @@ class WordbookNameField extends HookConsumerWidget {
               FilteringTextInputFormatter.deny(RegExp('[\\.\\,\\ ]'))
             ],
             onChanged: (text) {
-              ref.read(WordbookInfoProvider.notifier).setDBName(text);
+              ref.read(wordbookInfoProvider.notifier).setDBName(text);
               // print(text);
               // ref.read(dbNameProvider.notifier).setDBName(text);
             },

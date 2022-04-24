@@ -110,7 +110,7 @@ class ConnectButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () {
-        ref.read(WordbookInfoProvider.notifier).setDBInfo();
+        ref.read(wordbookInfoProvider.notifier).setDBInfo();
         Navigator.of(context).pushNamed('/home');
       },
       child: Container(
@@ -137,18 +137,7 @@ class KeyField extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(() {
-      ref.read(sharedPreferencesProvider.notifier).initState();
-      ref.read(notionKeySetProvider.notifier).initState();
-      return ref.read(sharedPreferencesProvider.notifier).dispose;
-    }, []);
-    final emailControllerStateProvider = StateProvider.autoDispose((ref) {
-      return TextEditingController(text: '');
-    });
-    final emailControllerProvider = ref.watch(emailControllerStateProvider);
     final obscuritySwitch = ref.watch(obscuritySwitchProvider);
-    final notionKeySet = ref.watch(notionKeySetProvider);
-    final tmp = ref.watch(sharedPreferencesProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: Column(
@@ -156,7 +145,7 @@ class KeyField extends HookConsumerWidget {
           Container(
             margin: const EdgeInsets.only(right: 155, bottom: 20),
             child: Text(
-              '$labelNameを入力$tmp$notionKeySet',
+              '$labelNameを入力',
               style: const TextStyle(
                 fontSize: 27,
               ),
@@ -166,15 +155,14 @@ class KeyField extends HookConsumerWidget {
             inputFormatters: [
               FilteringTextInputFormatter.deny(RegExp('[\\.\\,\\ ]'))
             ],
-            controller: emailControllerProvider,
             enableSuggestions: false,
             autocorrect: false,
             obscureText: obscuritySwitch,
             onChanged: (text) {
               if (isAPIKey) {
-                ref.read(WordbookInfoProvider.notifier).updateAPIKey(text);
+                ref.read(wordbookInfoProvider.notifier).updateAPIKey(text);
               } else {
-                ref.read(WordbookInfoProvider.notifier).updateDBId(text);
+                ref.read(wordbookInfoProvider.notifier).updateDBId(text);
               }
             },
             decoration: InputDecoration(
