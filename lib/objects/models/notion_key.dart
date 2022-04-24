@@ -1,9 +1,7 @@
-class NotionKeySet {
+class WordbookInfo {
+  final String dbName;
   final String apiKey;
   final String dbID;
 
-  const NotionKeySet(
-    this.apiKey,
-    this.dbID,
-  );
+  const WordbookInfo(this.dbName, this.apiKey, this.dbID);
 }

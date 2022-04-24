@@ -3,22 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // 📦 Package imports:
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
-import 'package:notion_wordbook/viewmodels/key_set.dart';
+import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/viewmodels/toggle_password.dart';
-
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class ConnectingPage extends StatelessWidget {
   ConnectingPage({Key? key}) : super(key: key);
 
   final _focusNode = FocusNode();
-  // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   @override
   Widget build(BuildContext context) => Focus(
@@ -45,24 +40,9 @@ class ConnectingPage extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 80, horizontal: 30),
                 child: Column(
                   children: [
-                    const KeyField(labelName: 'API Key'),
-                    const KeyField(labelName: 'DB ID'),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/home');
-                      },
-                      child: Container(
-                        color: Colors.purple[600],
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 25,
-                        ),
-                        child: const Text(
-                          '連携',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ),
-                    ),
+                    const KeyField(labelName: 'API Key', isAPIKey: true),
+                    const KeyField(labelName: 'DB ID', isAPIKey: false),
+                    const ConnectButton(),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: InkWell(
@@ -124,28 +104,40 @@ class ConnectingPage extends StatelessWidget {
       );
 }
 
+class ConnectButton extends HookConsumerWidget {
+  const ConnectButton({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return InkWell(
+      onTap: () {
+        ref.read(WordbookInfoProvider.notifier).setDBInfo();
+        Navigator.of(context).pushNamed('/home');
+      },
+      child: Container(
+        color: Colors.purple[600],
+        padding: const EdgeInsets.symmetric(
+          vertical: 12,
+          horizontal: 25,
+        ),
+        child: const Text(
+          '連携',
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        ),
+      ),
+    );
+  }
+}
+
 class KeyField extends HookConsumerWidget {
-  const KeyField({
-    Key? key,
-    required this.labelName,
-  }) : super(key: key);
+  const KeyField({Key? key, required this.labelName, required this.isAPIKey})
+      : super(key: key);
 
   final String labelName;
+  final bool isAPIKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(() {
-      ref.read(sharedPreferencesProvider.notifier).initState();
-      ref.read(notionKeySetProvider.notifier).initState();
-      return ref.read(sharedPreferencesProvider.notifier).dispose;
-    }, []);
-    final emailControllerStateProvider = StateProvider.autoDispose((ref) {
-      return TextEditingController(text: '');
-    });
-    final emailControllerProvider = ref.watch(emailControllerStateProvider);
     final obscuritySwitch = ref.watch(obscuritySwitchProvider);
-    final notionKeySet = ref.watch(notionKeySetProvider);
-    final tmp = ref.watch(sharedPreferencesProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: Column(
@@ -153,7 +145,7 @@ class KeyField extends HookConsumerWidget {
           Container(
             margin: const EdgeInsets.only(right: 155, bottom: 20),
             child: Text(
-              '$labelNameを入力$tmp$notionKeySet',
+              '$labelNameを入力',
               style: const TextStyle(
                 fontSize: 27,
               ),
@@ -163,10 +155,16 @@ class KeyField extends HookConsumerWidget {
             inputFormatters: [
               FilteringTextInputFormatter.deny(RegExp('[\\.\\,\\ ]'))
             ],
-            controller: emailControllerProvider,
             enableSuggestions: false,
             autocorrect: false,
             obscureText: obscuritySwitch,
+            onChanged: (text) {
+              if (isAPIKey) {
+                ref.read(WordbookInfoProvider.notifier).updateAPIKey(text);
+              } else {
+                ref.read(WordbookInfoProvider.notifier).updateDBId(text);
+              }
+            },
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.purple),
@@ -174,7 +172,7 @@ class KeyField extends HookConsumerWidget {
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.purple),
               ),
-              labelText: labelName + notionKeySet.apiKey,
+              labelText: labelName,
               labelStyle: const TextStyle(fontSize: 16),
               floatingLabelStyle: MaterialStateTextStyle.resolveWith(
                   (Set<MaterialState> states) {
@@ -186,10 +184,6 @@ class KeyField extends HookConsumerWidget {
               suffixIcon: IconButton(
                 onPressed: () {
                   ref.read(obscuritySwitchProvider.notifier).switchVisibility();
-                  ref.read(notionKeySetProvider.notifier).updateAPIKey('aaa');
-                  ref
-                      .read(sharedPreferencesProvider.notifier)
-                      .setValue("hogehoge");
                 },
                 icon: Icon(
                   obscuritySwitch ? Icons.visibility : Icons.visibility_off,
