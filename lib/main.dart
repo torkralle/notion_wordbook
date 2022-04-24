@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/connecting.dart';
 import 'package:notion_wordbook/screens/home.dart';
+import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart';
 import 'package:notion_wordbook/screens/quiz_page/quiz_page.dart';
 import 'package:notion_wordbook/screens/wordbook_item.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/connecting': (context) => ConnectingPage(),
         '/wordbook_item': (context) => WordBookItemPage(),
-        '/quiz_page': (context) => QuizPage()
+        '/quiz_page': (context) => QuizPage(),
+        '/progress_text': (context) => ProgressText(),
       },
       title: 'Navigation',
       theme: ThemeData(

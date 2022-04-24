@@ -1,7 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 
-class AnswerCandidateCard extends StatelessWidget {
+class AnswerCandidateCard extends ConsumerWidget {
   const AnswerCandidateCard({
     Key? key,
     required this.index,
@@ -14,7 +16,7 @@ class AnswerCandidateCard extends StatelessWidget {
   // final bool isCorrect;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       height: 75,
       child: Card(
@@ -31,6 +33,7 @@ class AnswerCandidateCard extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
+            ref.read(currentPageProvider.notifier).increasePage();
             Navigator.of(context).pushNamed('/quiz_page');
           },
           child: ListTile(

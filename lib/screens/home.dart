@@ -1,5 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notion_wordbook/viewmodels/page_controllers.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -67,7 +70,7 @@ class HomePage extends StatelessWidget {
       );
 }
 
-class BookCard extends StatelessWidget {
+class BookCard extends ConsumerWidget {
   const BookCard({
     Key? key,
     required this.index,
@@ -78,7 +81,8 @@ class BookCard extends StatelessWidget {
   final List<Map<String, dynamic>> wordbook;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
     return Card(
       margin: const EdgeInsets.symmetric(
         vertical: 7,
@@ -91,6 +95,8 @@ class BookCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
+          ref.read(wordListStateProvider.notifier).getWordList();
+          ref.read(maxPageProvider.notifier).getListLength();
           Navigator.of(context).pushNamed('/quiz_page');
         },
         child: Padding(
