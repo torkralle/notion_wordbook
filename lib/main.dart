@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notion_wordbook/screens/add_wordbook.dart';
 
 // 🌎 Project imports:
+import 'package:notion_wordbook/screens/add_wordbook.dart';
 import 'package:notion_wordbook/screens/connecting_page.dart';
 import 'package:notion_wordbook/screens/home_page.dart';
 import 'package:notion_wordbook/screens/test_page.dart';
