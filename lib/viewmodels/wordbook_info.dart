@@ -28,7 +28,6 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
     List storedData =
         json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
     state = storedData;
-    print(storedData);
   }
 }
 

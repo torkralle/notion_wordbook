@@ -93,8 +93,6 @@ class WordbookNameField extends HookConsumerWidget {
             ],
             onChanged: (text) {
               ref.read(wordbookInfoProvider.notifier).setDBName(text);
-              // print(text);
-              // ref.read(dbNameProvider.notifier).setDBName(text);
             },
             enableSuggestions: false,
             autocorrect: false,

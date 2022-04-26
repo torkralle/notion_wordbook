@@ -46,14 +46,6 @@ class _HookPageState extends State<HookPage> {
     prefs.setInt('counter', _counter);
   }
 
-  void _removeCounterValue() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _counter = 0;
-      prefs.remove('counter');
-    });
-  }
-
   void _incrementCounter() {
     setState(() {
       _counter++;
