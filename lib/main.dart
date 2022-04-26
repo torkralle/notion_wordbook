@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const NavigatedPages(),
-        '/home': (context) => HomePage(),
+        '/home': (context) => const HomePage(),
         '/connecting': (context) => ConnectingPage(),
         '/add_wordbook': (context) => AddWordbookPage(),
         '/wordbook_item': (context) => WordBookItemPage(),

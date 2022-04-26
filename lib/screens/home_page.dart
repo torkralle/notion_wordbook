@@ -8,10 +8,13 @@ class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(() {
-      ref.read(wordbookInfoListProvider.notifier).initState();
-      return null;
-    });
+    useEffect(
+      () {
+        ref.read(wordbookInfoListProvider.notifier).initState();
+        return null;
+      },
+      [],
+    );
     final wordbooks = ref.watch(wordbookInfoListProvider);
     return Scaffold(
       appBar: AppBar(
@@ -34,7 +37,7 @@ class HomePage extends HookConsumerWidget {
               padding: const EdgeInsets.only(top: 40, bottom: 30),
               child: InkWell(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/connecting');
+                  Navigator.of(context).pushNamed('/add_wordbook');
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
