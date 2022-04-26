@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:notion_wordbook/screens/add_wordbook.dart';
+import 'package:notion_wordbook/screens/add_wordbook_page.dart';
 import 'package:notion_wordbook/screens/home_page.dart';
 import 'package:notion_wordbook/screens/hook_test_page.dart';
 import 'package:notion_wordbook/screens/my_info_page.dart';
