@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
+import 'package:notion_wordbook/widgets/custom_button.dart';
 import 'package:notion_wordbook/widgets/custom_textfield.dart';
 
 class AddWordbookPage extends HookConsumerWidget {
@@ -61,16 +62,8 @@ class AddWordbookPage extends HookConsumerWidget {
                           .setDBName(dbNameController.text);
                       Navigator.of(context).pushNamed('/connecting');
                     },
-                    child: Container(
-                      color: Colors.purple[600],
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 25,
-                      ),
-                      child: const Text(
-                        '次へ',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
+                    child: const CustomButton(
+                      buttonLabel: '次へ',
                     ),
                   ),
                 ],

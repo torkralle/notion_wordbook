@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:notion_wordbook/widgets/custom_button.dart';
 import 'package:notion_wordbook/widgets/custom_textfield.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -132,16 +133,8 @@ class ConnectButton extends HookConsumerWidget {
             .setDBInfo(apiKeyController.text, dbIDController.text);
         Navigator.of(context).popUntil(ModalRoute.withName('/'));
       },
-      child: Container(
-        color: Colors.purple[600],
-        padding: const EdgeInsets.symmetric(
-          vertical: 12,
-          horizontal: 25,
-        ),
-        child: const Text(
-          '連携',
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
+      child: const CustomButton(
+        buttonLabel: '連携',
       ),
     );
   }
