@@ -1,8 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // 📦 Package imports:
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // 🌎 Project imports:
@@ -17,6 +17,15 @@ class AddWordbookPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final dbName = ref.watch(wordbookInfoProvider);
+    useEffect(
+      () {
+        dbNameController.text =
+            ref.read(wordbookInfoProvider.notifier).getDBName();
+        return null;
+      },
+      [dbName],
+    );
     return Focus(
       focusNode: _focusNode,
       child: GestureDetector(

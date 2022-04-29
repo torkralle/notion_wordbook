@@ -39,22 +39,29 @@ final wordbookInfoListProvider =
 class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
   WordbookInfoViewModel() : super(const WordbookInfo('', '', ''));
 
-  void setDBName(dbName) async {
+  String getDBName() {
+    return state.dbName;
+  }
+
+  void setDBName(dbName) {
     state = WordbookInfo(dbName, '', '');
   }
 
-  void updateDBId(dbId) async {
+  void updateDBId(dbId) {
     state = WordbookInfo(state.dbName, state.apiKey, dbId);
   }
 
-  void updateAPIKey(apiKey) async {
+  void updateAPIKey(apiKey) {
     state = WordbookInfo(state.dbName, apiKey, state.dbName);
   }
 
   Future<void> setDBInfo(apiKey, dbId) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final dbName = state.dbName;
+    state = const WordbookInfo('', '', '');
+
     Map<String, String> dbInfo = {
-      'db_name': state.dbName,
+      'db_name': dbName,
       'api_key': apiKey,
       'db_id': dbId,
     };
@@ -71,7 +78,7 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     List storedData =
         json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
     if (storedData
-        .where((element) => element['db_name'] == state.dbName)
+        .where((element) => element['db_name'] == dbName)
         .isNotEmpty) {
       return;
     }
