@@ -11,9 +11,11 @@ import 'package:notion_wordbook/viewmodels/toggle_password.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
 class ConnectingPage extends StatelessWidget {
-  ConnectingPage({Key? key}) : super(key: key);
-
   final _focusNode = FocusNode();
+  final apiKeyController = TextEditingController();
+  final dbIDController = TextEditingController();
+
+  ConnectingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Focus(
@@ -40,9 +42,20 @@ class ConnectingPage extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 80, horizontal: 30),
                 child: Column(
                   children: [
-                    const KeyField(labelName: 'API Key', isAPIKey: true),
-                    const KeyField(labelName: 'DB ID', isAPIKey: false),
-                    const ConnectButton(),
+                    KeyField(
+                      labelName: 'API Key',
+                      isAPIKey: true,
+                      controller: apiKeyController,
+                    ),
+                    KeyField(
+                      labelName: 'DB ID',
+                      isAPIKey: false,
+                      controller: dbIDController,
+                    ),
+                    ConnectButton(
+                      apiKeyController: apiKeyController,
+                      dbIDController: dbIDController,
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: InkWell(
@@ -105,13 +118,20 @@ class ConnectingPage extends StatelessWidget {
 }
 
 class ConnectButton extends HookConsumerWidget {
-  const ConnectButton({Key? key}) : super(key: key);
+  final TextEditingController apiKeyController, dbIDController;
+  const ConnectButton({
+    Key? key,
+    required this.apiKeyController,
+    required this.dbIDController,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {
-        ref.read(wordbookInfoProvider.notifier).setDBInfo();
-        Navigator.of(context).pushNamed('/home');
+      onTap: () async {
+        await ref
+            .read(wordbookInfoProvider.notifier)
+            .setDBInfo(apiKeyController.text, dbIDController.text);
+        Navigator.of(context).popUntil(ModalRoute.withName('/'));
       },
       child: Container(
         color: Colors.purple[600],
@@ -129,9 +149,14 @@ class ConnectButton extends HookConsumerWidget {
 }
 
 class KeyField extends HookConsumerWidget {
-  const KeyField({Key? key, required this.labelName, required this.isAPIKey})
-      : super(key: key);
+  const KeyField({
+    Key? key,
+    required this.labelName,
+    required this.isAPIKey,
+    required this.controller,
+  }) : super(key: key);
 
+  final TextEditingController controller;
   final String labelName;
   final bool isAPIKey;
 
@@ -152,6 +177,7 @@ class KeyField extends HookConsumerWidget {
             ),
           ),
           TextFormField(
+            controller: controller,
             inputFormatters: [
               FilteringTextInputFormatter.deny(RegExp('[\\.\\,\\ ]'))
             ],

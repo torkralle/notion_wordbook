@@ -51,12 +51,12 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     state = WordbookInfo(state.dbName, apiKey, state.dbName);
   }
 
-  Future<void> setDBInfo() async {
+  Future<void> setDBInfo(apiKey, dbId) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, String> dbInfo = {
       'db_name': state.dbName,
-      'api_key': state.apiKey,
-      'db_id': state.dbID
+      'api_key': apiKey,
+      'db_id': dbId,
     };
 
     if (!prefs.containsKey('wordbooks')) {
