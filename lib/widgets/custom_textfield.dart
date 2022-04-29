@@ -47,7 +47,7 @@ class CustomTextField extends HookConsumerWidget {
             ],
             enableSuggestions: false,
             autocorrect: false,
-            obscureText: obscuritySwitch,
+            obscureText: obscure && obscuritySwitch,
             decoration: InputDecoration(
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.purple),
