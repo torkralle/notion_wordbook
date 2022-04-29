@@ -9,7 +9,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
-import 'package:notion_wordbook/widgets/custom_textfield.dart';
 
 class ConnectingPage extends StatelessWidget {
   final _focusNode = FocusNode();

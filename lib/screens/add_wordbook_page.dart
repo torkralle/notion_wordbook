@@ -9,6 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/custom_button.dart';
 import 'package:notion_wordbook/widgets/custom_textfield.dart';
+import 'package:notion_wordbook/widgets/header.dart';
 
 class AddWordbookPage extends HookConsumerWidget {
   AddWordbookPage({Key? key}) : super(key: key);
@@ -33,17 +34,8 @@ class AddWordbookPage extends HookConsumerWidget {
         onTap: _focusNode.requestFocus,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            centerTitle: true,
-            toolbarHeight: 80,
-            elevation: 10,
-            title: const Text(
-              'Notionと連携',
-              style: TextStyle(
-                fontSize: 27,
-              ),
-            ),
-            backgroundColor: Colors.purple[800],
+          appBar: const HeaderBar(
+            title: 'Notionと連携',
           ),
           body: SingleChildScrollView(
             child: Container(
