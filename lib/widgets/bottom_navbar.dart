@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:notion_wordbook/screens/connecting.dart';
-import 'package:notion_wordbook/screens/home.dart';
-import 'package:notion_wordbook/screens/hook_test.dart';
-import 'package:notion_wordbook/screens/my_info.dart';
-import 'package:notion_wordbook/screens/review.dart';
+import 'package:notion_wordbook/screens/connecting_page.dart';
+import 'package:notion_wordbook/screens/home_page.dart';
+import 'package:notion_wordbook/screens/hook_test_page.dart';
+import 'package:notion_wordbook/screens/my_info_page.dart';
+import 'package:notion_wordbook/screens/review_page.dart';
 import 'package:notion_wordbook/screens/user_page.dart';
 
 class NavigatedPages extends StatefulWidget {

@@ -87,7 +87,8 @@ class QuizPage extends StatelessWidget {
                               ),
                             ),
                             onPressed: () =>
-                                Navigator.of(context).pushNamed('/home'),
+                                Navigator.pushNamedAndRemoveUntil(
+                                context, '/', (route) => false),
                           ),
                         ),
                       ],
