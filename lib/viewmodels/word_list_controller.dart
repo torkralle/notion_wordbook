@@ -2,21 +2,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 🌎 Project imports:
-import 'package:notion_wordbook/client/words/main.dart';
-import 'package:notion_wordbook/screens/hook_test.dart';
+import 'package:notion_wordbook/client/words/word_data.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
+import 'package:notion_wordbook/screens/hook_test_page.dart';
 
-class WordListNotifier extends StateNotifier<Map> {
-  WordListNotifier() : super({});
+class WordListNotifier extends StateNotifier<List<Word>> {
+  WordListNotifier() : super([]);
 
-  Future getWordList() async {
-    final wordListResult = await getWordsData(dbKey ?? '');
-    final wordList = wordListResult.body;
+  Future readWordList() async {
+    final data = WordData();
 
-    state = wordList ?? {};
+    final WordListResult wordListResult = await data.getWordList(dbKey ?? '');
+    final List<Word>? wordList = wordListResult.wordList;
+
+    state = wordList ?? [];
+    print(wordListResult.statusMessage);
   }
 }
 
 final wordListStateProvider =
-    StateNotifierProvider<WordListNotifier, Map>((ref) {
+    StateNotifierProvider<WordListNotifier, List<Word>>((ref) {
   return WordListNotifier();
 });

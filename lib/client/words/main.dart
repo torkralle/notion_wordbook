@@ -19,3 +19,4 @@ class ApiResult {
   ApiResult.success([this.body, this.error]);
   ApiResult.failure([this.error, this.body]);
 }
+

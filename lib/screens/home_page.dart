@@ -99,7 +99,7 @@ class BookCard extends ConsumerWidget {
       ),
       child: InkWell(
         onTap: () {
-          ref.read(wordListStateProvider.notifier).getWordList();
+          ref.read(wordListStateProvider.notifier).readWordList();
           ref.read(maxPageProvider.notifier).getListLength();
           Navigator.of(context).pushNamed('/quiz_page');
         },

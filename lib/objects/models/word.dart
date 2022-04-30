@@ -1,4 +1,5 @@
 // 🌎 Project imports:
+
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
 
 class Word {
@@ -15,4 +16,16 @@ class Word {
     this.exampleSentence,
     this.link,
   );
+
+  Word.fromJson(Map<String, dynamic> json)
+      : spelling = json['Spelling'],
+        meaning = json['Meaning'],
+        tags = json['Tags'],
+        exampleSentence = json['Example Sentence'],
+        link = json['Link'],
+        correct = json['Correct'];
+
+  // Map<String, dynamic> toJson() => {
+
+  // }
 }
