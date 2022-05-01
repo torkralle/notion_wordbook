@@ -5,14 +5,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/client/words/main.dart';
-import 'package:notion_wordbook/helper/words/new_list.dart';
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
 
-var dbKey = dotenv.env['DB_KEY'];
+// var dbKey = dotenv.env['DB_KEY'];
 
 class HookPage extends StatefulWidget {
   const HookPage({Key? key}) : super(key: key);
@@ -25,11 +23,11 @@ class _HookPageState extends State<HookPage> {
   List? wordsList;
 
   Future getData() async {
-    result = await getWordsData(dbKey ?? '');
+    // result = await getWordsData(dbKey ?? '');
     //状態が変化した場合によばれる
-    setState(() {
-      wordsList = newWordsList(result!.body!);
-    });
+    // setState(() {
+    //   wordsList = newWordsList(result!.body!);
+    // });
   }
 
   // 非同期処理は、デフォルトでは呼び出し元は処理の完了を待ちませんが、

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 🌎 Project imports:
@@ -13,7 +12,7 @@ import 'package:notion_wordbook/screens/wordbook_item_page.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
 void main() async {
-  await dotenv.load(fileName: '.env');
+  // await dotenv.load(fileName: '.env');
   runApp(const ProviderScope(child: MyApp()));
 }
 
