@@ -6,9 +6,9 @@ class WordData {
   Future<WordListResult> getWordList(String databaseID) async {
     HttpResult result = await callPostMethod(databaseID + '/query');
     try {
-      // final body =
-      //     jsonDecode(json.decode(result.response!.body)) as List<dynamic>;
-      body = json.decode(result.response!.body);
+      final body =
+          jsonDecode(json.decode(result.response!.body)) as List<dynamic>;
+      // body = json.decode(result.response!.body);
       print('ボディー$body');
       final wordList = body.map<Word>((word) => Word.fromJson(word)).toList();
       print('ワードリスト$wordList');
