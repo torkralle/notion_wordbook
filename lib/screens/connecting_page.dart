@@ -1,14 +1,13 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/custom_button.dart';
 import 'package:notion_wordbook/widgets/custom_textfield.dart';
+import 'package:notion_wordbook/widgets/header.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConnectingPage extends StatelessWidget {
   final _focusNode = FocusNode();
@@ -24,17 +23,8 @@ class ConnectingPage extends StatelessWidget {
           onTap: _focusNode.requestFocus,
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              centerTitle: true,
-              toolbarHeight: 80,
-              elevation: 10,
-              title: const Text(
-                'Notionと連携',
-                style: TextStyle(
-                  fontSize: 27,
-                ),
-              ),
-              backgroundColor: Colors.purple[800],
+            appBar: const HeaderBar(
+              title: 'Notionと連携',
             ),
             body: SingleChildScrollView(
               child: Container(
