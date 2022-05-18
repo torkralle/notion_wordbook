@@ -1,5 +1,6 @@
 // 🌎 Project imports:
 
+// 🌎 Project imports:
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
 
 class Word {

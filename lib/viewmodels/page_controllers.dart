@@ -1,8 +1,8 @@
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notion_wordbook/objects/models/word.dart';
 
 // 🌎 Project imports:
+import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class MaxPageNotifier extends StateNotifier<int> {
