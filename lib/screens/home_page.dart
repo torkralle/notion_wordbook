@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
@@ -10,79 +9,87 @@ import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
+  
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-  final wordbook = <Map<String, dynamic>>[
-    {'listName': 'はじめての英語', 'ratio': '23.4'},
-    {'listName': '基礎からの英語', 'ratio': '78.2'},
-    {'listName': '日常英語', 'ratio': '1.1'},
-    {'listName': '高校英語', 'ratio': '45.3'},
-    {'listName': 'NewYorkTimes', 'ratio': '0.5'},
-    {'listName': 'CNN', 'ratio': '0'},
-    {'listName': 'Academic', 'ratio': '52.7'} 
-  ];
+// 🌎 Project imports:
+import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
+class HomePage extends HookConsumerWidget {
+  const HomePage({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: 80,
-          elevation: 10,
-          title: const Text(
-            '単語帳一覧',
-            style: TextStyle(
-              fontSize: 27,
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(
+      () {
+        ref.read(wordbookInfoListProvider.notifier).initState();
+        return null;
+      },
+      [],
+    );
+    final wordbooks = ref.watch(wordbookInfoListProvider);
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 80,
+        elevation: 10,
+        title: const Text(
+          '単語帳一覧',
+          style: TextStyle(
+            fontSize: 27,
           ),
-          backgroundColor: Colors.purple[800],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 40, bottom: 30),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('/connecting');
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 90,
-                    ),
-                    color: const Color.fromARGB(255, 233, 225, 240),
-                    child: const Text(
-                      '単語帳を追加',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+        backgroundColor: Colors.purple[800],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 40, bottom: 30),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/add_wordbook');
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 90,
+                  ),
+                  color: const Color.fromARGB(255, 233, 225, 240),
+                  child: const Text(
+                    '単語帳を追加',
+                    style: TextStyle(
+                      fontSize: 20,
                     ),
                   ),
                 ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: wordbook.length,
-                itemBuilder: (BuildContext context, index) {
-                  return BookCard(index: index, wordbook: wordbook);
-                },
-              ),
-            ],
-          ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: wordbooks.length,
+              itemBuilder: (BuildContext context, index) {
+                return BookCard(index: index, wordbooks: wordbooks);
+              },
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }
 
 class BookCard extends ConsumerWidget {
   const BookCard({
     Key? key,
     required this.index,
-    required this.wordbook,
+    required this.wordbooks,
   }) : super(key: key);
 
   final int index;
-  final List<Map<String, dynamic>> wordbook;
+  final List<dynamic> wordbooks;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -107,7 +114,7 @@ class BookCard extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
             title: Text(
-              wordbook[index]['listName'],
+              wordbooks[index]['db_name'],
               style: const TextStyle(
                 fontSize: 19,
               ),
@@ -115,7 +122,7 @@ class BookCard extends ConsumerWidget {
             subtitle: Padding(
               padding: const EdgeInsets.only(top: 5),
               child: Text(
-                '前回正答率 ' + wordbook[index]['ratio'],
+                '前回正答率' + wordbooks[index]['api_key'], // TODO: api_keyを暫定的に表示
                 style: const TextStyle(
                   fontSize: 15,
                 ),

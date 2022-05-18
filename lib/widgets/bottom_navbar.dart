@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:notion_wordbook/screens/connecting_page.dart';
+import 'package:notion_wordbook/screens/add_wordbook_page.dart';
 import 'package:notion_wordbook/screens/home_page.dart';
 import 'package:notion_wordbook/screens/hook_test_page.dart';
 import 'package:notion_wordbook/screens/my_info_page.dart';
@@ -21,10 +21,10 @@ class NavigatedPages extends StatefulWidget {
 class _State extends State<NavigatedPages> {
   var _navIndex = 0;
   final screens = [
-    HomePage(),
+    const HomePage(),
     const ReviewPage(),
     const MyInfoPage(),
-    ConnectingPage(),
+    AddWordbookPage(),
     const HookPage(),
     const MyPageScreen(),
   ];
@@ -43,7 +43,7 @@ class _State extends State<NavigatedPages> {
             icon: Icon(Icons.auto_graph),
             label: '学習データ',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.face), label: 'マイページ'),
+          BottomNavigationBarItem(icon: Icon(Icons.plus_one), label: '単語帳追加'),
           BottomNavigationBarItem(icon: Icon(Icons.face), label: 'マイページ'),
         ],
         type: BottomNavigationBarType.fixed,
