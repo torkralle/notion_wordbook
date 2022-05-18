@@ -88,7 +88,10 @@ class QuizPage extends StatelessWidget {
                             ),
                             onPressed: () =>
                                 Navigator.pushNamedAndRemoveUntil(
-                                context, '/', (route) => false),
+                              context,
+                              '/',
+                              (route) => false,
+                            ),
                           ),
                         ),
                       ],

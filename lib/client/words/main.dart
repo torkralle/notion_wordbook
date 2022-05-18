@@ -4,6 +4,8 @@ import 'dart:convert';
 // 🌎 Project imports:
 import 'package:notion_wordbook/core/http/main.dart';
 
+///  単語帳のデータを持ってくる
+/// MapからListへの変換はhelper/words/new_list.dartでやってる
 Future<ApiResult> getWordsData(String databaseID) async {
   try {
     var response = await callPostMethod(databaseID + '/query');
