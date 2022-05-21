@@ -1,19 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
-
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
-  
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
 class HomePage extends HookConsumerWidget {

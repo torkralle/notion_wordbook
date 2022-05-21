@@ -1,10 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/add_wordbook_page.dart';
 import 'package:notion_wordbook/screens/connecting_page.dart';
