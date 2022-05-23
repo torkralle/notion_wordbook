@@ -1,9 +1,11 @@
 // 🐦 Flutter imports:
 
 import 'package:flutter/material.dart';
+import 'package:notion_wordbook/screens/test_result/components/result_button.dart';
+import 'package:notion_wordbook/screens/test_result/components/result_list_item.dart';
 
-class MyInfoPage extends StatelessWidget {
-  const MyInfoPage({Key? key}) : super(key: key);
+class TestResultPage extends StatelessWidget {
+  const TestResultPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -114,7 +116,7 @@ class MyInfoPage extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: 1,
                 itemBuilder: (BuildContext context, index) {
-                  return const WordWithResult(
+                  return const ResultListItem(
                     word: 'word',
                     meaning: 'meaning',
                     isMissed: true,
@@ -125,115 +127,4 @@ class MyInfoPage extends StatelessWidget {
           ),
         ),
       );
-}
-
-class ResultButton extends StatelessWidget {
-  const ResultButton({
-    Key? key,
-    required this.text,
-    required this.isLarge,
-  }) : super(key: key);
-
-  final String text;
-  final bool isLarge;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: SizedBox(
-        width: isLarge ? 300 : 145,
-        height: 50,
-        child: ElevatedButton(
-          onPressed: () {},
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 119, 0, 255),
-            ),
-          ),
-          style: ElevatedButton.styleFrom(
-            primary: isLarge
-                ? const Color.fromARGB(255, 255, 247, 254)
-                : Colors.white,
-            side: const BorderSide(
-              color: Colors.black,
-              width: 0.5,
-            ),
-            shape: const StadiumBorder(),
-            elevation: isLarge ? 5.0 : 0.0,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class WordWithResult extends StatelessWidget {
-  const WordWithResult({
-    Key? key,
-    required this.word,
-    required this.meaning,
-    required this.isMissed,
-  }) : super(key: key);
-
-  final String word;
-  final String meaning;
-  final bool isMissed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Color.fromARGB(255, 226, 226, 226),
-            width: 1.0,
-          ),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  word,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 5.0,
-                  ),
-                  child: Text(
-                    meaning,
-                    style: const TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Text(
-                  isMissed ? 'MISS!!' : 'OK!',
-                  style: TextStyle(
-                    color: isMissed
-                        ? const Color.fromRGBO(160, 0, 0, 1)
-                        : const Color.fromARGB(255, 119, 0, 255),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
