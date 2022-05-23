@@ -8,7 +8,10 @@ class TestResultPage extends StatelessWidget {
   const TestResultPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    final List<String> _wordList = ['a', 'b', 'c'];
+    final List<String> _meaningList = ['a', 'b', 'c'];
+    return Scaffold(
         appBar: AppBar(
           toolbarHeight: 80,
           shape: const Border(
@@ -112,19 +115,22 @@ class TestResultPage extends StatelessWidget {
                   ),
                 ),
               ),
-              ListView.builder(
+            Expanded(
+              child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: 1,
-                itemBuilder: (BuildContext context, index) {
-                  return const ResultListItem(
-                    word: 'word',
-                    meaning: 'meaning',
+                itemCount: _wordList.length,
+                itemBuilder: (BuildContext context, index) {     
+                  return ResultListItem(
+                    word: _wordList[index],
+                    meaning: _meaningList[index],
                     isMissed: true,
                   );
                 },
               ),
+            ),
             ],
           ),
         ),
       );
+  }
 }
