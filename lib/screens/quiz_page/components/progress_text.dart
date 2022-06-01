@@ -17,7 +17,7 @@ class ProgressText extends ConsumerWidget {
     final currentPage = ref.watch(currentPageProvider);
     final maxPage = ref.watch(maxPageProvider);
     return Text(
-      currentPage.toString() + '/' + maxPage.toString(),
+      '$currentPage / $maxPage',
       style: const TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,

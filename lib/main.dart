@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         '/connecting': (context) => ConnectingPage(),
         '/add_wordbook': (context) => AddWordbookPage(),
         '/wordbook_item': (context) => WordBookItemPage(),
-        '/quiz_page': (context) => QuizPage(),
+        '/quiz': (context) => QuizPage(),
         '/progress_text': (context) => const ProgressText(),
       },
       title: 'Navigation',

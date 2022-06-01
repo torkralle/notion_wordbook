@@ -37,7 +37,7 @@ class AnswerCandidateCard extends ConsumerWidget {
         ),
         child: InkWell(
           onTap: () {
-            ref.read(currentPageProvider.notifier).increasePage();
+            ref.read(currentPageProvider.notifier).pageCount();
             Navigator.of(context).pushNamed('/quiz_page');
           },
           child: ListTile(

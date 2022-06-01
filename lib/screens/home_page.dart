@@ -99,7 +99,7 @@ class BookCard extends ConsumerWidget {
         onTap: () {
           ref.read(wordListStateProvider.notifier).readWordList();
           ref.read(maxPageProvider.notifier).getListLength();
-          Navigator.of(context).pushNamed('/quiz_page');
+          Navigator.of(context).pushNamed('/quiz');
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
