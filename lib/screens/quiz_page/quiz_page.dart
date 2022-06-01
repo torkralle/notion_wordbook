@@ -67,7 +67,6 @@ class QuizPage extends StatelessWidget {
   }
 }
 
-
 class ChoiceList extends StatelessWidget {
   const ChoiceList({
     Key? key,
