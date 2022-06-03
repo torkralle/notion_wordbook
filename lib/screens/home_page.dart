@@ -1,11 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 // 🌎 Project imports:
+import 'package:notion_wordbook/viewmodels/page_controllers.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
 class HomePage extends HookConsumerWidget {
@@ -73,7 +72,7 @@ class HomePage extends HookConsumerWidget {
   }
 }
 
-class BookCard extends StatelessWidget {
+class BookCard extends ConsumerWidget {
   const BookCard({
     Key? key,
     required this.index,
@@ -84,7 +83,8 @@ class BookCard extends StatelessWidget {
   final List<dynamic> wordbooks;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
     return Card(
       margin: const EdgeInsets.symmetric(
         vertical: 7,
@@ -97,7 +97,9 @@ class BookCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed('/test');
+          ref.read(wordListStateProvider.notifier).readWordList();
+          ref.read(maxPageProvider.notifier).getListLength();
+          Navigator.of(context).pushNamed('/quiz');
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
