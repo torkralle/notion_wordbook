@@ -1,9 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 
@@ -38,7 +36,7 @@ class AnswerCandidateCard extends ConsumerWidget {
         child: InkWell(
           onTap: () {
             ref.read(currentPageProvider.notifier).pageCount();
-            Navigator.of(context).pushNamed('/quiz_page');
+            Navigator.of(context).pushNamed('/quiz');
           },
           child: ListTile(
             title: Text(
