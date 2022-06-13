@@ -3,17 +3,12 @@ import 'dart:async';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 // 🌎 Project imports:
 import 'package:notion_wordbook/client/words/main.dart';
 import 'package:notion_wordbook/helper/words/new_list.dart';
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
-
-var dbKey = dotenv.env['DB_KEY'];
+// 📦 Package imports:
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HookPage extends StatefulWidget {
   const HookPage({Key? key}) : super(key: key);
@@ -28,6 +23,7 @@ class _HookPageState extends State<HookPage> {
 
   Future getData() async {
     result = await getWordsData('', '');
+
     //状態が変化した場合によばれる
     setState(() {
       wordsList = newWordsList(result!.body!);
