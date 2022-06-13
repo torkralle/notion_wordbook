@@ -11,7 +11,7 @@ class WordListNotifier extends StateNotifier<List<Word>> {
   WordListNotifier() : super([]);
 
   Future readWordList() async {
-    final ApiResult wordListResult = await getWordsData(dbKey ?? '');
+    final ApiResult wordListResult = await getWordsData(dbKey ?? '', '');
     final List<Word> wordList = newWordsList(wordListResult.body!);
 
     state = wordList;
@@ -24,7 +24,7 @@ final wordListStateProvider =
 });
 
 final wordListFutureProvider = FutureProvider<List<Word>>((ref) async {
-  final ApiResult wordListResult = await getWordsData(dbKey ?? '');
+  final ApiResult wordListResult = await getWordsData(dbKey ?? '', '');
   final List<Word> wordList = newWordsList(wordListResult.body!);
 
   return wordList;

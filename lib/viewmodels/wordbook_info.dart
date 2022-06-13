@@ -12,6 +12,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/objects/models/notion_key.dart';
 
+import '../client/words/main.dart';
+import '../helper/words/new_list.dart';
+
+class WordsListViewModel extends StateNotifier<List<dynamic>> {
+  WordsListViewModel() : super([]);
+
+  Future<void> initState(dbID, apiKey) async {
+    final result = await getWordsData(dbID, apiKey);
+    state = newWordsList(result.body!);
+  }
+
+  getWordsList() {
+    return state;
+  }
+}
+
+final wordsListProvider =
+    StateNotifierProvider<WordsListViewModel, List<dynamic>>((ref) {
+  return WordsListViewModel();
+});
+
 class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
   WordbookInfoListViewModel() : super([]);
 
@@ -43,6 +64,18 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     return state.dbName;
   }
 
+  String getDBId() {
+    return state.dbID;
+  }
+
+  String getAPIKey() {
+    return state.apiKey;
+  }
+
+  WordbookInfo getWordBookInfo() {
+    return state;
+  }
+
   void setDBName(dbName) {
     state = WordbookInfo(dbName, '', '');
   }
@@ -53,6 +86,10 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
 
   void updateAPIKey(apiKey) {
     state = WordbookInfo(state.dbName, apiKey, state.dbName);
+  }
+
+  void updateDBInfo(dbName, apiKey, dbId) {
+    state = WordbookInfo(dbName, apiKey, dbId);
   }
 
   Future<void> setDBInfo(apiKey, dbId) async {

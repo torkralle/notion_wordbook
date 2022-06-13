@@ -1,60 +1,66 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class WordBookItemPage extends StatelessWidget {
-  WordBookItemPage({Key? key}) : super(key: key);
+import '../viewmodels/wordbook_info.dart';
 
-  final word = <Map<String, dynamic>>[
-    {'wordName': 'refreshment', 'meaning': '軽食'},
-    {'wordName': 'municipal', 'meaning': '市政の'},
-    {'wordName': 'refill', 'meaning': '(飲み物の)おかわり'},
-    {'wordName': 'premise', 'meaning': '建物'},
-    {'wordName': 'remark', 'meaning': '発言'},
-    {'wordName': 'checkup', 'meaning': '健康診断/点検'},
-    {'wordName': 'fluctuate', 'meaning': '変動する'},
-    {'wordName': 'consecutive', 'meaning': '連続した'},
-    {'wordName': 'detour', 'meaning': '迂回路'},
-    {'wordName': 'streamline', 'meaning': '(仕事を)合理化する'},
-  ];
+class WordBookItemPage extends HookConsumerWidget {
+  const WordBookItemPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: 80,
-          title: const Text(
-            '単語帳',
-            style: TextStyle(
-              fontSize: 27,
-            ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(
+      () {
+        final wordbook =
+            ref.read(wordbookInfoProvider.notifier).getWordBookInfo();
+        ref
+            .read(wordsListProvider.notifier)
+            .initState(wordbook.dbID, wordbook.apiKey);
+        return null;
+      },
+      [],
+    );
+    final wordsList = ref.watch(wordsListProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        toolbarHeight: 80,
+        title: const Text(
+          '単語帳',
+          style: TextStyle(
+            fontSize: 27,
           ),
-          backgroundColor: Colors.purple[800],
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.only(top: 40),
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: word.length,
-              itemBuilder: (BuildContext context, index) {
-                return WordCard(index: index, word: word);
-              },
-            ),
+        backgroundColor: Colors.purple[800],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.only(top: 40),
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: wordsList.length,
+            itemBuilder: (BuildContext context, index) {
+              return WordCard(index: index, words: wordsList);
+            },
           ),
         ),
-      );
+      ),
+    );
+  }
 }
 
 class WordCard extends StatelessWidget {
   const WordCard({
     Key? key,
     required this.index,
-    required this.word,
+    required this.words,
   }) : super(key: key);
 
   final int index;
-  final List<Map<String, dynamic>> word;
+  final List words;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +78,7 @@ class WordCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
           title: Text(
-            word[index]['wordName'],
+            words[index].spelling,
             style: const TextStyle(
               fontSize: 23,
             ),
@@ -80,7 +86,7 @@ class WordCard extends StatelessWidget {
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text(
-              word[index]['meaning'],
+              words[index].meaning ?? '',
               style: const TextStyle(
                 fontSize: 16,
               ),

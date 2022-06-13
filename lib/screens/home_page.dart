@@ -84,7 +84,6 @@ class BookCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return Card(
       margin: const EdgeInsets.symmetric(
         vertical: 7,
@@ -99,6 +98,11 @@ class BookCard extends ConsumerWidget {
         onTap: () {
           ref.read(wordListStateProvider.notifier).readWordList();
           ref.read(maxPageProvider.notifier).getListLength();
+          ref.read(wordbookInfoProvider.notifier).updateDBInfo(
+                wordbooks[index]['db_name'],
+                wordbooks[index]['api_key'],
+                wordbooks[index]['db_id'],
+              );
           Navigator.of(context).pushNamed('/quiz');
         },
         child: Padding(
@@ -129,6 +133,11 @@ class BookCard extends ConsumerWidget {
             ),
             trailing: InkWell(
               onTap: () {
+                ref.read(wordbookInfoProvider.notifier).updateDBInfo(
+                      wordbooks[index]['db_name'],
+                      wordbooks[index]['api_key'],
+                      wordbooks[index]['db_id'],
+                    );
                 Navigator.of(context).pushNamed('/wordbook_item');
               },
               child: const Icon(Icons.more_horiz),

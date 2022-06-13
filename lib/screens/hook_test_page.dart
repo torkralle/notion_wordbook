@@ -27,7 +27,7 @@ class _HookPageState extends State<HookPage> {
   int _counter = 0;
 
   Future getData() async {
-    result = await getWordsData(dbKey ?? '');
+    result = await getWordsData('', '');
     //状態が変化した場合によばれる
     setState(() {
       wordsList = newWordsList(result!.body!);
