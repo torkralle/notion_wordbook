@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
+import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
 import '../viewmodels/word_list_controller.dart';
@@ -96,14 +97,16 @@ class BookCard extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           ref.read(maxPageProvider.notifier).getListLength();
           ref.read(wordbookInfoProvider.notifier).updateDBInfo(
                 wordbooks[index]['db_name'],
                 wordbooks[index]['api_key'],
                 wordbooks[index]['db_id'],
               );
-          ref.read(wordsListProvider.notifier).initState();
+          await ref.read(wordsListProvider.notifier).initState();
+          const firstPage = 1;
+          ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
           Navigator.of(context).pushNamed('/quiz');
         },
         child: Padding(
