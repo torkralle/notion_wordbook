@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/connecting': (context) => ConnectingPage(),
         '/add_wordbook': (context) => AddWordbookPage(),
-        '/wordbook_item': (context) => WordBookItemPage(),
+        '/wordbook_item': (context) => const WordBookItemPage(),
         '/quiz': (context) => QuizPage(),
         '/progress_text': (context) => const ProgressText(),
       },

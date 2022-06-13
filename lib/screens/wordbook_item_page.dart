@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../viewmodels/wordbook_info.dart';
+import '../viewmodels/word_list_controller.dart';
 
 class WordBookItemPage extends HookConsumerWidget {
   const WordBookItemPage({Key? key}) : super(key: key);
@@ -12,11 +12,7 @@ class WordBookItemPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useEffect(
       () {
-        final wordbook =
-            ref.read(wordbookInfoProvider.notifier).getWordBookInfo();
-        ref
-            .read(wordsListProvider.notifier)
-            .initState(wordbook.dbID, wordbook.apiKey);
+        ref.read(wordsListProvider.notifier).initState();
         return null;
       },
       [],
