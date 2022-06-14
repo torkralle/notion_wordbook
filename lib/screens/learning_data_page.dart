@@ -10,7 +10,7 @@ class LearningDataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String newmoColor = "e3e0ed";
+    final String newmoColor = "e3e3ed";
     final Size deviceSize = MediaQuery.of(context).size;
     //DBから取得
     var dataArr = [2,2,2,19,21,15,72];
