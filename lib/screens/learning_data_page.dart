@@ -10,6 +10,7 @@ class LearningDataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String newmoColor = "e3e0ed";
     final Size deviceSize = MediaQuery.of(context).size;
     //DBから取得
     var dataArr = [2,2,2,19,21,15,72];
@@ -50,11 +51,11 @@ class LearningDataPage extends StatelessWidget {
             '学習データ',
             style: TextStyle(fontSize: 27, color: Colors.black87),
           ),
-          backgroundColor: HexColor("E0E5ec"),
+          backgroundColor: HexColor(newmoColor),
         ),
         body:Container(
           alignment: Alignment.bottomCenter,
-          color: HexColor("e0e5ec"),
+          color: HexColor(newmoColor),
           child:  Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -67,7 +68,7 @@ class LearningDataPage extends StatelessWidget {
                         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                         depth: 10,
                         lightSource: LightSource.topLeft,
-                        color: HexColor("e0e5ec")
+                        color: HexColor(newmoColor)
                     ),
                     child:  Container(
                       padding: EdgeInsets.all(20),
@@ -87,7 +88,7 @@ class LearningDataPage extends StatelessWidget {
                         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                         depth: 10,
                         lightSource: LightSource.topLeft,
-                        color: HexColor("e0e5ec")
+                        color: HexColor(newmoColor)
                     ),
                     child:  Container(
                         padding: EdgeInsets.all(20),
@@ -113,7 +114,7 @@ class LearningDataPage extends StatelessWidget {
                         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                         depth: 10,
                         lightSource: LightSource.topLeft,
-                        color: HexColor("e0e5ec")
+                        color: HexColor(newmoColor)
                     ),
                     child:  Container(
                       padding: EdgeInsets.all(20),
@@ -133,7 +134,7 @@ class LearningDataPage extends StatelessWidget {
                         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                         depth: 10,
                         lightSource: LightSource.topLeft,
-                        color: HexColor("e0e5ec")
+                        color: HexColor(newmoColor)
                     ),
                     child:  Container(
                         padding: EdgeInsets.all(20),
@@ -159,7 +160,7 @@ class LearningDataPage extends StatelessWidget {
                         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                         depth: 10,
                         lightSource: LightSource.topLeft,
-                        color: HexColor("e0e5ec")
+                        color: HexColor(newmoColor)
                     ),
                     child:  Container(
                       padding: EdgeInsets.all(20),
@@ -179,7 +180,7 @@ class LearningDataPage extends StatelessWidget {
                         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                         depth: 10,
                         lightSource: LightSource.topLeft,
-                        color: HexColor("e0e5ec")
+                        color: HexColor(newmoColor)
                     ),
                     child:  Container(
                       padding: EdgeInsets.all(20),
@@ -205,7 +206,7 @@ class LearningDataPage extends StatelessWidget {
                             boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                             depth: 10,
                             lightSource: LightSource.topLeft,
-                            color: HexColor("e0e5ec")
+                            color: HexColor(newmoColor)
                         ),
                         child:  Container(
                           padding: EdgeInsets.all(20),
