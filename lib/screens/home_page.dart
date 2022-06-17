@@ -101,6 +101,38 @@ class BookCard extends ConsumerWidget {
           ref.read(maxPageProvider.notifier).getListLength();
           Navigator.of(context).pushNamed('/quiz');
         },
+        onLongPress: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return SimpleDialog(
+                title: Text(
+                  wordbooks[index]['db_name'],
+                  style: const TextStyle(
+                    fontSize: 27,
+                  ),
+                ),
+                children: <Widget>[
+                  // コンテンツ領域
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).pushNamed('/wordbook_item');
+                    },
+                    child: const Text('単語一覧'),
+                  ),
+                  SimpleDialogOption(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      '削除',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
@@ -126,12 +158,6 @@ class BookCard extends ConsumerWidget {
                 color: Colors.white,
                 size: 20,
               ),
-            ),
-            trailing: InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed('/wordbook_item');
-              },
-              child: const Icon(Icons.more_horiz),
             ),
           ),
         ),
