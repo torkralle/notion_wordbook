@@ -3,12 +3,17 @@ import 'dart:async';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 // 🌎 Project imports:
 import 'package:notion_wordbook/client/words/main.dart';
 import 'package:notion_wordbook/helper/words/new_list.dart';
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
-// 📦 Package imports:
-import 'package:shared_preferences/shared_preferences.dart';
+
+var dbKey = dotenv.env['DB_KEY'];
 
 class HookPage extends StatefulWidget {
   const HookPage({Key? key}) : super(key: key);
