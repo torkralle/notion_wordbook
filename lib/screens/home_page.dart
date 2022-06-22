@@ -62,7 +62,10 @@ class HomePage extends HookConsumerWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: wordbooks.length,
               itemBuilder: (BuildContext context, index) {
-                return BookCard(index: index, wordbooks: wordbooks);
+                return BookCard(
+                  index: index,
+                  wordbooks: wordbooks,
+                );
               },
             ),
           ],
@@ -84,6 +87,7 @@ class BookCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final apiKey = ref.watch(wordbookInfoProvider);
 
     return Card(
       margin: const EdgeInsets.symmetric(
@@ -122,7 +126,11 @@ class BookCard extends ConsumerWidget {
                     child: const Text('単語一覧'),
                   ),
                   SimpleDialogOption(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () async {
+                      await ref
+                          .read(wordbookInfoListProvider.notifier)
+                          .removeFromList(apiKey);
+                    },
                     child: const Text(
                       '削除',
                       style: TextStyle(color: Colors.red),

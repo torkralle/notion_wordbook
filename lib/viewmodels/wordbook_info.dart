@@ -29,6 +29,14 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
         json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
     state = storedData;
   }
+
+  Future removeFromList(apiKey) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<dynamic> storedData =
+        json.decode(prefs.getString('wordbooks')!)['wordbooks'];
+    storedData.removeWhere((dynamic item) => item.apiKey == apiKey);
+    state = storedData;
+  }
 }
 
 final wordbookInfoListProvider =
@@ -53,6 +61,10 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
 
   void updateAPIKey(apiKey) {
     state = WordbookInfo(state.dbName, apiKey, state.dbName);
+  }
+
+  void removeAPIKey(apiKey) {
+    state = WordbookInfo('', apiKey, '');
   }
 
   Future<void> setDBInfo(apiKey, dbId) async {
@@ -84,6 +96,24 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     }
     storedData.add(dbInfo);
     prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
+  }
+  Future deleteAPIKey(apiKey) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Map<String, String> dbInfo = {
+    //   'api_key': apiKey,
+    // };
+    // String data = json.encode({
+    //   'wordbooks': [dbInfo]
+    // });
+    // prefs.setString('wordbooks', data);
+    // List storedData =
+    //     json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
+    // storedData.where((element) {
+    //   print(element['apiKey']);
+    //   prefs.remove(element['apiKey']);
+    //   return true;
+    // });
+    await prefs.remove(apiKey);
   }
 }
 
