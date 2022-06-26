@@ -39,22 +39,6 @@ final wordbookInfoListProvider =
 class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
   WordbookInfoViewModel() : super(const WordbookInfo('', '', ''));
 
-  String getDBName() {
-    return state.dbName;
-  }
-
-  String getDBId() {
-    return state.dbID;
-  }
-
-  String getAPIKey() {
-    return state.apiKey;
-  }
-
-  WordbookInfo getWordBookInfo() {
-    return state;
-  }
-
   void setDBName(dbName) {
     state = WordbookInfo(dbName, '', '');
   }
