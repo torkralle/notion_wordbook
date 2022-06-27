@@ -10,7 +10,7 @@ class MaxPageNotifier extends StateNotifier<int> {
   Ref ref;
 
   getListLength() async {
-    final List<Word> wordList = await ref.watch(wordListFutureProvider.future);
+    final List<Word> wordList = ref.watch(wordsListProvider);
     state = wordList.length;
   }
 }

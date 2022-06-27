@@ -13,13 +13,15 @@ Future<HttpResult> callGetMethod(String url) async {
   }
 }
 
-Future<HttpResult> callPostMethod(String path) async {
+Future<HttpResult> callPostMethod(String path, String apiKey) async {
   try {
-    http.Response response = await http.post(Uri.parse(baseURL + path),
-        headers: {
-          'Authorization': 'Bearer ' + secretKey!,
-          'Notion-Version': '2021-08-16'
-        },);
+    http.Response response = await http.post(
+      Uri.parse(baseURL + path),
+      headers: {
+        'Authorization': 'Bearer ' + apiKey,
+        'Notion-Version': '2021-08-16'
+      },
+    );
     return HttpResult.success(response);
   } catch (e) {
     return HttpResult.failure(e);

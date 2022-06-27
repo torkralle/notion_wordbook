@@ -6,9 +6,9 @@ import 'package:notion_wordbook/core/http/main.dart';
 
 ///  単語帳のデータを持ってくる
 /// MapからListへの変換はhelper/words/new_list.dartでやってる
-Future<ApiResult> getWordsData(String databaseID) async {
+Future<ApiResult> getWordsData(String databaseID, apiKey) async {
   try {
-    var response = await callPostMethod(databaseID + '/query');
+    var response = await callPostMethod(databaseID + '/query', apiKey);
     return ApiResult.success(json.decode(response.response!.body)); //json->Map
   } catch (e) {
     return ApiResult.failure(e);
