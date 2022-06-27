@@ -19,6 +19,14 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
     await getWordbookList();
   }
 
+  remove(apiKey) async {
+    final prefs = await SharedPreferences.getInstance();
+    List storedData =
+        json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
+    storedData.where((element) => element['apiKey'] == apiKey).toList().remove;
+    prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
+  }
+
   Future<void> getWordbookList() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -70,6 +78,7 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
   Future<void> setDBInfo(apiKey, dbId) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final dbName = state.dbName;
+    // 登録が終わったら初期化
     state = const WordbookInfo('', '', '');
 
     Map<String, String> dbInfo = {
