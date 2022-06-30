@@ -22,7 +22,12 @@ Future<HttpResult> callPostMethod(String path, String apiKey) async {
         'Notion-Version': '2021-08-16'
       },
     );
-    return HttpResult.success(response);
+    // statusCode で判定しないとエラーかがわからないので管理。
+    if (response.statusCode == 200) {
+      return HttpResult.success(response);
+    } else {
+      return HttpResult.failure(response.statusCode);
+    }
   } catch (e) {
     return HttpResult.failure(e);
   }
@@ -31,6 +36,6 @@ Future<HttpResult> callPostMethod(String path, String apiKey) async {
 class HttpResult {
   final http.Response? response;
   final Object? error;
-  HttpResult.success([this.response, this.error]);
-  HttpResult.failure([this.error, this.response]);
+  HttpResult.success(this.response, {this.error});
+  HttpResult.failure(this.error, {this.response});
 }
