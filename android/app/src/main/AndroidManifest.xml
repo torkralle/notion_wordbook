@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.notion_wordbook">
+    package="com.norihanda.notion_wordbook">
    <application
         android:label="notion_wordbook"
         android:name="${applicationName}"

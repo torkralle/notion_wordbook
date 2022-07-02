@@ -44,6 +44,7 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
         json.decode(prefs.getString('wordbooks')!)['wordbooks'];
     storedData.removeWhere((dynamic item) => item.apiKey == apiKey);
     state = storedData;
+    prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
   }
 }
 
@@ -54,10 +55,6 @@ final wordbookInfoListProvider =
 
 class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
   WordbookInfoViewModel() : super(const WordbookInfo('', '', ''));
-
-  String getDBName() {
-    return state.dbName;
-  }
 
   void setDBName(dbName) {
     state = WordbookInfo(dbName, '', '');
@@ -73,6 +70,10 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
 
   void removeAPIKey(apiKey) {
     state = WordbookInfo('', apiKey, '');
+  }
+
+  void updateDBInfo(dbName, apiKey, dbId) {
+    state = WordbookInfo(dbName, apiKey, dbId);
   }
 
   Future<void> setDBInfo(apiKey, dbId) async {
