@@ -130,6 +130,7 @@ class BookCard extends ConsumerWidget {
                   ),
                   SimpleDialogOption(
                     onPressed: () async {
+                      Navigator.pop(context);
                       await ref
                           .read(wordbookInfoListProvider.notifier)
                           .removeFromList(wordbooks[index]['api_key']);

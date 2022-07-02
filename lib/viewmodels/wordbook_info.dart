@@ -42,7 +42,8 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<dynamic> storedData =
         json.decode(prefs.getString('wordbooks')!)['wordbooks'];
-    storedData.removeWhere((dynamic item) => item.apiKey == apiKey);
+    print(storedData);
+    storedData.removeWhere((dynamic item) => item['api_key'] == apiKey);
     state = storedData;
     prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
   }
@@ -107,6 +108,7 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     storedData.add(dbInfo);
     prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
   }
+
   Future deleteAPIKey(apiKey) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     // Map<String, String> dbInfo = {
