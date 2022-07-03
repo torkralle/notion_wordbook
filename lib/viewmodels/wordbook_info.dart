@@ -4,27 +4,17 @@ import 'dart:convert';
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 // 🌎 Project imports:
 import 'package:notion_wordbook/objects/models/notion_key.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
   WordbookInfoListViewModel() : super([]);
 
   Future<void> initState() async {
     await getWordbookList();
-  }
-
-  remove(apiKey) async {
-    final prefs = await SharedPreferences.getInstance();
-    List storedData =
-        json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
-    storedData.where((element) => element['apiKey'] == apiKey).toList().remove;
-    prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
   }
 
   Future<void> getWordbookList() async {
@@ -38,11 +28,13 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
     state = storedData;
   }
 
+  /// リストからデータを削除する。
+  /// 一旦 SharedPreferences に保存されているデータを全部取ってきて、それをパースして List にしてから
+  /// またエンコードして保存し直す。 StateNotifier の state にも保存することでちゃんと描画されるようにする。
   Future removeFromList(apiKey) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<dynamic> storedData =
         json.decode(prefs.getString('wordbooks')!)['wordbooks'];
-    print(storedData);
     storedData.removeWhere((dynamic item) => item['api_key'] == apiKey);
     state = storedData;
     prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
