@@ -11,10 +11,6 @@ class WordChoicesViewModel extends StateNotifier<List<String>> {
     wordChoices.shuffle();
     state = wordChoices;
   }
-
-  getRandomChoices() {
-    return state;
-  }
 }
 
 final wordChoicesProvider =
