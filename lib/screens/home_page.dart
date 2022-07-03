@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:notion_wordbook/viewmodels/loading_controller.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
-
-import '../viewmodels/word_list_controller.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -86,69 +86,75 @@ class BookCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Card(
-      margin: const EdgeInsets.symmetric(
-        vertical: 7,
-        horizontal: 20,
-      ),
-      elevation: 2,
-      color: const Color.fromARGB(234, 250, 241, 252),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: InkWell(
-        onTap: () async {
-          ref.read(maxPageProvider.notifier).getListLength();
-          ref.read(wordbookInfoProvider.notifier).updateDBInfo(
+    if (ref.read(loadingStateProvider)) {
+      return const CircularProgressIndicator();
+    } else {
+      return Card(
+        margin: const EdgeInsets.symmetric(
+          vertical: 7,
+          horizontal: 20,
+        ),
+        elevation: 2,
+        color: const Color.fromARGB(234, 250, 241, 252),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: InkWell(
+          onTap: () async {
+            ref.watch(loadingStateProvider.notifier).update(true);
+            ref.read(maxPageProvider.notifier).getListLength();
+            ref.read(wordbookInfoProvider.notifier).updateDBInfo(
+                  wordbooks[index]['db_name'],
+                  wordbooks[index]['api_key'],
+                  wordbooks[index]['db_id'],
+                );
+            await ref.read(wordsListProvider.notifier).initState();
+            const firstPage = 1;
+            ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
+            Navigator.of(context).pushNamed('/quiz');
+            ref.watch(loadingStateProvider.notifier).update(false);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: Text(
                 wordbooks[index]['db_name'],
-                wordbooks[index]['api_key'],
-                wordbooks[index]['db_id'],
-              );
-          await ref.read(wordsListProvider.notifier).initState();
-          const firstPage = 1;
-          ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
-          Navigator.of(context).pushNamed('/quiz');
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            title: Text(
-              wordbooks[index]['db_name'],
-              style: const TextStyle(
-                fontSize: 19,
-              ),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Text(
-                '前回正答率' + wordbooks[index]['api_key'], // TODO: api_keyを暫定的に表示
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 19,
                 ),
               ),
-            ),
-            leading: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 12.0),
-              child: Icon(
-                Icons.circle_sharp,
-                color: Colors.white,
-                size: 20,
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 5),
+                child: Text(
+                  '前回正答率' + wordbooks[index]['api_key'], // TODO: api_keyを暫定的に表示
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
               ),
-            ),
-            trailing: InkWell(
-              onTap: () {
-                ref.read(wordbookInfoProvider.notifier).updateDBInfo(
-                      wordbooks[index]['db_name'],
-                      wordbooks[index]['api_key'],
-                      wordbooks[index]['db_id'],
-                    );
-                Navigator.of(context).pushNamed('/wordbook_item');
-              },
-              child: const Icon(Icons.more_horiz),
+              leading: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.0),
+                child: Icon(
+                  Icons.circle_sharp,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              trailing: InkWell(
+                onTap: () {
+                  ref.read(wordbookInfoProvider.notifier).updateDBInfo(
+                        wordbooks[index]['db_name'],
+                        wordbooks[index]['api_key'],
+                        wordbooks[index]['db_id'],
+                      );
+                  Navigator.of(context).pushNamed('/wordbook_item');
+                },
+                child: const Icon(Icons.more_horiz),
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
