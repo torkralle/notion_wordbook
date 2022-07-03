@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
-
-import '../../../viewmodels/word_list_controller.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class ProgressBar extends ConsumerWidget {
   const ProgressBar({

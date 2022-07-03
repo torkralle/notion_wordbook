@@ -10,8 +10,8 @@ import 'package:notion_wordbook/screens/quiz_page/components/progress_bar.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 
-import '../../viewmodels/page_controllers.dart';
-import '../../viewmodels/word_list_controller.dart';
+import 'package:notion_wordbook/viewmodels/page_controllers.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class QuizPage extends HookConsumerWidget {
   const QuizPage({Key? key}) : super(key: key);
@@ -21,6 +21,7 @@ class QuizPage extends HookConsumerWidget {
     final wordsList = ref.watch(wordsListProvider);
     final currentPage = ref.watch(currentPageProvider);
     // 正誤判定に使う
+    // ignore: unused_local_variable
     final answerWord = wordsList[currentPage - 1];
     final maxPage = wordsList.length;
     final word = ref.watch(wordChoicesProvider);
