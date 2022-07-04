@@ -1,22 +1,8 @@
 // 🌎 Project imports:
-import 'package:notion_wordbook/core/http/main.dart';
 import 'package:notion_wordbook/helper/words/exists.dart';
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
 
 String getPageId(wordData) {
-  var updatePayload = {
-    'properties': {
-      'Correct': {
-        'checkbox': true,
-      }
-    }
-  };
-  // print(wordData);
-  callPatchMethod(
-    wordData['id'],
-    'secret_I4qkQ3TBtUhMjc0vUHxs4mbTnT1R05TEUMVRjEoMroo',
-    updatePayload,
-  );
   return wordData['id'];
 }
 

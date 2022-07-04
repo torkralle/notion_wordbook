@@ -15,12 +15,12 @@ Future<ApiResult> getWordsData(String databaseID, apiKey) async {
   }
 }
 
-Future<ApiResult> updateIsCorrect(
+Future<ApiResult> updateWordIsCorrect(
   String apiKey,
   pageId,
   bool isCorrect,
 ) async {
-  var updatePayload = {
+  Map<String, dynamic> updatePayload = {
     'properties': {
       'Correct': {
         'checkbox': isCorrect,

@@ -23,7 +23,7 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
 
     /// TODO: maxPageを超えたときの挙動を考える
     /// TODO: 同じ文字列の単語が入ったときの挙動を考える
-    if (currentPage >= maxPage) return ['above', 'max', 'error', 'w'];
+    if (currentPage > maxPage) return ['above', 'max', 'error', 'w'];
 
     /// 単語帳内の単語の総数が4つ未満だったら指定の単語を選択肢として表示する
     if (maxPage < 4) {
@@ -55,11 +55,15 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
   }
 
   updateIsCorrect(int indexNumber, bool isCorrect) {
+    final wordbookInfo =
+        ref.watch(wordbookInfoProvider.notifier).getWordBookInfo();
+
     List<Word> updatedState = [];
     for (int i = 0; i < state.length; i++) {
       if (i != indexNumber) {
         updatedState.add(state[i]);
       } else {
+        updateWordIsCorrect(wordbookInfo.apiKey, state[i].pageId, isCorrect);
         updatedState.add(
           Word(
             state[i].pageId,
