@@ -8,8 +8,17 @@ import 'package:notion_wordbook/core/http/main.dart';
 /// MapからListへの変換はhelper/words/new_list.dartでやってる
 Future<ApiResult> getWordsData(String databaseID, apiKey) async {
   try {
-    var response = await callPostMethod(databaseID + '/query', apiKey);
-    return ApiResult.success(json.decode(response.response!.body)); //json->Map
+    final HttpResult response =
+        await callPostMethod(databaseID + '/query', apiKey);
+
+    // 取ってきた HttpResult がエラーの可能性があるので、それを管理。
+    if (response.error != null) {
+      return ApiResult.failure(response.error);
+    } else {
+      return ApiResult.success(
+        json.decode(response.response!.body),
+      ); //json->Map
+    }
   } catch (e) {
     return ApiResult.failure(e);
   }
@@ -18,6 +27,6 @@ Future<ApiResult> getWordsData(String databaseID, apiKey) async {
 class ApiResult {
   final Map? body;
   final Object? error;
-  ApiResult.success([this.body, this.error]);
-  ApiResult.failure([this.error, this.body]);
+  ApiResult.success(this.body, {this.error});
+  ApiResult.failure(this.error, {this.body});
 }
