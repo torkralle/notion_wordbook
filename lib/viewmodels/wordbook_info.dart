@@ -4,13 +4,12 @@ import 'dart:convert';
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:notion_wordbook/client/words/main.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/objects/models/notion_key.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
   WordbookInfoListViewModel() : super([]);
@@ -55,35 +54,44 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     state = WordbookInfo(dbName, apiKey, dbId);
   }
 
-  Future<void> setDBInfo(apiKey, dbId) async {
+  Future<DBStatus> setDBInfo(apiKey, dbId) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final dbName = state.dbName;
-    state = const WordbookInfo('', '', '');
+    // 入力された DB 情報がいい感じか判定するために結果を保存したい。
+    final ApiResult _apiResult = await getWordsData(dbId, apiKey);
 
-    Map<String, String> dbInfo = {
-      'db_name': dbName,
-      'api_key': apiKey,
-      'db_id': dbId,
-    };
+    // エラーがあったらエラーだよってする
+    if (_apiResult.error != null) {
+      return const DBStatus(
+        Status.error,
+        description: ErrorDescription.dbNotFoundOrConnectionError,
+      );
+    } else {
+      Map<String, String> dbInfo = {
+        'db_name': dbName,
+        'api_key': apiKey,
+        'db_id': dbId,
+      };
 
-    if (!prefs.containsKey('wordbooks')) {
-      debugPrint('no wordbooks');
-      String data = json.encode({
-        'wordbooks': [dbInfo]
-      });
-      prefs.setString('wordbooks', data);
-      return;
+      if (!prefs.containsKey('wordbooks')) {
+        debugPrint('no wordbooks');
+        String data = json.encode({
+          'wordbooks': [dbInfo]
+        });
+        prefs.setString('wordbooks', data);
+      }
+
+      List storedData =
+          json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
+      if (storedData
+          .where((element) => element['db_name'] == dbName)
+          .isNotEmpty) {
+        return const DBStatus(Status.success);
+      }
+      storedData.add(dbInfo);
+      prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
+      return const DBStatus(Status.success);
     }
-
-    List storedData =
-        json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
-    if (storedData
-        .where((element) => element['db_name'] == dbName)
-        .isNotEmpty) {
-      return;
-    }
-    storedData.add(dbInfo);
-    prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
   }
 }
 
@@ -91,3 +99,21 @@ final wordbookInfoProvider =
     StateNotifierProvider<WordbookInfoViewModel, WordbookInfo>((ref) {
   return WordbookInfoViewModel();
 });
+
+/// エラーの時はエラーの内容を、成功の時はnullを返す。
+@immutable
+class DBStatus {
+  final Status status;
+  final ErrorDescription? description;
+  const DBStatus(this.status, {this.description});
+}
+
+enum Status {
+  success,
+  error,
+}
+
+enum ErrorDescription {
+  dbNotFoundOrConnectionError,
+  wordbookKeyNotFound,
+}
