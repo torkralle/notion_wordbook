@@ -169,7 +169,7 @@ class BookCard extends ConsumerWidget {
             // コンテンツ領域
             SimpleDialogOption(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pop(context); // TODO: 単語帳一覧を表示
                 Navigator.of(context).pushNamed('/wordbook_item');
               },
               child: const Text('単語一覧'),
