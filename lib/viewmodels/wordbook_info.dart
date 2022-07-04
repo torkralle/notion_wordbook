@@ -61,10 +61,6 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     state = WordbookInfo(state.dbName, apiKey, state.dbName);
   }
 
-  void removeAPIKey(apiKey) {
-    state = WordbookInfo('', apiKey, '');
-  }
-
   void updateDBInfo(dbName, apiKey, dbId) {
     state = WordbookInfo(dbName, apiKey, dbId);
   }
@@ -99,25 +95,6 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     }
     storedData.add(dbInfo);
     prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
-  }
-
-  Future deleteAPIKey(apiKey) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Map<String, String> dbInfo = {
-    //   'api_key': apiKey,
-    // };
-    // String data = json.encode({
-    //   'wordbooks': [dbInfo]
-    // });
-    // prefs.setString('wordbooks', data);
-    // List storedData =
-    //     json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
-    // storedData.where((element) {
-    //   print(element['apiKey']);
-    //   prefs.remove(element['apiKey']);
-    //   return true;
-    // });
-    await prefs.remove(apiKey);
   }
 }
 
