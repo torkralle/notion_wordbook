@@ -28,6 +28,18 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
         json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
     state = storedData;
   }
+
+  /// リストからデータを削除する。
+  /// 一旦 SharedPreferences に保存されているデータを全部取ってきて、それをパースして List にしてから
+  /// またエンコードして保存し直す。 StateNotifier の state にも保存することでちゃんと描画されるようにする。
+  Future removeFromList(apiKey) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<dynamic> storedData =
+        json.decode(prefs.getString('wordbooks')!)['wordbooks'];
+    storedData.removeWhere((dynamic item) => item['api_key'] == apiKey);
+    state = storedData;
+    prefs.setString('wordbooks', json.encode({'wordbooks': storedData}));
+  }
 }
 
 final wordbookInfoListProvider =
@@ -57,6 +69,7 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
   Future<DBStatus> setDBInfo(apiKey, dbId) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final dbName = state.dbName;
+
     // 入力された DB 情報がいい感じか判定するために結果を保存したい。
     final ApiResult _apiResult = await getWordsData(dbId, apiKey);
 

@@ -6,8 +6,8 @@ import 'package:notion_wordbook/viewmodels/load_state_controller.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
-import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
+import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -64,7 +64,10 @@ class HomePage extends HookConsumerWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: wordbooks.length,
               itemBuilder: (BuildContext context, index) {
-                return BookCard(index: index, wordbooks: wordbooks);
+                return BookCard(
+                  index: index,
+                  wordbooks: wordbooks,
+                );
               },
             ),
           ],
@@ -114,6 +117,9 @@ class BookCard extends ConsumerWidget {
             Navigator.of(context).pushNamed('/quiz');
             ref.watch(loadingStateProvider.notifier).update(false);
           },
+          onLongPress: () {
+            longPressDialog(context, ref);
+          },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
@@ -156,5 +162,43 @@ class BookCard extends ConsumerWidget {
         ),
       );
     }
+  }
+
+  longPressDialog(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Text(
+            wordbooks[index]['db_name'],
+            style: const TextStyle(
+              fontSize: 27,
+            ),
+          ),
+          children: <Widget>[
+            // コンテンツ領域
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context); // TODO: 単語帳一覧を表示
+                Navigator.of(context).pushNamed('/wordbook_item');
+              },
+              child: const Text('単語一覧'),
+            ),
+            SimpleDialogOption(
+              onPressed: () async {
+                Navigator.pop(context);
+                await ref
+                    .read(wordbookInfoListProvider.notifier)
+                    .removeFromList(wordbooks[index]['api_key']);
+              },
+              child: const Text(
+                '削除',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
