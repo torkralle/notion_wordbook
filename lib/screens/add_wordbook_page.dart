@@ -19,14 +19,13 @@ class AddWordbookPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dbName = ref.watch(wordbookInfoProvider);
+    final db = ref.watch(wordbookInfoProvider);
     useEffect(
       () {
-        dbNameController.text =
-            ref.read(wordbookInfoProvider.notifier).getDBName();
+        dbNameController.text = db.dbName;
         return null;
       },
-      [dbName],
+      [db],
     );
     return Focus(
       focusNode: _focusNode,
