@@ -15,6 +15,26 @@ Future<ApiResult> getWordsData(String databaseID, apiKey) async {
   }
 }
 
+Future<ApiResult> updateIsCorrect(
+  String apiKey,
+  pageId,
+  bool isCorrect,
+) async {
+  var updatePayload = {
+    'properties': {
+      'Correct': {
+        'checkbox': isCorrect,
+      }
+    }
+  };
+  try {
+    var response = await callPatchMethod(pageId, apiKey, updatePayload);
+    return ApiResult.success(json.decode(response.response!.body)); //json->Map
+  } catch (e) {
+    return ApiResult.failure(e);
+  }
+}
+
 class ApiResult {
   final Map? body;
   final Object? error;

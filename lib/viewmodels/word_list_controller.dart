@@ -62,6 +62,7 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
       } else {
         updatedState.add(
           Word(
+            state[i].pageId,
             state[i].spelling,
             isCorrect,
             state[i].meaning,
