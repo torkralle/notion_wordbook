@@ -11,7 +11,7 @@ import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart'
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
-import 'package:notion_wordbook/viewmodels/loading_controller.dart';
+import 'package:notion_wordbook/viewmodels/load_state_controller.dart';
 
 class QuizPage extends HookConsumerWidget {
   const QuizPage({Key? key}) : super(key: key);
