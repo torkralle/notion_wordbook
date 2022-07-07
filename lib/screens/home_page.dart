@@ -8,6 +8,7 @@ import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
+import 'package:notion_wordbook/widgets/header.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,17 +23,8 @@ class HomePage extends HookConsumerWidget {
     );
     final wordbooks = ref.watch(wordbookInfoListProvider);
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 80,
-        elevation: 10,
-        title: const Text(
-          '単語帳一覧',
-          style: TextStyle(
-            fontSize: 27,
-          ),
-        ),
-        backgroundColor: Colors.purple[800],
+      appBar: const HeaderBar(
+        title: '単語帳一覧',
       ),
       body: SingleChildScrollView(
         child: Column(
