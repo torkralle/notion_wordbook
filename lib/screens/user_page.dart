@@ -1,12 +1,11 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:notion_wordbook/widgets/header.dart';
 
 class MyPageScreen extends StatelessWidget {
   const MyPageScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: const HeaderBar(title: 'マイページ'),
+        appBar: AppBar(title: const Text('マイページ')),
         body: Container(
           margin: const EdgeInsets.only(top: 60, left: 35),
           child: Column(

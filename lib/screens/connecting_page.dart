@@ -7,7 +7,6 @@ import 'package:notion_wordbook/viewmodels/loading_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/custom_button.dart';
 import 'package:notion_wordbook/widgets/custom_textfield.dart';
-import 'package:notion_wordbook/widgets/header.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConnectingPage extends StatelessWidget {
@@ -24,8 +23,8 @@ class ConnectingPage extends StatelessWidget {
           onTap: _focusNode.requestFocus,
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: const HeaderBar(
-              title: 'Notionと連携',
+            appBar: AppBar(
+              title: const Text('Notionと連携'),
             ),
             body: SingleChildScrollView(
               child: Container(

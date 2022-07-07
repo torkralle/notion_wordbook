@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:notion_wordbook/widgets/header.dart';
 
 import '../viewmodels/word_list_controller.dart';
 
@@ -21,8 +20,8 @@ class WordBookItemPage extends HookConsumerWidget {
     final wordsList = ref.watch(wordsListProvider);
 
     return Scaffold(
-      appBar: const HeaderBar(
-        title: '単語帳',
+      appBar: AppBar(
+        title: const Text('単語帳'),
       ),
       body: SingleChildScrollView(
         child: Container(
