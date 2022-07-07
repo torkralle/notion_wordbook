@@ -11,6 +11,5 @@ const AppBarTheme mainAppBarTheme = AppBarTheme(
   centerTitle: true,
   toolbarHeight: 80,
   elevation: 10,
-  backgroundColor: mainPurple,
   titleTextStyle: TextStyle(fontSize: 27),
 );
