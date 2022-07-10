@@ -15,16 +15,14 @@ class AnswerCandidateCard extends ConsumerWidget {
     required this.maxPage,
     required this.currentPage,
     required this.word,
-    // required this.isCorrect,
-    required this.answerWord,
+    required this.correctWord,
   }) : super(key: key);
 
   final int index;
   final List<String> word;
   final int maxPage;
   final int currentPage;
-  final Word answerWord;
-  // final bool isCorrect;
+  final Word correctWord;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,10 +51,14 @@ class AnswerCandidateCard extends ConsumerWidget {
             onTap: () {
               ref.read(currentPageProvider.notifier).pageCount();
               final nextPage = currentPage + 1;
+
+              /// 次ページの選択肢をランダムに取得
               ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
+
+              /// 正誤判定してNotionDBを更新
               ref.read(wordsListProvider.notifier).updateIsCorrect(
                     currentPage - 1,
-                    word[index] == answerWord.spelling,
+                    word[index] == correctWord.spelling,
                   );
               Navigator.of(context).pushNamed('/quiz');
             },

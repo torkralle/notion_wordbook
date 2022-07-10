@@ -21,8 +21,8 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
   List<String> getRandomWords(int currentPage) {
     final maxPage = state.length;
 
-    /// TODO: maxPageを超えたときの挙動を考える
-    /// TODO: 同じ文字列の単語が入ったときの挙動を考える
+    // TODO: maxPageを超えたときの挙動を考える
+    // TODO: 同じ文字列の単語が入ったときの挙動を考える
     if (currentPage > maxPage) return ['above', 'max', 'error', 'w'];
 
     /// 単語帳内の単語の総数が4つ未満だったら指定の単語を選択肢として表示する

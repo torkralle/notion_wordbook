@@ -2,8 +2,8 @@
 import 'package:notion_wordbook/helper/words/retrieve.dart';
 import 'package:notion_wordbook/objects/models/word.dart';
 
-List extractWordsDataFromResponse(Map response) {
-  return response['results'].map((page) {
+List extractWordsDataFromResponse(Map responseMap) {
+  return responseMap['results'].map((page) {
     Map<String, dynamic> p = page['properties'];
     p.addAll({'id': page['id']});
     return p;

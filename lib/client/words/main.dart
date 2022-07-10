@@ -28,7 +28,7 @@ Future<ApiResult> updateWordIsCorrect(
     }
   };
   try {
-    var response = await callPatchMethod(pageId, apiKey, updatePayload);
+    final response = await callPatchMethod(pageId, apiKey, updatePayload);
     return ApiResult.success(json.decode(response.response!.body)); //json->Map
   } catch (e) {
     return ApiResult.failure(e);
