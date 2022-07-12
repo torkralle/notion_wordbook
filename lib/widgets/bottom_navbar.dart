@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:notion_wordbook/screens/add_wordbook_page.dart';
 import 'package:notion_wordbook/screens/home_page.dart';
 import 'package:notion_wordbook/screens/hook_test_page.dart';
-import 'package:notion_wordbook/screens/learning_data_page.dart';
+import 'package:notion_wordbook/screens/learning_data_page/learning_data_page.dart';
 import 'package:notion_wordbook/screens/review_page.dart';
 import 'package:notion_wordbook/screens/user_page.dart';
 
