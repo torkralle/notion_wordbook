@@ -59,18 +59,17 @@ class ConnectingPage extends StatelessWidget {
                             vertical: 20,
                             horizontal: 20,
                           ),
-                          color: const Color.fromARGB(255, 233, 225, 240),
+                          color: Theme.of(context).colorScheme.surface,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Flexible(
                                 child: RichText(
-                                  text: const TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
-                                    children: [
+                                  text: TextSpan(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                    children: const [
                                       TextSpan(
                                         text: 'API',
                                         style: TextStyle(
@@ -89,9 +88,9 @@ class ConnectingPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Icon(
+                              Icon(
                                 Icons.launch_outlined,
-                                color: Color.fromARGB(141, 0, 0, 0),
+                                color: Theme.of(context).colorScheme.onSurface,
                               )
                             ],
                           ),

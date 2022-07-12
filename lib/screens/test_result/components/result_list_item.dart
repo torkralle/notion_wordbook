@@ -15,10 +15,10 @@ class ResultListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Color.fromARGB(255, 226, 226, 226),
+            color: Theme.of(context).colorScheme.outline,
             width: 1.0,
           ),
         ),

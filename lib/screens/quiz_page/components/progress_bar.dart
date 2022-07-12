@@ -17,8 +17,8 @@ class ProgressBar extends ConsumerWidget {
     return LinearProgressIndicator(
       value: currentPage / maxPage,
       minHeight: 5,
-      color: const Color.fromARGB(255, 112, 33, 181),
-      backgroundColor: const Color.fromARGB(255, 244, 235, 248),
+      color: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
     );
   }
 }

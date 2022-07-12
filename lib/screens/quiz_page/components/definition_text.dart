@@ -11,14 +11,10 @@ class DefinitionText extends StatelessWidget {
     return RichText(
       textAlign: TextAlign.center,
       softWrap: true,
-      text: const TextSpan(
+      text: TextSpan(
         text:
             'Used by engineers and means notihing, but it is common expression.',
-        style: TextStyle(
-          fontSize: 19,
-          fontWeight: FontWeight.bold,
-          color: Color.fromARGB(255, 103, 20, 134),
-        ),
+        style: Theme.of(context).textTheme.titleMedium,
       ),
     );
   }

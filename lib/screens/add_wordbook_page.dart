@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/custom_button.dart';
 import 'package:notion_wordbook/widgets/custom_textfield.dart';
+import 'package:notion_wordbook/widgets/padding.dart';
 
 class AddWordbookPage extends HookConsumerWidget {
   AddWordbookPage({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class AddWordbookPage extends HookConsumerWidget {
           ),
           body: SingleChildScrollView(
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 80, horizontal: 30),
+              margin: nicePadding,
               child: Column(
                 children: [
                   CustomTextField(

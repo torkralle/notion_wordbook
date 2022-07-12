@@ -8,6 +8,7 @@ import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
+import 'package:notion_wordbook/widgets/padding.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,22 +31,20 @@ class HomePage extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 40, bottom: 30),
+              padding: topPadding,
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).pushNamed('/add_wordbook');
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 90,
+                    vertical: 16,
+                    horizontal: 88,
                   ),
                   color: const Color.fromARGB(255, 233, 225, 240),
-                  child: const Text(
+                  child: Text(
                     '単語帳を追加',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
               ),
@@ -84,12 +83,6 @@ class BookCard extends ConsumerWidget {
       return const CircularProgressIndicator();
     } else {
       return Card(
-        margin: const EdgeInsets.symmetric(
-          vertical: 7,
-          horizontal: 20,
-        ),
-        elevation: 2,
-        color: const Color.fromARGB(234, 250, 241, 252),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -112,29 +105,25 @@ class BookCard extends ConsumerWidget {
             longPressDialog(context, ref);
           },
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: smallPadding,
             child: ListTile(
               title: Text(
                 wordbooks[index]['db_name'],
-                style: const TextStyle(
-                  fontSize: 19,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               subtitle: Padding(
-                padding: const EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.only(top: 8),
                 child: Text(
                   '前回正答率' + wordbooks[index]['api_key'], // TODO: api_keyを暫定的に表示
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
+                  style: Theme.of(context).textTheme.caption,
                 ),
               ),
               leading: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0),
+                padding: EdgeInsets.symmetric(vertical: 16.0),
                 child: Icon(
                   Icons.circle_sharp,
                   color: Colors.white,
-                  size: 20,
+                  size: 24,
                 ),
               ),
               trailing: InkWell(
@@ -162,9 +151,7 @@ class BookCard extends ConsumerWidget {
         return SimpleDialog(
           title: Text(
             wordbooks[index]['db_name'],
-            style: const TextStyle(
-              fontSize: 27,
-            ),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           children: <Widget>[
             // コンテンツ領域
