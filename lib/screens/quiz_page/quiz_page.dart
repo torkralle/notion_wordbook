@@ -12,6 +12,7 @@ import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/loading_controller.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
 
 class QuizPage extends HookConsumerWidget {
   const QuizPage({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class QuizPage extends HookConsumerWidget {
     final currentPage = ref.watch(currentPageProvider);
     // 正誤判定に使う
     // ignore: unused_local_variable
-    final answerWord = wordsList[currentPage - 1];
+    final correctWord = wordsList[currentPage - 1];
     final maxPage = wordsList.length;
     final word = ref.watch(wordChoicesProvider);
     if (ref.watch(loadingStateProvider)) {
@@ -69,6 +70,7 @@ class QuizPage extends HookConsumerWidget {
                 word: word,
                 currentPage: currentPage,
                 maxPage: maxPage,
+                correctWord: correctWord,
               ),
             ],
           ),
@@ -93,11 +95,13 @@ class ChoiceList extends StatelessWidget {
     required this.word,
     required this.currentPage,
     required this.maxPage,
+    required this.correctWord,
   }) : super(key: key);
 
   final List<String> word;
   final int maxPage;
   final int currentPage;
+  final Word correctWord;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +116,7 @@ class ChoiceList extends StatelessWidget {
             word: word,
             maxPage: maxPage,
             currentPage: currentPage,
-            // isCorrect: true,
+            correctWord: correctWord,
           );
         },
       ),

@@ -2,6 +2,10 @@
 import 'package:notion_wordbook/helper/words/exists.dart';
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
 
+String getPageId(wordData) {
+  return wordData['id'];
+}
+
 String getSpelling(wordData) {
   return wordData['Spelling']['title'][0]['text']['content'];
 }
@@ -32,7 +36,8 @@ List<WordTag> getTags(wordData) {
   return existsTag(wordData)
       ? wordData['Tags']['multi_select']
           .map<WordTag>(
-              (tag) => WordTagHelper().valueOf(tag['name'].toString()),)
+            (tag) => WordTagHelper().valueOf(tag['name'].toString()),
+          )
           .toList()
       : <WordTag>[];
 }
