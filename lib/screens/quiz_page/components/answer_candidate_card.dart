@@ -41,7 +41,7 @@ class AnswerCandidateCard extends ConsumerWidget {
         child: InkWell(
           onTap: () {
             ref.read(currentPageProvider.notifier).pageCount();
-            final nextPage = currentPage + 1;
+            final int nextPage = currentPage + 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
             Navigator.of(context).pushNamed('/quiz');
           },

@@ -22,12 +22,12 @@ class MyPageScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(bottom: 50),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
+                  children: <Widget>[
                     Container(
                       margin: const EdgeInsets.only(right: 20),
                       height: 70,

@@ -11,9 +11,9 @@ import 'package:notion_wordbook/widgets/header.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConnectingPage extends StatelessWidget {
-  final _focusNode = FocusNode();
-  final apiKeyController = TextEditingController();
-  final dbIDController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  final TextEditingController apiKeyController = TextEditingController();
+  final TextEditingController dbIDController = TextEditingController();
 
   ConnectingPage({Key? key}) : super(key: key);
 
@@ -32,7 +32,7 @@ class ConnectingPage extends StatelessWidget {
                 margin:
                     const EdgeInsets.symmetric(vertical: 80, horizontal: 30),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     CustomTextField(
                       labelName: 'APIKeyを入力',
                       controller: apiKeyController,
@@ -63,7 +63,7 @@ class ConnectingPage extends StatelessWidget {
                           color: const Color.fromARGB(255, 233, 225, 240),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: <Widget>[
                               Flexible(
                                 child: RichText(
                                   text: const TextSpan(
@@ -71,7 +71,7 @@ class ConnectingPage extends StatelessWidget {
                                       color: Colors.black,
                                       fontSize: 14,
                                     ),
-                                    children: [
+                                    children: <InlineSpan>[
                                       TextSpan(
                                         text: 'API',
                                         style: TextStyle(
@@ -150,7 +150,7 @@ class ConnectButton extends HookConsumerWidget {
     );
   }
 
-  connectionResultMessage(BuildContext context, DBStatus? dbStatus) {
+  void connectionResultMessage(BuildContext context, DBStatus? dbStatus) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: dbStatus != null

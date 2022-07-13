@@ -9,8 +9,8 @@ class TestResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> _wordList = ['a', 'b', 'c'];
-    final List<String> _meaningList = ['a', 'b', 'c'];
+    final List<String> _wordList = <String>['a', 'b', 'c'];
+    final List<String> _meaningList = <String>['a', 'b', 'c'];
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 80,
@@ -44,7 +44,7 @@ class TestResultPage extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            children: [
+          children: <Widget>[
               const Padding(
                 padding: EdgeInsets.only(
                   top: 30,
@@ -89,7 +89,7 @@ class TestResultPage extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+              children: const <Widget>[
                   ResultButton(
                     text: '間違えた単語',
                     isLarge: false,
@@ -119,7 +119,7 @@ class TestResultPage extends StatelessWidget {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: _wordList.length,
-                itemBuilder: (BuildContext context, index) {     
+                itemBuilder: (BuildContext context, int index) {     
                   return ResultListItem(
                     word: _wordList[index],
                     meaning: _meaningList[index],

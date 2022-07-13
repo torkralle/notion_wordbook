@@ -1,30 +1,30 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:notion_wordbook/objects/models/word.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/quiz_page/components/answer_candidate_card.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/definition_text.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/interrupt_message.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/progress_bar.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart';
-import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
-import 'package:notion_wordbook/viewmodels/page_controllers.dart';
-import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/load_state_controller.dart';
+import 'package:notion_wordbook/viewmodels/page_controllers.dart';
+import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class QuizPage extends HookConsumerWidget {
   const QuizPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wordsList = ref.watch(wordsListProvider);
-    final currentPage = ref.watch(currentPageProvider);
+    final List<Word> wordsList = ref.watch(wordsListProvider);
+    final int currentPage = ref.watch(currentPageProvider);
     // 正誤判定に使う
     // ignore: unused_local_variable
-    final answerWord = wordsList[currentPage - 1];
-    final maxPage = wordsList.length;
-    final word = ref.watch(wordChoicesProvider);
+    final Word answerWord = wordsList[currentPage - 1];
+    final int maxPage = wordsList.length;
+    final List<String> word = ref.watch(wordChoicesProvider);
     if (ref.watch(loadingStateProvider)) {
       return const CircularProgressIndicator();
     } else {
@@ -56,7 +56,7 @@ class QuizPage extends HookConsumerWidget {
           margin: const EdgeInsets.only(right: 20, left: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               const Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: ProgressText(),
@@ -106,7 +106,7 @@ class ChoiceList extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 4,
-        itemBuilder: (BuildContext context, index) {
+        itemBuilder: (BuildContext context, int index) {
           return AnswerCandidateCard(
             index: index,
             word: word,

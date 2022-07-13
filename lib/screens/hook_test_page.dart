@@ -3,17 +3,13 @@ import 'dart:async';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 // 🌎 Project imports:
 import 'package:notion_wordbook/client/words/main.dart';
 import 'package:notion_wordbook/helper/words/new_list.dart';
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
-
-var dbKey = dotenv.env['DB_KEY'];
+import 'package:notion_wordbook/objects/models/word.dart';
+// 📦 Package imports:
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HookPage extends StatefulWidget {
   const HookPage({Key? key}) : super(key: key);
@@ -23,10 +19,10 @@ class HookPage extends StatefulWidget {
 
 class _HookPageState extends State<HookPage> {
   ApiResult? result;
-  List? wordsList;
+  List<Word>? wordsList;
   int _counter = 0;
 
-  Future getData() async {
+  Future<void> getData() async {
     result = await getWordsData('', '');
 
     //状態が変化した場合によばれる
@@ -35,7 +31,7 @@ class _HookPageState extends State<HookPage> {
     });
   }
 
-  Future _getDataFromSP() async {
+  Future<void> _getDataFromSP() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _counter = prefs.getInt('counter') ?? 0;
@@ -94,8 +90,8 @@ class _HookPageState extends State<HookPage> {
                 ),
                 Text(
                   // "${userData![index]['Meaning']['rich_text'][0]['text']['content']}")
-                  (wordsList![index].tags.length != 0
-                          ? WordTagHelper().name(wordsList![index].tags[0])
+                  (wordsList![index].tags!.isNotEmpty
+                          ? WordTagHelper().name(wordsList![index].tags![0])
                           : '') ??
                       '',
                   style: const TextStyle(

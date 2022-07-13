@@ -1,15 +1,15 @@
-bool existsMeaning(wordData) {
+bool existsMeaning(dynamic wordData) {
   return wordData['Meaning']['rich_text'].length != 0;
 }
 
-bool existsExampleSentence(wordData) {
+bool existsExampleSentence(dynamic wordData) {
   return wordData['Example Sentence']['rich_text'].length != 0;
 }
 
-bool existsLink(wordData) {
+bool existsLink(dynamic wordData) {
   return wordData['Link']['rich_text'].length != 0;
 }
 
-bool existsTag(wordData) {
+bool existsTag(dynamic wordData) {
   return wordData['Tags']['multi_select'].length != 0;
 }

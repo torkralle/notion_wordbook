@@ -1,9 +1,7 @@
 // 📦 Package imports:
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-const baseURL = 'https://api.notion.com/v1/databases/';
-var secretKey = dotenv.env['API_KEY'];
+const String baseURL = 'https://api.notion.com/v1/databases/';
 
 Future<HttpResult> callGetMethod(String url) async {
   try {
@@ -17,7 +15,7 @@ Future<HttpResult> callPostMethod(String path, String apiKey) async {
   try {
     http.Response response = await http.post(
       Uri.parse(baseURL + path),
-      headers: {
+      headers: <String, String>{
         'Authorization': 'Bearer ' + apiKey,
         'Notion-Version': '2021-08-16'
       },

@@ -74,7 +74,7 @@ class InterruptMessage extends StatelessWidget {
             onPressed: () => Navigator.pushNamedAndRemoveUntil(
               context,
               '/',
-              (route) => false,
+              (Route<dynamic> route) => false,
             ),
           ),
         ),
