@@ -40,6 +40,10 @@ class AnswerCandidateCard extends ConsumerWidget {
         ),
         child: InkWell(
           onTap: () {
+            if (currentPage >= maxPage) {
+              Navigator.of(context).pushNamed('/result');
+              return;
+            }
             ref.read(currentPageProvider.notifier).pageCount();
             final int nextPage = currentPage + 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
