@@ -23,6 +23,8 @@ final StateNotifierProvider<MaxPageNotifier, int> maxPageProvider =
 class CurrentPageNotifier extends StateNotifier<int> {
   CurrentPageNotifier() : super(1);
 
+  void initState() => state = 1;
+
   void pageCount() => state++;
 }
 
