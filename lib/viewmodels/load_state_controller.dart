@@ -7,7 +7,8 @@ class LoadingStateViewModel extends StateNotifier<bool> {
   void update(bool s) => state = s;
 }
 
-final loadingStateProvider =
-    StateNotifierProvider<LoadingStateViewModel, bool>((ref) {
+final StateNotifierProvider<LoadingStateViewModel, bool> loadingStateProvider =
+    StateNotifierProvider<LoadingStateViewModel, bool>(
+        (StateNotifierProviderRef<LoadingStateViewModel, bool> ref) {
   return LoadingStateViewModel();
 });

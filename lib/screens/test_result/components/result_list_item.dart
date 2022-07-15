@@ -27,10 +27,10 @@ class ResultListItem extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 Text(
                   word,
                   style: const TextStyle(
@@ -51,7 +51,7 @@ class ResultListItem extends StatelessWidget {
               ],
             ),
             Column(
-              children: [
+              children: <Widget>[
                 Text(
                   isMissed ? 'MISS!!' : 'OK!',
                   style: TextStyle(

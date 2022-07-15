@@ -2,37 +2,39 @@
 import 'package:notion_wordbook/helper/words/exists.dart';
 import 'package:notion_wordbook/objects/enums/word_tag.dart';
 
-String getSpelling(wordData) {
+String getSpelling(dynamic wordData) {
   return wordData['Spelling']['title'][0]['text']['content'];
 }
 
-String getMeaning(wordData) {
+String getMeaning(dynamic wordData) {
   return existsMeaning(wordData)
       ? wordData['Meaning']['rich_text'][0]['text']['content']
       : '';
 }
 
-String getExampleSentence(wordData) {
+String getExampleSentence(dynamic wordData) {
   return existsExampleSentence(wordData)
       ? wordData['Example Sentence']['rich_text'][0]['text']['content']
       : '';
 }
 
-String getLink(wordData) {
+String getLink(dynamic wordData) {
   return existsLink(wordData)
       ? wordData['Link']['rich_text'][0]['text']['content']
       : '';
 }
 
-bool getCorrect(wordData) {
+bool getCorrect(dynamic wordData) {
   return wordData['Correct']['checkbox'];
 }
 
-List<WordTag> getTags(wordData) {
+List<WordTag> getTags(dynamic wordData) {
   return existsTag(wordData)
       ? wordData['Tags']['multi_select']
           .map<WordTag>(
-              (tag) => WordTagHelper().valueOf(tag['name'].toString()),)
+            (Map<String, dynamic> tag) =>
+                WordTagHelper().valueOf(tag['name'].toString()),
+          )
           .toList()
       : <WordTag>[];
 }

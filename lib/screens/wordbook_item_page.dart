@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
 
 import '../viewmodels/word_list_controller.dart';
 
@@ -15,9 +16,9 @@ class WordBookItemPage extends HookConsumerWidget {
         ref.read(wordsListProvider.notifier).initState();
         return null;
       },
-      [],
+      <Object>[],
     );
-    final wordsList = ref.watch(wordsListProvider);
+    final List<Word> wordsList = ref.watch(wordsListProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +31,7 @@ class WordBookItemPage extends HookConsumerWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: wordsList.length,
-            itemBuilder: (BuildContext context, index) {
+            itemBuilder: (BuildContext context, int index) {
               return WordCard(index: index, words: wordsList);
             },
           ),
@@ -48,7 +49,7 @@ class WordCard extends StatelessWidget {
   }) : super(key: key);
 
   final int index;
-  final List words;
+  final List<Word> words;
 
   @override
   Widget build(BuildContext context) {

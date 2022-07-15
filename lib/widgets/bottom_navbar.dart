@@ -1,12 +1,11 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/add_wordbook_page.dart';
 import 'package:notion_wordbook/screens/home_page.dart';
 import 'package:notion_wordbook/screens/hook_test_page.dart';
-import 'package:notion_wordbook/screens/test_result/test_result_page.dart';
 import 'package:notion_wordbook/screens/review_page.dart';
+import 'package:notion_wordbook/screens/test_result/test_result_page.dart';
 import 'package:notion_wordbook/screens/user_page.dart';
 
 class NavigatedPages extends StatefulWidget {
@@ -19,8 +18,8 @@ class NavigatedPages extends StatefulWidget {
 }
 
 class _State extends State<NavigatedPages> {
-  var _navIndex = 0;
-  final screens = [
+  int _navIndex = 0;
+  final List<Widget> screens = <Widget>[
     const HomePage(),
     const ReviewPage(),
     const TestResultPage(),
@@ -33,7 +32,7 @@ class _State extends State<NavigatedPages> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.folder), label: '単語帳一覧'),
           BottomNavigationBarItem(
             icon: Icon(Icons.mode_edit_outline),

@@ -19,9 +19,9 @@ class HomePage extends HookConsumerWidget {
         ref.read(wordbookInfoListProvider.notifier).initState();
         return null;
       },
-      [],
+      <Object>[],
     );
-    final wordbooks = ref.watch(wordbookInfoListProvider);
+    final List<dynamic> wordbooks = ref.watch(wordbookInfoListProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('単語帳一覧'),
@@ -29,7 +29,7 @@ class HomePage extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Padding(
               padding: topPadding,
               child: InkWell(
@@ -53,7 +53,7 @@ class HomePage extends HookConsumerWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: wordbooks.length,
-              itemBuilder: (BuildContext context, index) {
+              itemBuilder: (BuildContext context, int index) {
                 return BookCard(
                   index: index,
                   wordbooks: wordbooks,
@@ -96,7 +96,7 @@ class BookCard extends ConsumerWidget {
                   wordbooks[index]['db_id'],
                 );
             await ref.read(wordsListProvider.notifier).initState();
-            const firstPage = 1;
+            const int firstPage = 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
             Navigator.of(context).pushNamed('/quiz');
             ref.watch(loadingStateProvider.notifier).update(false);
@@ -144,10 +144,10 @@ class BookCard extends ConsumerWidget {
     }
   }
 
-  longPressDialog(BuildContext context, WidgetRef ref) {
+  void longPressDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return SimpleDialog(
           title: Text(
             wordbooks[index]['db_name'],

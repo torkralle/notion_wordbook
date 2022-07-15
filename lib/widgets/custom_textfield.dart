@@ -1,7 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 // 📦 Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,13 +21,13 @@ class CustomTextField extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final obscuritySwitch = ref.watch(obscuritySwitchProvider);
+    final bool obscuritySwitch = ref.watch(obscuritySwitchProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: Column(
-        children: [
+        children: <Widget>[
           Row(
-            children: [
+            children: <Widget>[
               Container(
                 margin: const EdgeInsets.only(bottom: 20),
                 child: Text(
@@ -42,7 +41,7 @@ class CustomTextField extends HookConsumerWidget {
           ),
           TextFormField(
             controller: controller,
-            inputFormatters: [
+            inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.deny(RegExp('[\\.\\,\\ ]'))
             ],
             enableSuggestions: false,

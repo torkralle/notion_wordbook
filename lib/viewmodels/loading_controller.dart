@@ -12,7 +12,7 @@ class LoadingNotifier extends StateNotifier<bool> {
   }
 }
 
-final loadingNotifierProvider =
-    StateNotifierProvider<LoadingNotifier, bool>((ref) {
+final StateNotifierProvider<LoadingNotifier, bool> loadingNotifierProvider =
+    StateNotifierProvider<LoadingNotifier, bool>((_) {
   return LoadingNotifier();
 });
