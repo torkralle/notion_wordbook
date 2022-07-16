@@ -20,7 +20,7 @@ class HomePage extends HookConsumerWidget {
       },
       <Object>[],
     );
-    final List<dynamic> wordbooks = ref.watch(wordbookInfoListProvider);
+    final List<dynamic> wordbooks = ref.read(wordbookInfoListProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -104,7 +104,7 @@ class BookCard extends ConsumerWidget {
         ),
         child: InkWell(
           onTap: () async {
-            ref.watch(loadingStateProvider.notifier).update(true);
+            ref.read(loadingStateProvider.notifier).update(true);
             ref.read(maxPageProvider.notifier).getListLength();
             ref.read(wordbookInfoProvider.notifier).updateDBInfo(
                   wordbooks[index]['db_name'],
@@ -115,7 +115,7 @@ class BookCard extends ConsumerWidget {
             const int firstPage = 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
             Navigator.of(context).pushNamed('/quiz');
-            ref.watch(loadingStateProvider.notifier).update(false);
+            ref.read(loadingStateProvider.notifier).update(false);
           },
           onLongPress: () {
             longPressDialog(context, ref);
