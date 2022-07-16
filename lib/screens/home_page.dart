@@ -36,24 +36,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     Future<void>.microtask(() => _loadWordList());
-    // final Future<SharedPreferences> future =
-    //     useMemoized(SharedPreferences.getInstance);
-    // final AsyncSnapshot<SharedPreferences?> snapshot =
-    //     useFuture(future, initialData: null);
-    // final SharedPreferences? prefs = snapshot.data;
-
-    // useEffect(
-    //   () {
-    //     if (prefs == null) {
-    //       return;
-    //     }
-    //     ref.read(wordbookInfoListProvider.notifier).getWordbookList(prefs);
-    //     return;
-    //   },
-    //   <Object>[
-    //     ref.read(wordbookInfoListProvider.notifier).getWordbookList(prefs!)
-    //   ],
-    // );
 
     final AsyncValue<List<dynamic>> wordbooks =
         ref.watch(wordbookInfoListProvider);
