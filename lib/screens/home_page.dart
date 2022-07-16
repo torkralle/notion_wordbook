@@ -56,7 +56,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     // );
 
     final AsyncValue<List<dynamic>> wordbooks =
-        ref.read(wordbookInfoListProvider);
+        ref.watch(wordbookInfoListProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
