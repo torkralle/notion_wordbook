@@ -108,11 +108,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                 },
               ),
               error: (Object error, StackTrace? s) => Center(
-                child: Text(
-                  'エラーが発生しました $error',
+                child: SizedBox(
+                  height: 48,
+                  child: Text(
+                    'エラーが発生しました $error',
+                  ),
                 ),
               ),
-              loading: () => const Center(child: CircularProgressIndicator()),
+              loading: () => const Center(
+                heightFactor: 1,
+                widthFactor: 1,
+                child: SizedBox(
+                  height: 16,
+                  width: 16,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.5,
+                  ),
+                ),
+              ),
             )
           ],
         ),
