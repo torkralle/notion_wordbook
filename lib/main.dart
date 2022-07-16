@@ -13,8 +13,7 @@ import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 
 // 🌎 Project imports:
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 

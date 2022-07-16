@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:notion_wordbook/viewmodels/load_state_controller.dart';
 // 🌎 Project imports:
@@ -7,56 +8,19 @@ import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
-
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
-}
-
-class _HomePageState extends ConsumerState<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    Future<void>.microtask(() => _loadWordList());
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  Future<void> _loadWordList() async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
-    ref.read(wordbookInfoListProvider.notifier).getWordbookList(_prefs);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Future<void>.microtask(() => _loadWordList());
-    // final Future<SharedPreferences> future =
-    //     useMemoized(SharedPreferences.getInstance);
-    // final AsyncSnapshot<SharedPreferences?> snapshot =
-    //     useFuture(future, initialData: null);
-    // final SharedPreferences? prefs = snapshot.data;
-
-    // useEffect(
-    //   () {
-    //     if (prefs == null) {
-    //       return;
-    //     }
-    //     ref.read(wordbookInfoListProvider.notifier).getWordbookList(prefs);
-    //     return;
-    //   },
-    //   <Object>[
-    //     ref.read(wordbookInfoListProvider.notifier).getWordbookList(prefs!)
-    //   ],
-    // );
-
-    final AsyncValue<List<dynamic>> wordbooks =
-        ref.read(wordbookInfoListProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(
+      () {
+        ref.read(wordbookInfoListProvider.notifier).initState();
+        return null;
+      },
+      <Object>[],
+    );
+    final List<dynamic> wordbooks = ref.read(wordbookInfoListProvider);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -95,25 +59,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ),
             ),
-            wordbooks.when(
-              data: (List<dynamic> data) => ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return BookCard(
-                    index: index,
-                    wordbooks: data,
-                  );
-                },
-              ),
-              error: (Object error, StackTrace? s) => Center(
-                child: Text(
-                  'エラーが発生しました $error',
-                ),
-              ),
-              loading: () => const Center(child: CircularProgressIndicator()),
-            )
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: wordbooks.length,
+              itemBuilder: (BuildContext context, int index) {
+                return BookCard(
+                  index: index,
+                  wordbooks: wordbooks,
+                );
+              },
+            ),
           ],
         ),
       ),

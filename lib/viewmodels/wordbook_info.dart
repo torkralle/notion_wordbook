@@ -11,18 +11,22 @@ import 'package:notion_wordbook/client/words/main.dart';
 import 'package:notion_wordbook/objects/models/notion_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class WordbookInfoListViewModel
-    extends StateNotifier<AsyncValue<List<dynamic>>> {
-  WordbookInfoListViewModel()
-      : super(const AsyncValue<List<dynamic>>.data(<dynamic>[]));
+class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
+  WordbookInfoListViewModel() : super(<dynamic>[]);
 
-  void getWordbookList(SharedPreferences prefs) {
+  Future<void> initState() async {
+    await getWordbookList();
+  }
+
+  Future<void> getWordbookList() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     if (!prefs.containsKey('wordbooks')) {
       return;
     }
     List<dynamic> storedData =
         json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
-    state = AsyncValue<List<dynamic>>.data(storedData);
+    state = storedData;
   }
 
   /// リストからデータを削除する。
@@ -33,7 +37,7 @@ class WordbookInfoListViewModel
     List<dynamic> storedData =
         json.decode(prefs.getString('wordbooks')!)['wordbooks'];
     storedData.removeWhere((dynamic item) => item['api_key'] == apiKey);
-    state = AsyncValue<List<dynamic>>.data(storedData);
+    state = storedData;
     prefs.setString(
       'wordbooks',
       json.encode(<String, dynamic>{'wordbooks': storedData}),
@@ -41,13 +45,10 @@ class WordbookInfoListViewModel
   }
 }
 
-final StateNotifierProvider<WordbookInfoListViewModel,
-        AsyncValue<List<dynamic>>>
+final StateNotifierProvider<WordbookInfoListViewModel, List<dynamic>>
     wordbookInfoListProvider =
-    StateNotifierProvider<WordbookInfoListViewModel, AsyncValue<List<dynamic>>>(
-        (
-  StateNotifierProviderRef<WordbookInfoListViewModel, AsyncValue<List<dynamic>>>
-      ref,
+    StateNotifierProvider<WordbookInfoListViewModel, List<dynamic>>((
+  StateNotifierProviderRef<WordbookInfoListViewModel, List<dynamic>> ref,
 ) {
   return WordbookInfoListViewModel();
 });
