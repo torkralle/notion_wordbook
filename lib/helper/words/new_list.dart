@@ -2,7 +2,7 @@
 import 'package:notion_wordbook/helper/words/retrieve.dart';
 import 'package:notion_wordbook/objects/models/word.dart';
 
-List<Map<dynamic, dynamic>> extractWordsDataFromResponse(
+List<dynamic> extractWordsDataFromResponse(
   Map<dynamic, dynamic> response,
 ) {
   return response['results'].map((dynamic page) => page['properties']).toList();
