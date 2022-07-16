@@ -1,9 +1,7 @@
-// 🐦 Flutter imports:
-//import 'package:notion_wordbook/helper/HexColor.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:notion_wordbook/screens/learning_data_page/stat_box.dart';
 
-//import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class LearningDataPage extends StatelessWidget {
   const LearningDataPage({Key? key}) : super(key: key);
   static const titleStrs = [
@@ -16,27 +14,15 @@ class LearningDataPage extends StatelessWidget {
     '合計学習時間'
   ];
   static const unitStrs = ['日', '日', '日', '単語', '単語', '秒', '秒'];
-
   @override
   Widget build(BuildContext context) {
     //const String newmoColor = 'ffe3e3ed';
-
     //TODO: DBから取得
     var dataArr = [2, 2, 2, 19, 21, 15, 72];
-    return NeumorphicApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        baseColor: Color(0xFFFFFFFF),
-        lightSource: LightSource.topLeft,
-        depth: 10,
-      ),
-      darkTheme: const NeumorphicThemeData(
-        baseColor: Color(0xFF3E3E3E),
-        lightSource: LightSource.topLeft,
-        depth: 6,
-      ),
       home: Scaffold(
         drawer: Drawer(
           child: ListView.builder(
@@ -60,73 +46,29 @@ class LearningDataPage extends StatelessWidget {
             '学習データ',
             style: TextStyle(fontSize: 27, color: Colors.black87),
           ),
-          backgroundColor: const Color(0xffe3e3ed),
+          backgroundColor: Colors.white,
         ),
         body: Container(
+          padding: const EdgeInsets.all(16),
           alignment: Alignment.center,
-          color: const Color(0xffe3e3ed),
+          color: Colors.white,
           child: SingleChildScrollView(
-            child: Column(
-              //mainAxisSize: MainAxisSize.min,
+            child: StaggeredGrid.count(
+              crossAxisCount: 6,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
               children: [
-                Row(
-                  children: [
-                    StatBox(
+                for (int i = 0; i < 7; i++)
+                  StaggeredGridTile.count(
+                    crossAxisCellCount: (i ~/ 6 + 1) * 3,
+                    mainAxisCellCount: 2,
+                    child: StatBox(
                       isLarge: false,
-                      title: titleStrs[0],
-                      stat: dataArr[0],
-                      unit: unitStrs[0],
+                      title: titleStrs[i],
+                      stat: dataArr[i],
+                      unit: unitStrs[i],
                     ),
-                    StatBox(
-                      isLarge: false,
-                      title: titleStrs[1],
-                      stat: dataArr[1],
-                      unit: unitStrs[1],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    StatBox(
-                      isLarge: false,
-                      title: titleStrs[2],
-                      stat: dataArr[2],
-                      unit: unitStrs[2],
-                    ),
-                    StatBox(
-                      isLarge: false,
-                      title: titleStrs[3],
-                      stat: dataArr[3],
-                      unit: unitStrs[3],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    StatBox(
-                      isLarge: false,
-                      title: titleStrs[4],
-                      stat: dataArr[4],
-                      unit: unitStrs[4],
-                    ),
-                    StatBox(
-                      isLarge: false,
-                      title: titleStrs[5],
-                      stat: dataArr[5],
-                      unit: unitStrs[5],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    StatBox(
-                      isLarge: true,
-                      title: titleStrs[6],
-                      stat: dataArr[6],
-                      unit: unitStrs[6],
-                    ),
-                  ],
-                ),
+                  ),
               ],
             ),
           ),
