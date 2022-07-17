@@ -7,7 +7,7 @@ class WordChoicesViewModel extends StateNotifier<List<String>> {
 
   void setRandomChoices(int currentPage) {
     final List<String> wordChoices =
-        ref.read(wordsListProvider.notifier).getRandomWords(currentPage);
+        ref.watch(wordsListProvider.notifier).getRandomWords(currentPage);
     wordChoices.shuffle();
     state = wordChoices;
   }

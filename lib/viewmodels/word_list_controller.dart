@@ -7,13 +7,12 @@ import 'package:notion_wordbook/objects/models/notion_key.dart';
 import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
-/// [WordsListViewModel]の[state]は選択中の単語帳の中身を状態として持つ
 class WordsListViewModel extends StateNotifier<List<Word>> {
   WordsListViewModel(this.ref) : super(<Word>[]);
   Ref ref;
 
   Future<void> initState() async {
-    final WordbookInfo wordbookInfo = ref.read(wordbookInfoProvider);
+    final WordbookInfo wordbookInfo = ref.watch(wordbookInfoProvider);
     final ApiResult result =
         await getWordsData(wordbookInfo.dbID, wordbookInfo.apiKey);
     state = newWordsList(result.body!);
@@ -63,7 +62,7 @@ final StateNotifierProvider<WordsListViewModel, List<Word>> wordsListProvider =
 
 final FutureProvider<List<Word>> wordsListFutureProvider =
     FutureProvider<List<Word>>((FutureProviderRef<List<Word>> ref) async {
-  final WordbookInfo wordbookInfo = ref.read(wordbookInfoProvider);
+  final WordbookInfo wordbookInfo = ref.watch(wordbookInfoProvider);
   final ApiResult wordListResult =
       await getWordsData(wordbookInfo.dbID, wordbookInfo.apiKey);
   final List<Word> wordList = newWordsList(wordListResult.body!);

@@ -14,8 +14,8 @@ class ProgressText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int currentPage = ref.read(currentPageProvider);
-    final List<Word> wordsList = ref.read(wordsListProvider);
+    final int currentPage = ref.watch(currentPageProvider);
+    final List<Word> wordsList = ref.watch(wordsListProvider);
     final int maxPage = wordsList.length;
     return Text(
       '$currentPage / $maxPage',
