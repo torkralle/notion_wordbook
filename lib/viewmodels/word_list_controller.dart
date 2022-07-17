@@ -7,6 +7,7 @@ import 'package:notion_wordbook/objects/models/notion_key.dart';
 import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
+/// [WordsListViewModel]の[state]は選択中の単語帳の中身を状態として持つ
 class WordsListViewModel extends StateNotifier<List<Word>> {
   WordsListViewModel(this.ref) : super(<Word>[]);
   Ref ref;
