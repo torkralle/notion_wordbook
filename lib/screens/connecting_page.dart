@@ -51,8 +51,10 @@ class ConnectingPage extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 20),
                       child: InkWell(
                         onTap: () async {
-                          await launch(
-                            'https://torkralle.notion.site/Notion-Wordbook-d93132a576d846b0b3b5c10aa0c24908',
+                          await launchUrl(
+                            Uri.parse(
+                              'https://torkralle.notion.site/Notion-Wordbook-d93132a576d846b0b3b5c10aa0c24908',
+                            ),
                           );
                         },
                         child: Container(
