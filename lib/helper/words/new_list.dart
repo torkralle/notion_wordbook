@@ -16,6 +16,10 @@ List<Word> newWordsList(Map<dynamic, dynamic> response) {
           getSpelling(w),
           getCorrect(w),
           getMeaning(w),
-          getTags(w), getExampleSentence(w), getLink(w),),)
+          getTags(w),
+          getExampleSentence(w),
+          getLink(w),
+        ),
+      )
       .toList();
 }

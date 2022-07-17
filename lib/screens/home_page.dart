@@ -29,8 +29,8 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Future<void> _loadWordList() async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
-    ref.read(wordbookInfoListProvider.notifier).getWordbookList(_prefs);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    ref.read(wordbookInfoListProvider.notifier).getWordbookList(prefs);
   }
 
   @override
@@ -171,7 +171,7 @@ class BookCard extends ConsumerWidget {
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
-                  '前回正答率' + wordbooks[index]['api_key'], // TODO: api_keyを暫定的に表示
+                  '前回正答率 ${wordbooks[index]['api_key']}', // TODO: api_keyを暫定的に表示
                   style: const TextStyle(
                     fontSize: 15,
                   ),
