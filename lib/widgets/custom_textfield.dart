@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // 📦 Package imports:
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// 🌎 Project imports:
-import '../viewmodels/toggle_password.dart';
+import 'package:notion_wordbook/viewmodels/toggle_password.dart';
 
 class CustomTextField extends HookConsumerWidget {
   const CustomTextField({

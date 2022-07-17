@@ -9,8 +9,8 @@ class TestResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> _wordList = <String>['a', 'b', 'c'];
-    final List<String> _meaningList = <String>['a', 'b', 'c'];
+    final List<String> wordList = <String>['a', 'b', 'c'];
+    final List<String> meaningList = <String>['a', 'b', 'c'];
     return Scaffold(
       appBar: AppBar(
         shape: Border(
@@ -106,11 +106,11 @@ class TestResultPage extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: _wordList.length,
+                itemCount: wordList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ResultListItem(
-                    word: _wordList[index],
-                    meaning: _meaningList[index],
+                    word: wordList[index],
+                    meaning: meaningList[index],
                     isMissed: true,
                   );
                 },

@@ -14,10 +14,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HookPage extends StatefulWidget {
   const HookPage({Key? key}) : super(key: key);
   @override
-  _HookPageState createState() => _HookPageState();
+  HookPageState createState() => HookPageState();
 }
 
-class _HookPageState extends State<HookPage> {
+class HookPageState extends State<HookPage> {
   ApiResult? result;
   List<Word>? wordsList;
   int _counter = 0;

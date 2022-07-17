@@ -19,12 +19,6 @@ class ResultButton extends StatelessWidget {
         height: 50,
         child: ElevatedButton(
           onPressed: () {},
-          child: Text(
-            text,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
           style: ElevatedButton.styleFrom(
             primary: isLarge
                 ? Theme.of(context).colorScheme.secondary
@@ -35,6 +29,12 @@ class ResultButton extends StatelessWidget {
             ),
             shape: const StadiumBorder(),
             elevation: isLarge ? 5.0 : 0.0,
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
       ),

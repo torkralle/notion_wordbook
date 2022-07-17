@@ -114,7 +114,7 @@ class BookCard extends ConsumerWidget {
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 8),
                 child: Text(
-                  '前回正答率' + wordbooks[index]['api_key'], // TODO: api_keyを暫定的に表示
+                  '前回正答率 ${wordbooks[index]['api_key']}', // TODO: api_keyを暫定的に表示
                   style: Theme.of(context).textTheme.caption,
                 ),
               ),

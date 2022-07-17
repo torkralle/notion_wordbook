@@ -9,7 +9,7 @@ import 'package:notion_wordbook/core/http/main.dart';
 Future<ApiResult> getWordsData(String databaseID, String apiKey) async {
   try {
     final HttpResult response =
-        await callPostMethod(databaseID + '/query', apiKey);
+        await callPostMethod('$databaseID/query', apiKey);
 
     // 取ってきた HttpResult がエラーの可能性があるので、それを管理。
     if (response.error != null) {
