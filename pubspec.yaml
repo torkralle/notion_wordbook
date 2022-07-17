@@ -1,5 +1,6 @@
 name: notion_wordbook
-description: A client mobile app that connects to notion.so and allows you to view a wordbook.
+description: A client mobile app that connects to notion.so and allows you to
+  view a wordbook.
 publish_to: "none"
 
 version: 0.1.0+1
@@ -12,6 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.18.5+1
   flutter_riverpod: ^1.0.3
   hooks_riverpod: ^1.0.3
   http: ^0.13.4
@@ -21,12 +23,9 @@ dependencies:
   url_launcher: ^6.0.20
 
 dev_dependencies:
-  build_runner: ^2.1.7
-
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-  json_serializable: ^6.1.4
 
 flutter:
   uses-material-design: true

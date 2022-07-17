@@ -16,7 +16,7 @@ Future<HttpResult> callPostMethod(String path, String apiKey) async {
     http.Response response = await http.post(
       Uri.parse(baseURL + path),
       headers: <String, String>{
-        'Authorization': 'Bearer ' + apiKey,
+        'Authorization': 'Bearer $apiKey',
         'Notion-Version': '2021-08-16'
       },
     );

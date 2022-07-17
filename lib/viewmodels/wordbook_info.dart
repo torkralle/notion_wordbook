@@ -77,10 +77,10 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
     final String dbName = state.dbName;
 
     // 入力された DB 情報がいい感じか判定するために結果を保存したい。
-    final ApiResult _apiResult = await getWordsData(dbId, apiKey);
+    final ApiResult apiResult = await getWordsData(dbId, apiKey);
 
     // エラーがあったらエラーだよってする
-    if (_apiResult.error != null) {
+    if (apiResult.error != null) {
       return const DBStatus(
         Status.error,
         description: ErrorDescription.dbNotFoundOrConnectionError,

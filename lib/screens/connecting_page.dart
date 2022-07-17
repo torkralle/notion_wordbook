@@ -127,16 +127,16 @@ class ConnectButton extends HookConsumerWidget {
         onTap: () async {
           // ロード中だよ
           ref.read(loadingNotifierProvider.notifier).start();
-          DBStatus _dbStatus =
+          DBStatus dbStatus =
               await ref.read(wordbookInfoProvider.notifier).setDBInfo(
                     apiKeyController.text,
                     dbIDController.text,
                   );
           // ロード終わったよ
           ref.read(loadingNotifierProvider.notifier).stop();
-          if (_dbStatus.status == Status.error) {
+          if (dbStatus.status == Status.error) {
             // 連携失敗のメッセージ
-            connectionResultMessage(context, _dbStatus);
+            connectionResultMessage(context, dbStatus);
           } else {
             // 連携成功のメッセージ
             connectionResultMessage(context, null);
