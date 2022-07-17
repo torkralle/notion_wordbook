@@ -17,7 +17,7 @@ class WordBookItemPage extends HookConsumerWidget {
       },
       <Object>[],
     );
-    final List<Word> wordsList = ref.watch(wordsListProvider);
+    final List<Word> wordsList = ref.read(wordsListProvider);
 
     return Scaffold(
       appBar: AppBar(

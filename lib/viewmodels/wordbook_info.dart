@@ -11,22 +11,18 @@ import 'package:notion_wordbook/client/words/main.dart';
 import 'package:notion_wordbook/objects/models/notion_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
-  WordbookInfoListViewModel() : super(<dynamic>[]);
+class WordbookInfoListViewModel
+    extends StateNotifier<AsyncValue<List<dynamic>>> {
+  WordbookInfoListViewModel()
+      : super(const AsyncValue<List<dynamic>>.data(<dynamic>[]));
 
-  Future<void> initState() async {
-    await getWordbookList();
-  }
-
-  Future<void> getWordbookList() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
+  void getWordbookList(SharedPreferences prefs) {
     if (!prefs.containsKey('wordbooks')) {
       return;
     }
     List<dynamic> storedData =
         json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
-    state = storedData;
+    state = AsyncValue<List<dynamic>>.data(storedData);
   }
 
   /// リストからデータを削除する。
@@ -37,7 +33,7 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
     List<dynamic> storedData =
         json.decode(prefs.getString('wordbooks')!)['wordbooks'];
     storedData.removeWhere((dynamic item) => item['api_key'] == apiKey);
-    state = storedData;
+    state = AsyncValue<List<dynamic>>.data(storedData);
     prefs.setString(
       'wordbooks',
       json.encode(<String, dynamic>{'wordbooks': storedData}),
@@ -45,10 +41,13 @@ class WordbookInfoListViewModel extends StateNotifier<List<dynamic>> {
   }
 }
 
-final StateNotifierProvider<WordbookInfoListViewModel, List<dynamic>>
+final StateNotifierProvider<WordbookInfoListViewModel,
+        AsyncValue<List<dynamic>>>
     wordbookInfoListProvider =
-    StateNotifierProvider<WordbookInfoListViewModel, List<dynamic>>((
-  StateNotifierProviderRef<WordbookInfoListViewModel, List<dynamic>> ref,
+    StateNotifierProvider<WordbookInfoListViewModel, AsyncValue<List<dynamic>>>(
+        (
+  StateNotifierProviderRef<WordbookInfoListViewModel, AsyncValue<List<dynamic>>>
+      ref,
 ) {
   return WordbookInfoListViewModel();
 });
