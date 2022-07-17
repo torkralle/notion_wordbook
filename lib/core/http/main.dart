@@ -1,9 +1,7 @@
 // 📦 Package imports:
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-const baseURL = 'https://api.notion.com/v1/databases/';
-var secretKey = dotenv.env['API_KEY'];
+const String baseURL = 'https://api.notion.com/v1/databases/';
 
 Future<HttpResult> callGetMethod(String url) async {
   try {
@@ -13,14 +11,21 @@ Future<HttpResult> callGetMethod(String url) async {
   }
 }
 
-Future<HttpResult> callPostMethod(String path) async {
+Future<HttpResult> callPostMethod(String path, String apiKey) async {
   try {
-    http.Response response = await http.post(Uri.parse(baseURL + path),
-        headers: {
-          'Authorization': 'Bearer ' + secretKey!,
-          'Notion-Version': '2021-08-16'
-        },);
-    return HttpResult.success(response);
+    http.Response response = await http.post(
+      Uri.parse(baseURL + path),
+      headers: <String, String>{
+        'Authorization': 'Bearer $apiKey',
+        'Notion-Version': '2021-08-16'
+      },
+    );
+    // statusCode で判定しないとエラーかがわからないので管理。
+    if (response.statusCode == 200) {
+      return HttpResult.success(response);
+    } else {
+      return HttpResult.failure(response.statusCode);
+    }
   } catch (e) {
     return HttpResult.failure(e);
   }
@@ -29,6 +34,6 @@ Future<HttpResult> callPostMethod(String path) async {
 class HttpResult {
   final http.Response? response;
   final Object? error;
-  HttpResult.success([this.response, this.error]);
-  HttpResult.failure([this.error, this.response]);
+  HttpResult.success(this.response, {this.error});
+  HttpResult.failure(this.error, {this.response});
 }

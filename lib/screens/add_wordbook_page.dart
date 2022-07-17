@@ -1,10 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:notion_wordbook/objects/models/notion_key.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/custom_button.dart';
@@ -14,19 +13,18 @@ import 'package:notion_wordbook/widgets/header.dart';
 class AddWordbookPage extends HookConsumerWidget {
   AddWordbookPage({Key? key}) : super(key: key);
 
-  final _focusNode = FocusNode();
-  final dbNameController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  final TextEditingController dbNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dbName = ref.watch(wordbookInfoProvider);
+    final WordbookInfo db = ref.watch(wordbookInfoProvider);
     useEffect(
       () {
-        dbNameController.text =
-            ref.read(wordbookInfoProvider.notifier).getDBName();
+        dbNameController.text = db.dbName;
         return null;
       },
-      [dbName],
+      <WordbookInfo>[db],
     );
     return Focus(
       focusNode: _focusNode,
@@ -41,7 +39,7 @@ class AddWordbookPage extends HookConsumerWidget {
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 80, horizontal: 30),
               child: Column(
-                children: [
+                children: <Widget>[
                   CustomTextField(
                     labelName: '新しく追加する\n単語帳名を入力',
                     controller: dbNameController,

@@ -4,17 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
+import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 
 class AnswerCandidateCard extends ConsumerWidget {
   const AnswerCandidateCard({
     Key? key,
     required this.index,
+    required this.maxPage,
+    required this.currentPage,
     required this.word,
     // required this.isCorrect,
   }) : super(key: key);
 
   final int index;
   final List<String> word;
+  final int maxPage;
+  final int currentPage;
   // final bool isCorrect;
 
   @override
@@ -36,6 +41,8 @@ class AnswerCandidateCard extends ConsumerWidget {
         child: InkWell(
           onTap: () {
             ref.read(currentPageProvider.notifier).pageCount();
+            final int nextPage = currentPage + 1;
+            ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
             Navigator.of(context).pushNamed('/quiz');
           },
           child: ListTile(
