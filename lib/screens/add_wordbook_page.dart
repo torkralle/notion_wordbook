@@ -18,7 +18,7 @@ class AddWordbookPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final WordbookInfo db = ref.read(wordbookInfoProvider);
+    final WordbookInfo db = ref.watch(wordbookInfoProvider);
     useEffect(
       () {
         dbNameController.text = db.dbName;

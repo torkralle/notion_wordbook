@@ -12,7 +12,7 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
   Ref ref;
 
   Future<void> initState() async {
-    final WordbookInfo wordbookInfo = ref.read(wordbookInfoProvider);
+    final WordbookInfo wordbookInfo = ref.watch(wordbookInfoProvider);
     final ApiResult result =
         await getWordsData(wordbookInfo.dbID, wordbookInfo.apiKey);
     state = newWordsList(result.body!);
@@ -62,7 +62,7 @@ final StateNotifierProvider<WordsListViewModel, List<Word>> wordsListProvider =
 
 final FutureProvider<List<Word>> wordsListFutureProvider =
     FutureProvider<List<Word>>((FutureProviderRef<List<Word>> ref) async {
-  final WordbookInfo wordbookInfo = ref.read(wordbookInfoProvider);
+  final WordbookInfo wordbookInfo = ref.watch(wordbookInfoProvider);
   final ApiResult wordListResult =
       await getWordsData(wordbookInfo.dbID, wordbookInfo.apiKey);
   final List<Word> wordList = newWordsList(wordListResult.body!);
