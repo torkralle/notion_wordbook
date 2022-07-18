@@ -110,7 +110,7 @@ class ConnectingPage extends StatelessWidget {
       );
 }
 
-class ConnectButton extends HookConsumerWidget {
+class ConnectButton extends ConsumerStatefulWidget {
   const ConnectButton({
     Key? key,
     required this.apiKeyController,
@@ -119,7 +119,12 @@ class ConnectButton extends HookConsumerWidget {
   final TextEditingController apiKeyController, dbIDController;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _ConnectButtonState();
+}
+
+class _ConnectButtonState extends ConsumerState<ConnectButton> {
+  @override
+  Widget build(BuildContext context) {
     return AbsorbPointer(
       // ローディング中はボタンタップを無効化する
       absorbing: ref.watch(loadingNotifierProvider),
@@ -129,17 +134,20 @@ class ConnectButton extends HookConsumerWidget {
           ref.read(loadingNotifierProvider.notifier).start();
           DBStatus dbStatus =
               await ref.read(wordbookInfoProvider.notifier).setDBInfo(
-                    apiKeyController.text,
-                    dbIDController.text,
+                    widget.apiKeyController.text,
+                    widget.dbIDController.text,
                   );
           // ロード終わったよ
           ref.read(loadingNotifierProvider.notifier).stop();
           if (dbStatus.status == Status.error) {
             // 連携失敗のメッセージ
-            connectionResultMessage(context, dbStatus);
+            connectionResultMessage(dbStatus);
           } else {
             // 連携成功のメッセージ
-            connectionResultMessage(context, null);
+            connectionResultMessage(null);
+
+            /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
+            if (!mounted) return;
             Navigator.of(context).popUntil(ModalRoute.withName('/'));
             // ページ遷移につき初期化することで次回の入力の時にデータが残っていることを防ぐ。
             ref.read(wordbookInfoProvider.notifier).updateDBInfo('', '', '');
@@ -152,7 +160,9 @@ class ConnectButton extends HookConsumerWidget {
     );
   }
 
-  void connectionResultMessage(BuildContext context, DBStatus? dbStatus) {
+  void connectionResultMessage(DBStatus? dbStatus) {
+    /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: dbStatus != null

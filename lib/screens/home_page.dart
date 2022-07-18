@@ -116,18 +116,23 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 }
 
-class BookCard extends ConsumerWidget {
+class BookCard extends ConsumerStatefulWidget {
   const BookCard({
     Key? key,
     required this.index,
     required this.wordbooks,
   }) : super(key: key);
 
-  final int index;
+final int index;
   final List<dynamic> wordbooks;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _BookCardState();
+}
+
+class _BookCardState extends ConsumerState<BookCard> {
+  @override
+  Widget build(BuildContext context) {
     if (ref.read(loadingStateProvider)) {
       return const CircularProgressIndicator();
     } else {
@@ -146,13 +151,15 @@ class BookCard extends ConsumerWidget {
             ref.read(loadingStateProvider.notifier).update(true);
             ref.read(maxPageProvider.notifier).getListLength();
             ref.read(wordbookInfoProvider.notifier).updateDBInfo(
-                  wordbooks[index]['db_name'],
-                  wordbooks[index]['api_key'],
-                  wordbooks[index]['db_id'],
+                  widget.wordbooks[widget.index]['db_name'],
+                  widget.wordbooks[widget.index]['api_key'],
+                  widget.wordbooks[widget.index]['db_id'],
                 );
             await ref.read(wordsListProvider.notifier).initState();
             const int firstPage = 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
+            /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
+            if (!mounted) return;
             Navigator.of(context).pushNamed('/quiz');
             ref.read(loadingStateProvider.notifier).update(false);
           },
@@ -163,7 +170,7 @@ class BookCard extends ConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               title: Text(
-                wordbooks[index]['db_name'],
+                widget.wordbooks[widget.index]['db_name'],
                 style: const TextStyle(
                   fontSize: 19,
                 ),
@@ -171,7 +178,7 @@ class BookCard extends ConsumerWidget {
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 5),
                 child: Text(
-                  '前回正答率 ${wordbooks[index]['api_key']}', // TODO: api_keyを暫定的に表示
+                  '前回正答率 ${widget.wordbooks[widget.index]['api_key']}', // TODO: api_keyを暫定的に表示
                   style: const TextStyle(
                     fontSize: 15,
                   ),
@@ -188,9 +195,9 @@ class BookCard extends ConsumerWidget {
               trailing: InkWell(
                 onTap: () {
                   ref.read(wordbookInfoProvider.notifier).updateDBInfo(
-                        wordbooks[index]['db_name'],
-                        wordbooks[index]['api_key'],
-                        wordbooks[index]['db_id'],
+                        widget.wordbooks[widget.index]['db_name'],
+                        widget.wordbooks[widget.index]['api_key'],
+                        widget.wordbooks[widget.index]['db_id'],
                       );
                   Navigator.of(context).pushNamed('/wordbook_item');
                 },
@@ -209,7 +216,7 @@ class BookCard extends ConsumerWidget {
       builder: (BuildContext context) {
         return SimpleDialog(
           title: Text(
-            wordbooks[index]['db_name'],
+            widget.wordbooks[widget.index]['db_name'],
             style: const TextStyle(
               fontSize: 27,
             ),
@@ -228,7 +235,7 @@ class BookCard extends ConsumerWidget {
                 Navigator.pop(context);
                 await ref
                     .read(wordbookInfoListProvider.notifier)
-                    .removeFromList(wordbooks[index]['api_key']);
+                    .removeFromList(widget.wordbooks[widget.index]['api_key']);
               },
               child: const Text(
                 '削除',
