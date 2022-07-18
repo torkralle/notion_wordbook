@@ -14,7 +14,8 @@ import 'package:notion_wordbook/widgets/themes_data.dart';
 
 // 🌎 Project imports:
 
-void main() async {
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 
