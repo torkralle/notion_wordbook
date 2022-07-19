@@ -156,6 +156,7 @@ class _BookCardState extends ConsumerState<BookCard> {
                   widget.wordbooks[widget.index]['db_id'],
                 );
             await ref.read(wordsListProvider.notifier).initState();
+            ref.read(currentPageProvider.notifier).initState();
             const int firstPage = 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
             /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
