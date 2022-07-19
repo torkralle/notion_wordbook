@@ -5,8 +5,10 @@ abstract class EnumHelper<T> {
   T valueOf(String value) {
     return values().firstWhere(
       (T item) {
-      return name(item) == value;
-    }, orElse: () => null as T,);
+        return name(item) == value;
+      },
+      orElse: () => null as T,
+    );
   }
 
   String? name(T enumValue) {
