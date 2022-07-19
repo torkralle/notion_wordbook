@@ -8,6 +8,7 @@ import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/padding.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
