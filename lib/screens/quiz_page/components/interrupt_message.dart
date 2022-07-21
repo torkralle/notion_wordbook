@@ -13,21 +13,18 @@ class InterruptMessage extends StatelessWidget {
           Radius.circular(15),
         ),
       ),
-      title: const Text(
+      title: Text(
         '中断',
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       content: Container(
         padding: const EdgeInsets.only(bottom: 20),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
               width: 1,
-              color: Color.fromARGB(255, 192, 192, 192),
+              color: Theme.of(context).colorScheme.background,
             ),
           ),
         ),
@@ -63,12 +60,12 @@ class InterruptMessage extends StatelessWidget {
             right: 20,
           ),
           child: TextButton(
-            child: const Text(
+            child: Text(
               '中断する',
               style: TextStyle(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 255, 64, 0),
+                color: Theme.of(context).colorScheme.error,
               ),
             ),
             onPressed: () => Navigator.pushNamedAndRemoveUntil(

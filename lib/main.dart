@@ -10,6 +10,7 @@ import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart'
 import 'package:notion_wordbook/screens/quiz_page/quiz_page.dart';
 import 'package:notion_wordbook/screens/wordbook_item_page.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
+import 'package:notion_wordbook/widgets/themes_data.dart';
 
 // 🌎 Project imports:
 
@@ -34,9 +35,7 @@ class MyApp extends StatelessWidget {
         '/progress_text': (BuildContext context) => const ProgressText(),
       },
       title: 'Navigation',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: notionWordbookTheme,
     );
   }
 }

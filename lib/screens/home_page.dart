@@ -7,6 +7,7 @@ import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
+import 'package:notion_wordbook/widgets/padding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -41,38 +42,27 @@ class _HomePageState extends ConsumerState<HomePage> {
         ref.watch(wordbookInfoListProvider);
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 80,
-        elevation: 10,
-        title: const Text(
-          '単語帳一覧',
-          style: TextStyle(
-            fontSize: 27,
-          ),
-        ),
-        backgroundColor: Colors.purple[800],
+        title: const Text('単語帳一覧'),
       ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 40, bottom: 30),
+              padding: topPadding,
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).pushNamed('/add_wordbook');
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 90,
+                    vertical: 16,
+                    horizontal: 88,
                   ),
                   color: const Color.fromARGB(255, 233, 225, 240),
-                  child: const Text(
+                  child: Text(
                     '単語帳を追加',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
               ),
@@ -123,7 +113,7 @@ class BookCard extends ConsumerStatefulWidget {
     required this.wordbooks,
   }) : super(key: key);
 
-final int index;
+  final int index;
   final List<dynamic> wordbooks;
 
   @override
@@ -137,12 +127,6 @@ class _BookCardState extends ConsumerState<BookCard> {
       return const CircularProgressIndicator();
     } else {
       return Card(
-        margin: const EdgeInsets.symmetric(
-          vertical: 7,
-          horizontal: 20,
-        ),
-        elevation: 2,
-        color: const Color.fromARGB(234, 250, 241, 252),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -158,6 +142,7 @@ class _BookCardState extends ConsumerState<BookCard> {
             await ref.read(wordsListProvider.notifier).initState();
             const int firstPage = 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
+
             /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
             if (!mounted) return;
             Navigator.of(context).pushNamed('/quiz');
@@ -167,29 +152,25 @@ class _BookCardState extends ConsumerState<BookCard> {
             longPressDialog(context, ref);
           },
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: smallPadding,
             child: ListTile(
               title: Text(
                 widget.wordbooks[widget.index]['db_name'],
-                style: const TextStyle(
-                  fontSize: 19,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               subtitle: Padding(
-                padding: const EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.only(top: 8),
                 child: Text(
                   '前回正答率 ${widget.wordbooks[widget.index]['api_key']}', // TODO: api_keyを暫定的に表示
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
+                  style: Theme.of(context).textTheme.caption,
                 ),
               ),
               leading: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12.0),
+                padding: EdgeInsets.symmetric(vertical: 16.0),
                 child: Icon(
                   Icons.circle_sharp,
                   color: Colors.white,
-                  size: 20,
+                  size: 24,
                 ),
               ),
               trailing: InkWell(
@@ -217,9 +198,7 @@ class _BookCardState extends ConsumerState<BookCard> {
         return SimpleDialog(
           title: Text(
             widget.wordbooks[widget.index]['db_name'],
-            style: const TextStyle(
-              fontSize: 27,
-            ),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           children: <Widget>[
             // コンテンツ領域

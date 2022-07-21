@@ -31,7 +31,6 @@ class AnswerCandidateCard extends ConsumerWidget {
           vertical: 7,
           horizontal: 40,
         ),
-        elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
           side: const BorderSide(
@@ -48,9 +47,7 @@ class AnswerCandidateCard extends ConsumerWidget {
           child: ListTile(
             title: Text(
               word[index],
-              style: const TextStyle(
-                fontSize: 22,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             leading: Padding(
               padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 6),
