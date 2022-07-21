@@ -18,13 +18,13 @@ class QuizPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Word> wordsList = ref.watch(wordsListProvider);
-    final int currentPage = ref.watch(currentPageProvider);
+    final List<Word> wordsList = ref.read(wordsListProvider);
+    final int currentPage = ref.read(currentPageProvider);
     // 正誤判定に使う
     // ignore: unused_local_variable
     final Word answerWord = wordsList[currentPage - 1];
     final int maxPage = wordsList.length;
-    final List<String> word = ref.watch(wordChoicesProvider);
+    final List<String> word = ref.read(wordChoicesProvider);
     if (ref.watch(loadingStateProvider)) {
       return const CircularProgressIndicator();
     } else {
