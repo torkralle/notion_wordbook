@@ -70,3 +70,19 @@ final FutureProvider<List<Word>> wordsListFutureProvider =
 
   return wordList;
 });
+
+class PreviousCorrectCountNotifier extends StateNotifier<int> {
+  PreviousCorrectCountNotifier() : super(0);
+
+  void init(WidgetRef ref) {
+    final List<Word> wordList = ref.read(wordsListProvider);
+    state = wordList.where((Word word) => word.correct == true).length;
+  }
+}
+
+final StateNotifierProvider<PreviousCorrectCountNotifier, int>
+    previousCorrectCountProvider =
+    StateNotifierProvider<PreviousCorrectCountNotifier, int>(
+  (StateNotifierProviderRef<PreviousCorrectCountNotifier, int> ref) =>
+      PreviousCorrectCountNotifier(),
+);

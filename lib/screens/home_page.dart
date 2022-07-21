@@ -123,7 +123,7 @@ class BookCard extends ConsumerStatefulWidget {
     required this.wordbooks,
   }) : super(key: key);
 
-final int index;
+  final int index;
   final List<dynamic> wordbooks;
 
   @override
@@ -156,9 +156,12 @@ class _BookCardState extends ConsumerState<BookCard> {
                   widget.wordbooks[widget.index]['db_id'],
                 );
             await ref.read(wordsListProvider.notifier).initState();
+            /// Set the number of words correct in the previous session.
+            ref.read(previousCorrectCountProvider.notifier).init(ref);
             ref.read(currentPageProvider.notifier).initState();
             const int firstPage = 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
+
             /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
             if (!mounted) return;
             Navigator.of(context).pushNamed('/quiz');

@@ -1,16 +1,20 @@
 // 🐦 Flutter imports:
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/screens/test_result/components/result_button.dart';
 import 'package:notion_wordbook/screens/test_result/components/result_list_item.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
-class TestResultPage extends StatelessWidget {
+class TestResultPage extends ConsumerWidget {
   const TestResultPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final List<String> wordList = <String>['a', 'b', 'c'];
-    final List<String> meaningList = <String>['a', 'b', 'c'];
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<Word> wordList = ref.read(wordsListProvider);
+    final int correctCount =
+        wordList.where((Word word) => word.correct == true).length;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -56,24 +60,24 @@ class TestResultPage extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 top: 5.0,
               ),
               child: Text(
-                '2→12単語',
-                style: TextStyle(
+                '${ref.read(previousCorrectCountProvider)}→$correctCount単語',
+                style: const TextStyle(
                   fontSize: 20,
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 top: 30,
               ),
               child: Text(
-                '10/10',
-                style: TextStyle(
+                '$correctCount/${wordList.length}',
+                style: const TextStyle(
                   fontSize: 60,
                 ),
               ),
@@ -121,8 +125,8 @@ class TestResultPage extends StatelessWidget {
                 itemCount: wordList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ResultListItem(
-                    word: wordList[index],
-                    meaning: meaningList[index],
+                    word: wordList[index].spelling,
+                    meaning: wordList[index].meaning ?? '',
                     isMissed: true,
                   );
                 },
