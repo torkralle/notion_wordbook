@@ -89,6 +89,7 @@ class TestResultPage extends ConsumerWidget {
               child: ResultButton(
                 text: 'もう一回テストする！',
                 isLarge: true,
+                onPressed: ButtonFunction.testAgain,
               ),
             ),
             Row(
@@ -97,10 +98,12 @@ class TestResultPage extends ConsumerWidget {
                 ResultButton(
                   text: '間違えた単語',
                   isLarge: false,
+                  onPressed: ButtonFunction.showMissedOnly,
                 ),
                 ResultButton(
-                  text: '次の単語！',
+                  text: '次の単語帳！',
                   isLarge: false,
+                  onPressed: ButtonFunction.nextBook,
                 ),
               ],
             ),
