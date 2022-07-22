@@ -44,7 +44,7 @@ class ResultButton extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
             primary: isLarge
-                ? const Color.fromARGB(255, 255, 247, 254)
+                ? Theme.of(context).colorScheme.secondary
                 : Colors.white,
             side: const BorderSide(
               color: Colors.black,
@@ -55,8 +55,8 @@ class ResultButton extends StatelessWidget {
           ),
           child: Text(
             text,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 119, 0, 255),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),

@@ -17,10 +17,9 @@ class TestResultPage extends ConsumerWidget {
         wordList.where((Word word) => word.correct == true).length;
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 80,
-        shape: const Border(
+        shape: Border(
           bottom: BorderSide(
-            color: Color.fromARGB(255, 226, 226, 226),
+            color: Theme.of(context).colorScheme.outline,
             width: 1.0,
           ),
         ),
@@ -38,26 +37,21 @@ class TestResultPage extends ConsumerWidget {
           ),
         ),
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'テスト結果',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 27,
-          ),
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
       body: Center(
         child: Column(
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 top: 30,
               ),
               child: Text(
                 '本日の総学習単語',
-                style: TextStyle(
-                  fontSize: 17,
-                ),
+                style: Theme.of(context).textTheme.displaySmall,
               ),
             ),
             Padding(
@@ -66,9 +60,7 @@ class TestResultPage extends ConsumerWidget {
               ),
               child: Text(
                 '${ref.read(previousCorrectCountProvider)}→$correctCount単語',
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
+                style: Theme.of(context).textTheme.displayMedium,
               ),
             ),
             Padding(
@@ -77,9 +69,7 @@ class TestResultPage extends ConsumerWidget {
               ),
               child: Text(
                 '$correctCount/${wordList.length}',
-                style: const TextStyle(
-                  fontSize: 60,
-                ),
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
             const Padding(
@@ -110,15 +100,13 @@ class TestResultPage extends ConsumerWidget {
             Container(
               margin: const EdgeInsets.only(top: 30),
               width: double.infinity,
-              color: const Color.fromARGB(255, 247, 238, 255),
-              child: const Padding(
-                padding: EdgeInsets.all(20),
+              color: Theme.of(context).colorScheme.secondary,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
                 child: Text(
                   '結果詳細',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
             ),

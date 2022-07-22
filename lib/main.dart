@@ -11,6 +11,7 @@ import 'package:notion_wordbook/screens/quiz_page/quiz_page.dart';
 import 'package:notion_wordbook/screens/test_result/test_result_page.dart';
 import 'package:notion_wordbook/screens/wordbook_item_page.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
+import 'package:notion_wordbook/widgets/themes_data.dart';
 
 // 🌎 Project imports:
 
@@ -36,9 +37,7 @@ class MyApp extends StatelessWidget {
         '/result': (BuildContext context) => const TestResultPage(),
       },
       title: 'Navigation',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: notionWordbookTheme,
     );
   }
 }

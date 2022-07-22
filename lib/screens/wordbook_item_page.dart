@@ -21,15 +21,7 @@ class WordBookItemPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 80,
-        title: const Text(
-          '単語帳',
-          style: TextStyle(
-            fontSize: 27,
-          ),
-        ),
-        backgroundColor: Colors.purple[800],
+        title: const Text('単語帳'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -61,31 +53,18 @@ class WordCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(
-        vertical: 7,
-        horizontal: 20,
-      ),
-      elevation: 2,
-      color: const Color.fromARGB(234, 250, 241, 252),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
           title: Text(
             words[index].spelling,
-            style: const TextStyle(
-              fontSize: 23,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text(
               words[index].meaning ?? '',
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: Theme.of(context).textTheme.displaySmall,
             ),
           ),
           leading: const Padding(

@@ -19,11 +19,7 @@ class ProgressText extends ConsumerWidget {
     final int maxPage = wordsList.length;
     return Text(
       '$currentPage / $maxPage',
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-        color: Color.fromARGB(255, 103, 20, 134),
-      ),
+      style: Theme.of(context).textTheme.titleLarge,
     );
   }
 }

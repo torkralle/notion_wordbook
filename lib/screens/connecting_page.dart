@@ -7,7 +7,6 @@ import 'package:notion_wordbook/viewmodels/loading_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/custom_button.dart';
 import 'package:notion_wordbook/widgets/custom_textfield.dart';
-import 'package:notion_wordbook/widgets/header.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConnectingPage extends StatelessWidget {
@@ -24,8 +23,8 @@ class ConnectingPage extends StatelessWidget {
           onTap: _focusNode.requestFocus,
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: const HeaderBar(
-              title: 'Notionと連携',
+            appBar: AppBar(
+              title: const Text('Notionと連携'),
             ),
             body: SingleChildScrollView(
               child: Container(
@@ -62,18 +61,17 @@ class ConnectingPage extends StatelessWidget {
                             vertical: 20,
                             horizontal: 20,
                           ),
-                          color: const Color.fromARGB(255, 233, 225, 240),
+                          color: Theme.of(context).colorScheme.surface,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Flexible(
                                 child: RichText(
-                                  text: const TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
-                                    children: <InlineSpan>[
+                                  text: TextSpan(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall,
+                                    children: const <InlineSpan>[
                                       TextSpan(
                                         text: 'API',
                                         style: TextStyle(
@@ -92,9 +90,9 @@ class ConnectingPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const Icon(
+                              Icon(
                                 Icons.launch_outlined,
-                                color: Color.fromARGB(141, 0, 0, 0),
+                                color: Theme.of(context).colorScheme.onSurface,
                               )
                             ],
                           ),
