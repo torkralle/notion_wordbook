@@ -45,6 +45,7 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
         child: InkWell(
           onTap: () async {
             if (widget.currentPage >= widget.maxPage) {
+              // ここで今までのセッションで学んだ単語数をロードする。
               await ref.read(wordsLearnedProvider.notifier).loadState();
               if (!mounted) return;
               Navigator.of(context).pushNamed('/result');
