@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notion_wordbook/screens/quiz_page/components/interrupt_message.dart';
+import 'package:notion_wordbook/viewmodels/result_detail_mode_controller.dart';
 
-class ResultButton extends StatelessWidget {
+class ResultButton extends ConsumerWidget {
   const ResultButton({
     Key? key,
     required this.text,
@@ -20,11 +23,33 @@ class ResultButton extends StatelessWidget {
     );
   }
 
-  void showMissedOnly() {}
-  void nextBook() {}
+  void showMissedOnly(WidgetRef ref) {
+    ref
+        .read(resultListModeProvider.notifier)
+        .update(((ResultListMode state) => state = ResultListMode.incorrect));
+  }
+
+  void showAll(WidgetRef ref) {
+    ref
+        .read(resultListModeProvider.notifier)
+        .update((ResultListMode state) => state = ResultListMode.all);
+  }
+
+  void nextBook(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return const InterruptMessage(
+          title: '終了する',
+          message: 'セッションを終了しますか？',
+          closeMessage: '閉じる',
+        );
+      },
+    );
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: SizedBox(
@@ -36,10 +61,13 @@ class ResultButton extends StatelessWidget {
               return testAgain(context);
             }
             if (onPressed == ButtonFunction.showMissedOnly) {
-              return showMissedOnly();
+              return showMissedOnly(ref);
+            }
+            if (onPressed == ButtonFunction.showAll) {
+              return showAll(ref);
             }
             if (onPressed == ButtonFunction.nextBook) {
-              return nextBook();
+              return nextBook(context);
             }
           },
           style: ElevatedButton.styleFrom(
@@ -68,5 +96,6 @@ class ResultButton extends StatelessWidget {
 enum ButtonFunction {
   testAgain,
   showMissedOnly,
+  showAll,
   nextBook,
 }

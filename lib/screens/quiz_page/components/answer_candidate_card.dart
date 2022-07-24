@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/words_learned_controller.dart';
 
 class AnswerCandidateCard extends ConsumerStatefulWidget {
@@ -45,8 +47,11 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
         child: InkWell(
           onTap: () async {
             if (widget.currentPage >= widget.maxPage) {
-              // ここで今までのセッションで学んだ単語数をロードする。
-              await ref.read(wordsLearnedProvider.notifier).loadState();
+              final List<Word> wordList = ref.read(wordsListProvider);
+              // ここで学んだ単語数をロードする。
+              await ref
+                  .read(wordsLearnedProvider.notifier)
+                  .update(wordList.length);
               if (!mounted) return;
               Navigator.of(context).pushNamed('/result');
               return;
