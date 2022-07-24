@@ -10,11 +10,12 @@ import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart'
 import 'package:notion_wordbook/screens/quiz_page/quiz_page.dart';
 import 'package:notion_wordbook/screens/wordbook_item_page.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
+import 'package:notion_wordbook/widgets/themes_data.dart';
 
 // 🌎 Project imports:
 
-
-void main() async {
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -24,19 +25,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/',
-      routes: {
-        '/': (context) => const NavigatedPages(),
-        '/home': (context) => const HomePage(),
-        '/connecting': (context) => ConnectingPage(),
-        '/add_wordbook': (context) => AddWordbookPage(),
-        '/wordbook_item': (context) => WordBookItemPage(),
-        '/quiz': (context) => QuizPage(),
-        '/progress_text': (context) => const ProgressText(),
+      routes: <String, Widget Function(BuildContext)>{
+        '/': (BuildContext context) => const NavigatedPages(),
+        '/home': (BuildContext context) => const HomePage(),
+        '/connecting': (BuildContext context) => ConnectingPage(),
+        '/add_wordbook': (BuildContext context) => AddWordbookPage(),
+        '/wordbook_item': (BuildContext context) => const WordBookItemPage(),
+        '/quiz': (BuildContext context) => const QuizPage(),
+        '/progress_text': (BuildContext context) => const ProgressText(),
       },
       title: 'Navigation',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: notionWordbookTheme,
     );
   }
 }

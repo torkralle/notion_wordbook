@@ -7,7 +7,9 @@ class ObscuritySwitchViewModel extends StateNotifier<bool> {
   void switchVisibility() => state = !state;
 }
 
-final obscuritySwitchProvider =
-    StateNotifierProvider<ObscuritySwitchViewModel, bool>((ref) {
+final StateNotifierProvider<ObscuritySwitchViewModel, bool>
+    obscuritySwitchProvider =
+    StateNotifierProvider<ObscuritySwitchViewModel, bool>(
+        (StateNotifierProviderRef<ObscuritySwitchViewModel, bool> ref) {
   return ObscuritySwitchViewModel();
 });

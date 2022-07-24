@@ -1,20 +1,34 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/quiz_page/components/answer_candidate_card.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/definition_text.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/interrupt_message.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/progress_bar.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart';
+import 'package:notion_wordbook/viewmodels/load_state_controller.dart';
+import 'package:notion_wordbook/viewmodels/page_controllers.dart';
+import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
-class QuizPage extends StatelessWidget {
-  QuizPage({Key? key}) : super(key: key);
-
-  final word = <String>['refreshment', 'municipal', 'refill', 'premise'];
+class QuizPage extends HookConsumerWidget {
+  const QuizPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<Word> wordsList = ref.read(wordsListProvider);
+    final int currentPage = ref.read(currentPageProvider);
+    // 正誤判定に使う
+    // ignore: unused_local_variable
+    final Word answerWord = wordsList[currentPage - 1];
+    final int maxPage = wordsList.length;
+    final List<String> word = ref.read(wordChoicesProvider);
+    if (ref.watch(loadingStateProvider)) {
+      return const CircularProgressIndicator();
+    } else {
+      return Scaffold(
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.only(left: 10),
@@ -42,7 +56,7 @@ class QuizPage extends StatelessWidget {
           margin: const EdgeInsets.only(right: 20, left: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               const Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: ProgressText(),
@@ -51,11 +65,17 @@ class QuizPage extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 90, right: 60, left: 60),
                 child: DefinitionText(),
               ),
-              ChoiceList(word: word),
+              ChoiceList(
+                word: word,
+                currentPage: currentPage,
+                maxPage: maxPage,
+              ),
             ],
           ),
         ),
       );
+    }
+  }
 
   Future<dynamic> pause(BuildContext context) {
     return showDialog(
@@ -71,9 +91,13 @@ class ChoiceList extends StatelessWidget {
   const ChoiceList({
     Key? key,
     required this.word,
+    required this.currentPage,
+    required this.maxPage,
   }) : super(key: key);
 
   final List<String> word;
+  final int maxPage;
+  final int currentPage;
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +106,12 @@ class ChoiceList extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: 4,
-        itemBuilder: (BuildContext context, index) {
+        itemBuilder: (BuildContext context, int index) {
           return AnswerCandidateCard(
             index: index,
             word: word,
+            maxPage: maxPage,
+            currentPage: currentPage,
             // isCorrect: true,
           );
         },

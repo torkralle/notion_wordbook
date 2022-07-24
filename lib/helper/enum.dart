@@ -3,9 +3,12 @@ abstract class EnumHelper<T> {
   List<T> values();
 
   T valueOf(String value) {
-    return values().firstWhere((item) {
-      return name(item) == value;
-    }, orElse: () => null as T,);
+    return values().firstWhere(
+      (T item) {
+        return name(item) == value;
+      },
+      orElse: () => null as T,
+    );
   }
 
   String? name(T enumValue) {
