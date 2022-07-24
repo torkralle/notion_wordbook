@@ -28,39 +28,40 @@ class ResultListItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  word,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 5.0,
-                  ),
-                  child: Text(
-                    meaning,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    word,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                     ),
                   ),
-                ),
-              ],
-            ),
-            Column(
-              children: <Widget>[
-                Text(
-                  isMissed ? 'MISS!!' : 'OK!',
-                  style: TextStyle(
-                    color: isMissed
-                        ? const Color.fromRGBO(160, 0, 0, 1)
-                        : const Color.fromARGB(255, 119, 0, 255),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 5.0,
+                    ),
+                    child: Text(
+                      meaning,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            Text(
+              isMissed ? 'MISS!!' : 'OK!',
+              style: TextStyle(
+                color: isMissed
+                    ? const Color.fromRGBO(160, 0, 0, 1)
+                    : const Color.fromARGB(255, 119, 0, 255),
+              ),
             ),
           ],
         ),
