@@ -18,61 +18,61 @@ class LearningDataPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //const String newmoColor = 'ffe3e3ed';
     //TODO: DBから取得
-    var dataArr = [2, 2, 2, 19, 21, 15, 72];
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      themeMode: ThemeMode.light,
-      home: Scaffold(
-        drawer: Drawer(
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(
-                  'ハンバーガー $index',
-                  style: const TextStyle(color: Colors.black87),
-                ),
-              );
-            },
-          ),
+    var dataArr = [3, 2, 2, 19, 21, 15, 72];
+    return Scaffold(
+      drawer: const Hamburger(),
+      appBar: AppBar(
+        title: const Text(
+          '学習データ',
         ),
-        appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black87),
-          centerTitle: true,
-          toolbarHeight: 80,
-          elevation: 10,
-          title: const Text(
-            '学習データ',
-            style: TextStyle(fontSize: 27, color: Colors.black87),
-          ),
-          backgroundColor: Colors.white,
-        ),
-        body: Container(
-          padding: const EdgeInsets.all(16),
-          alignment: Alignment.center,
-          color: Colors.white,
-          child: SingleChildScrollView(
-            child: StaggeredGrid.count(
-              crossAxisCount: 6,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              children: [
-                for (int i = 0; i < 7; i++)
-                  StaggeredGridTile.count(
-                    crossAxisCellCount: (i ~/ 6 + 1) * 3,
-                    mainAxisCellCount: 2,
-                    child: StatBox(
-                      isLarge: false,
-                      title: titleStrs[i],
-                      stat: dataArr[i],
-                      unit: unitStrs[i],
-                    ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        alignment: Alignment.center,
+        color: Colors.white,
+        child: SingleChildScrollView(
+          child: StaggeredGrid.count(
+            crossAxisCount: 6,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+            children: [
+              for (int i = 0; i < 7; i++)
+                StaggeredGridTile.count(
+                  crossAxisCellCount: (i ~/ 6 + 1) * 3, //3,3,3,3,3,3,6,6,6,6,6,6,,,の[3,3,3,3,3,3,6]を利用
+                  mainAxisCellCount: 2,
+                  child: StatBox(
+                    isLarge: false,
+                    title: titleStrs[i],
+                    stat: dataArr[i],
+                    unit: unitStrs[i],
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Hamburger extends StatelessWidget {
+  const Hamburger({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: Text(
+              'ハンバーガー $index',
+              style: const TextStyle(color: Colors.black87),
+            ),
+          );
+        },
       ),
     );
   }
