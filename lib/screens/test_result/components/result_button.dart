@@ -35,7 +35,7 @@ class ResultButton extends ConsumerWidget {
         .update((ResultListMode state) => state = ResultListMode.all);
   }
 
-  void nextBook(BuildContext context) {
+  void quitSession(BuildContext context) {
     showDialog(
       context: context,
       builder: (_) {
@@ -67,7 +67,7 @@ class ResultButton extends ConsumerWidget {
               return showAll(ref);
             }
             if (onPressed == ButtonFunction.nextBook) {
-              return nextBook(context);
+              return quitSession(context);
             }
           },
           style: ElevatedButton.styleFrom(

@@ -140,8 +140,6 @@ class _BookCardState extends ConsumerState<BookCard> {
                   widget.wordbooks[widget.index]['db_id'],
                 );
             await ref.read(wordsListProvider.notifier).initState();
-            /// Set the number of words correct in the previous session.
-            ref.read(previousCorrectCountProvider.notifier).init(ref);
             ref.read(currentPageProvider.notifier).initState();
             const int firstPage = 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
