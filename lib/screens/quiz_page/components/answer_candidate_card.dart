@@ -5,8 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
+import 'package:notion_wordbook/viewmodels/words_learned_controller.dart';
 
-class AnswerCandidateCard extends ConsumerWidget {
+class AnswerCandidateCard extends ConsumerStatefulWidget {
   const AnswerCandidateCard({
     Key? key,
     required this.index,
@@ -21,9 +22,13 @@ class AnswerCandidateCard extends ConsumerWidget {
   final int maxPage;
   final int currentPage;
   // final bool isCorrect;
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  AnswerCandidateCardState createState() => AnswerCandidateCardState();
+}
+
+class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       height: 75,
       child: Card(
@@ -38,25 +43,27 @@ class AnswerCandidateCard extends ConsumerWidget {
           ),
         ),
         child: InkWell(
-          onTap: () {
-            if (currentPage >= maxPage) {
+          onTap: () async {
+            if (widget.currentPage >= widget.maxPage) {
+              await ref.read(wordsLearnedProvider.notifier).loadState();
+              if (!mounted) return;
               Navigator.of(context).pushNamed('/result');
               return;
             }
             ref.read(currentPageProvider.notifier).pageCount();
-            final int nextPage = currentPage + 1;
+            final int nextPage = widget.currentPage + 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
             Navigator.of(context).pushNamed('/quiz');
           },
           child: ListTile(
             title: Text(
-              word[index],
+              widget.word[widget.index],
               style: Theme.of(context).textTheme.titleLarge,
             ),
             leading: Padding(
               padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 6),
               child: Text(
-                (index + 1).toString(),
+                (widget.index + 1).toString(),
                 style: const TextStyle(
                   fontSize: 20,
                   color: Color.fromARGB(255, 169, 169, 169),

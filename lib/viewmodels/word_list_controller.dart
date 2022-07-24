@@ -71,6 +71,8 @@ final FutureProvider<List<Word>> wordsListFutureProvider =
   return wordList;
 });
 
+
+/// [previousCorrectCountProvider] は前回のテストで正解した単語の数を状態として持つ
 class PreviousCorrectCountNotifier extends StateNotifier<int> {
   PreviousCorrectCountNotifier() : super(0);
 

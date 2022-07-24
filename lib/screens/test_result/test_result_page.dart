@@ -6,6 +6,7 @@ import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/screens/test_result/components/result_button.dart';
 import 'package:notion_wordbook/screens/test_result/components/result_list_item.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
+import 'package:notion_wordbook/viewmodels/words_learned_controller.dart';
 
 class TestResultPage extends ConsumerWidget {
   const TestResultPage({Key? key}) : super(key: key);
@@ -15,6 +16,11 @@ class TestResultPage extends ConsumerWidget {
     final List<Word> wordList = ref.read(wordsListProvider);
     final int correctCount =
         wordList.where((Word word) => word.correct == true).length;
+
+    /// 学習状況を更新して、 [wordsLearned] に保存する。
+    ref.read(wordsLearnedProvider.notifier).update(wordList.length);
+    final int wordsLearned = ref.read(wordsLearnedProvider);
+
     return Scaffold(
       appBar: AppBar(
         shape: Border(
@@ -59,7 +65,7 @@ class TestResultPage extends ConsumerWidget {
                 top: 5.0,
               ),
               child: Text(
-                '${ref.read(previousCorrectCountProvider)}→$correctCount単語',
+                '${wordsLearned - wordList.length}→$wordsLearned単語',
                 style: Theme.of(context).textTheme.displayMedium,
               ),
             ),
