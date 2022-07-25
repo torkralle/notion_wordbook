@@ -13,7 +13,7 @@ class DefinitionText extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final int currentPage = ref.read(currentPageProvider);
-    final Word word = ref.read(wordsListProvider)[currentPage];
+    final Word word = ref.read(wordsListProvider)[currentPage - 1];
     return RichText(
       textAlign: TextAlign.center,
       softWrap: true,

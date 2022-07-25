@@ -1,7 +1,10 @@
 // 📦 Package imports:
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 const String baseURL = 'https://api.notion.com/v1/databases/';
+const String pageURL = 'https://api.notion.com/v1/pages/';
 
 Future<HttpResult> callGetMethod(String url) async {
   try {
@@ -21,6 +24,31 @@ Future<HttpResult> callPostMethod(String path, String apiKey) async {
       },
     );
     // statusCode で判定しないとエラーかがわからないので管理。
+    if (response.statusCode == 200) {
+      return HttpResult.success(response);
+    } else {
+      return HttpResult.failure(response.statusCode);
+    }
+  } catch (e) {
+    return HttpResult.failure(e);
+  }
+}
+
+Future<HttpResult> callPatchMethod(
+  String path,
+  String apiKey,
+  Map<dynamic, dynamic> payload,
+) async {
+  try {
+    http.Response response = await http.patch(
+      Uri.parse(pageURL + path),
+      headers: <String, String>{
+        'Authorization': 'Bearer $apiKey',
+        'Content-Type': 'application/json',
+        'Notion-Version': '2021-08-16'
+      },
+      body: json.encode(payload),
+    );
     if (response.statusCode == 200) {
       return HttpResult.success(response);
     } else {

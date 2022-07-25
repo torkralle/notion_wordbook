@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class AnswerCandidateCard extends ConsumerWidget {
   const AnswerCandidateCard({
@@ -13,14 +15,14 @@ class AnswerCandidateCard extends ConsumerWidget {
     required this.maxPage,
     required this.currentPage,
     required this.word,
-    // required this.isCorrect,
+    required this.correctWord,
   }) : super(key: key);
 
   final int index;
   final List<String> word;
   final int maxPage;
   final int currentPage;
-  // final bool isCorrect;
+  final Word correctWord;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,6 +51,20 @@ class AnswerCandidateCard extends ConsumerWidget {
               word[index],
               style: Theme.of(context).textTheme.titleLarge,
             ),
+            onTap: () {
+              ref.read(currentPageProvider.notifier).pageCount();
+              final int nextPage = currentPage + 1;
+
+              /// 次ページの選択肢をランダムに取得
+              ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
+
+              /// 正誤判定してNotionDBを更新
+              ref.read(wordsListProvider.notifier).updateIsCorrect(
+                    currentPage - 1,
+                    word[index] == correctWord.spelling,
+                  );
+              Navigator.of(context).pushNamed('/quiz');
+            },
             leading: Padding(
               padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 6),
               child: Text(
