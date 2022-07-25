@@ -26,18 +26,19 @@ Future<ApiResult> getWordsData(String databaseID, String apiKey) async {
 
 Future<ApiResult> updateWordIsCorrect(
   String apiKey,
-  pageId,
+  String pageId,
   bool isCorrect,
 ) async {
-  Map<String, dynamic> updatePayload = {
-    'properties': {
-      'Correct': {
+  Map<String, dynamic> updatePayload = <String, dynamic>{
+    'properties': <String, Map<String, bool>>{
+      'Correct': <String, bool>{
         'checkbox': isCorrect,
       }
     }
   };
   try {
-    final response = await callPatchMethod(pageId, apiKey, updatePayload);
+    final HttpResult response =
+        await callPatchMethod(pageId, apiKey, updatePayload);
     return ApiResult.success(json.decode(response.response!.body)); //json->Map
   } catch (e) {
     return ApiResult.failure(e);
