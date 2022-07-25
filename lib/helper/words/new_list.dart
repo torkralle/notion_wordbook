@@ -2,19 +2,22 @@
 import 'package:notion_wordbook/helper/words/retrieve.dart';
 import 'package:notion_wordbook/objects/models/word.dart';
 
-List extractWordsDataFromResponse(Map responseMap) {
-  return responseMap['results'].map((page) {
+List<Map<String, dynamic>> extractWordsDataFromResponse(
+  Map<String, dynamic> responseMap,
+) {
+  return responseMap['results'].map((Map<String, dynamic> page) {
     Map<String, dynamic> p = page['properties'];
-    p.addAll({'id': page['id']});
+    p.addAll(<String, dynamic>{'id': page['id']});
     return p;
   }).toList();
 }
 
-List<Word> newWordsList(Map response) {
-  final wordsData = extractWordsDataFromResponse(response);
+List<Word> newWordsList(Map<String, dynamic> response) {
+  final List<Map<String, dynamic>> wordsData =
+      extractWordsDataFromResponse(response);
   return wordsData
       .map(
-        (w) => Word(
+        (Map<String, dynamic> w) => Word(
           getPageId(w),
           getSpelling(w),
           getCorrect(w),

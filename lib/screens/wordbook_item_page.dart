@@ -1,9 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
-import '../viewmodels/word_list_controller.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
+import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class WordBookItemPage extends HookConsumerWidget {
   const WordBookItemPage({Key? key}) : super(key: key);
@@ -15,21 +15,13 @@ class WordBookItemPage extends HookConsumerWidget {
         ref.read(wordsListProvider.notifier).initState();
         return null;
       },
-      [],
+      <Object>[],
     );
-    final wordsList = ref.watch(wordsListProvider);
+    final List<Word> wordsList = ref.read(wordsListProvider);
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 80,
-        title: const Text(
-          '単語帳',
-          style: TextStyle(
-            fontSize: 27,
-          ),
-        ),
-        backgroundColor: Colors.purple[800],
+        title: const Text('単語帳'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -38,7 +30,7 @@ class WordBookItemPage extends HookConsumerWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: wordsList.length,
-            itemBuilder: (BuildContext context, index) {
+            itemBuilder: (BuildContext context, int index) {
               return WordCard(index: index, words: wordsList);
             },
           ),
@@ -56,36 +48,23 @@ class WordCard extends StatelessWidget {
   }) : super(key: key);
 
   final int index;
-  final List words;
+  final List<Word> words;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(
-        vertical: 7,
-        horizontal: 20,
-      ),
-      elevation: 2,
-      color: const Color.fromARGB(234, 250, 241, 252),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
           title: Text(
             words[index].spelling,
-            style: const TextStyle(
-              fontSize: 23,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           subtitle: Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text(
               words[index].meaning ?? '',
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: Theme.of(context).textTheme.displaySmall,
             ),
           ),
           leading: const Padding(

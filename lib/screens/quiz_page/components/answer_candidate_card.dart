@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notion_wordbook/objects/models/word.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
-import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class AnswerCandidateCard extends ConsumerWidget {
@@ -33,7 +33,6 @@ class AnswerCandidateCard extends ConsumerWidget {
           vertical: 7,
           horizontal: 40,
         ),
-        elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
           side: const BorderSide(
@@ -41,16 +40,20 @@ class AnswerCandidateCard extends ConsumerWidget {
           ),
         ),
         child: InkWell(
+          onTap: () {
+            ref.read(currentPageProvider.notifier).pageCount();
+            final int nextPage = currentPage + 1;
+            ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
+            Navigator.of(context).pushNamed('/quiz');
+          },
           child: ListTile(
             title: Text(
               word[index],
-              style: const TextStyle(
-                fontSize: 22,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             onTap: () {
               ref.read(currentPageProvider.notifier).pageCount();
-              final nextPage = currentPage + 1;
+              final int nextPage = currentPage + 1;
 
               /// 次ページの選択肢をランダムに取得
               ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);

@@ -1,13 +1,18 @@
-// 📦 Package imports:
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class LoadingStateViewModel extends StateNotifier<bool> {
-  LoadingStateViewModel() : super(false);
+class LoadingNotifier extends StateNotifier<bool> {
+  LoadingNotifier() : super(false);
 
-  void update(bool s) => state = s;
+  void start() {
+    state = true;
+  }
+
+  void stop() {
+    state = false;
+  }
 }
 
-final loadingStateProvider =
-    StateNotifierProvider<LoadingStateViewModel, bool>((ref) {
-  return LoadingStateViewModel();
+final StateNotifierProvider<LoadingNotifier, bool> loadingNotifierProvider =
+    StateNotifierProvider<LoadingNotifier, bool>((_) {
+  return LoadingNotifier();
 });

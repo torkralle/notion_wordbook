@@ -1,13 +1,10 @@
 // 📦 Package imports:
 import 'dart:convert';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-const baseURL = 'https://api.notion.com/v1/databases/';
-const pageURL = 'https://api.notion.com/v1/pages/';
-
-var secretKey = dotenv.env['API_KEY'];
+const String baseURL = 'https://api.notion.com/v1/databases/';
+const String pageURL = 'https://api.notion.com/v1/pages/';
 
 Future<HttpResult> callGetMethod(String url) async {
   try {
@@ -21,12 +18,17 @@ Future<HttpResult> callPostMethod(String path, String apiKey) async {
   try {
     http.Response response = await http.post(
       Uri.parse(baseURL + path),
-      headers: {
-        'Authorization': 'Bearer ' + apiKey,
+      headers: <String, String>{
+        'Authorization': 'Bearer $apiKey',
         'Notion-Version': '2021-08-16'
       },
     );
-    return HttpResult.success(response);
+    // statusCode で判定しないとエラーかがわからないので管理。
+    if (response.statusCode == 200) {
+      return HttpResult.success(response);
+    } else {
+      return HttpResult.failure(response.statusCode);
+    }
   } catch (e) {
     return HttpResult.failure(e);
   }
@@ -35,19 +37,23 @@ Future<HttpResult> callPostMethod(String path, String apiKey) async {
 Future<HttpResult> callPatchMethod(
   String path,
   String apiKey,
-  Map payload,
+  Map<dynamic, dynamic> payload,
 ) async {
   try {
     http.Response response = await http.patch(
       Uri.parse(pageURL + path),
-      headers: {
-        'Authorization': 'Bearer ' + apiKey,
+      headers: <String, String>{
+        'Authorization': 'Bearer $apiKey',
         'Content-Type': 'application/json',
         'Notion-Version': '2021-08-16'
       },
       body: json.encode(payload),
     );
-    return HttpResult.success(response);
+    if (response.statusCode == 200) {
+      return HttpResult.success(response);
+    } else {
+      return HttpResult.failure(response.statusCode);
+    }
   } catch (e) {
     return HttpResult.failure(e);
   }
@@ -56,6 +62,6 @@ Future<HttpResult> callPatchMethod(
 class HttpResult {
   final http.Response? response;
   final Object? error;
-  HttpResult.success([this.response, this.error]);
-  HttpResult.failure([this.error, this.response]);
+  HttpResult.success(this.response, {this.error});
+  HttpResult.failure(this.error, {this.response});
 }
