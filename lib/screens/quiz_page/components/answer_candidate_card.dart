@@ -52,6 +52,7 @@ class AnswerCandidateCard extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             onTap: () {
+              final bool isCorrect = word[index] == correctWord.spelling;
               ref.read(currentPageProvider.notifier).pageCount();
               final int nextPage = currentPage + 1;
 
@@ -59,11 +60,34 @@ class AnswerCandidateCard extends ConsumerWidget {
               ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
 
               /// 正誤判定してNotionDBを更新
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text(isCorrect ? '正解' : '不正解'),
+                    content: Text(
+                      isCorrect
+                          ? 'Nice job!'
+                          : '${correctWord.spelling} was the right one.\nCan be better!',
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Go on to the next word'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pushNamed('/quiz');
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
               ref.read(wordsListProvider.notifier).updateIsCorrect(
                     currentPage - 1,
                     word[index] == correctWord.spelling,
                   );
-              Navigator.of(context).pushNamed('/quiz');
+              // Navigator.of(context).pushNamed('/quiz');
             },
             leading: Padding(
               padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 6),

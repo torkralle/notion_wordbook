@@ -55,7 +55,7 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
     return choices;
   }
 
-  void updateIsCorrect(int indexNumber, bool isCorrect) {
+  Future<void> updateIsCorrect(int indexNumber, bool isCorrect) async {
     final WordbookInfo wordbookInfo = ref.read(wordbookInfoProvider);
 
     List<Word> updatedState = <Word>[];
@@ -63,7 +63,11 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
       if (i != indexNumber) {
         updatedState.add(state[i]);
       } else {
-        updateWordIsCorrect(wordbookInfo.apiKey, state[i].pageId, isCorrect);
+        await updateWordIsCorrect(
+          wordbookInfo.apiKey,
+          state[i].pageId,
+          isCorrect,
+        );
         updatedState.add(
           Word(
             state[i].pageId,
