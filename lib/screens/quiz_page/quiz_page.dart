@@ -22,7 +22,7 @@ class QuizPage extends HookConsumerWidget {
     final int currentPage = ref.read(currentPageProvider);
     // 正誤判定に使う
     // ignore: unused_local_variable
-    final Word answerWord = wordsList[currentPage - 1];
+    final Word correctWord = wordsList[currentPage - 1];
     final int maxPage = wordsList.length;
     final List<String> word = ref.read(wordChoicesProvider);
     if (ref.watch(loadingStateProvider)) {
@@ -69,6 +69,7 @@ class QuizPage extends HookConsumerWidget {
                 word: word,
                 currentPage: currentPage,
                 maxPage: maxPage,
+                correctWord: correctWord,
               ),
             ],
           ),
@@ -93,11 +94,13 @@ class ChoiceList extends StatelessWidget {
     required this.word,
     required this.currentPage,
     required this.maxPage,
+    required this.correctWord,
   }) : super(key: key);
 
   final List<String> word;
   final int maxPage;
   final int currentPage;
+  final Word correctWord;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +115,7 @@ class ChoiceList extends StatelessWidget {
             word: word,
             maxPage: maxPage,
             currentPage: currentPage,
-            // isCorrect: true,
+            correctWord: correctWord,
           );
         },
       ),
