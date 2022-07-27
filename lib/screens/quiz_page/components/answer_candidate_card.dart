@@ -26,6 +26,7 @@ class AnswerCandidateCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final String chosenWord = word[index];
     return SizedBox(
       height: 75,
       child: Card(
@@ -48,11 +49,11 @@ class AnswerCandidateCard extends ConsumerWidget {
           },
           child: ListTile(
             title: Text(
-              word[index],
+              chosenWord,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             onTap: () {
-              final bool isCorrect = word[index] == correctWord.spelling;
+              final bool isCorrect = chosenWord == correctWord.spelling;
               ref.read(currentPageProvider.notifier).pageCount();
               final int nextPage = currentPage + 1;
 
@@ -60,34 +61,11 @@ class AnswerCandidateCard extends ConsumerWidget {
               ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
 
               /// 正誤判定してNotionDBを更新
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text(isCorrect ? '正解' : '不正解'),
-                    content: Text(
-                      isCorrect
-                          ? 'Nice job!'
-                          : '${correctWord.spelling} was the right one.\nCan be better!',
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('Go on to the next word'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context).pushNamed('/quiz');
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
+              isCorrectDialog(context, isCorrect, chosenWord);
               ref.read(wordsListProvider.notifier).updateIsCorrect(
                     currentPage - 1,
-                    word[index] == correctWord.spelling,
+                    chosenWord == correctWord.spelling,
                   );
-              // Navigator.of(context).pushNamed('/quiz');
             },
             leading: Padding(
               padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 6),
@@ -102,6 +80,65 @@ class AnswerCandidateCard extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Future<dynamic> isCorrectDialog(
+    BuildContext context,
+    bool isCorrect,
+    String chosenWord,
+  ) {
+    return showDialog<Widget>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(isCorrect ? '正解' : '不正解'),
+          content: RichText(
+            text: TextSpan(
+              children: isCorrect
+                  ? <TextSpan>[const TextSpan(text: 'Nice job!')]
+                  : <TextSpan>[
+                      TextSpan(
+                        text: 'You chose ',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      TextSpan(
+                        text: chosenWord,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(color: Colors.red),
+                      ),
+                      TextSpan(
+                        text: ',\n but ',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      TextSpan(
+                        text: correctWord.spelling,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(color: Colors.red),
+                      ),
+                      TextSpan(
+                        text: ' was the right one.\nCan be better next time!',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                    ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Go on to the next word'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed('/quiz');
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
