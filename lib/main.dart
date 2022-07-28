@@ -8,6 +8,7 @@ import 'package:notion_wordbook/screens/connecting_page.dart';
 import 'package:notion_wordbook/screens/home_page.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/progress_text.dart';
 import 'package:notion_wordbook/screens/quiz_page/quiz_page.dart';
+import 'package:notion_wordbook/screens/test_result/test_result_page.dart';
 import 'package:notion_wordbook/screens/wordbook_item_page.dart';
 import 'package:notion_wordbook/widgets/bottom_navbar.dart';
 import 'package:notion_wordbook/widgets/themes_data.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/wordbook_item': (BuildContext context) => const WordBookItemPage(),
         '/quiz': (BuildContext context) => const QuizPage(),
         '/progress_text': (BuildContext context) => const ProgressText(),
+        '/result': (BuildContext context) => const TestResultPage(),
       },
       title: 'Navigation',
       theme: notionWordbookTheme,
