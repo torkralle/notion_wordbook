@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notion_wordbook/screens/quiz_page/components/interrupt_message.dart';
+import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/result_detail_mode_controller.dart';
 
 class ResultButton extends ConsumerWidget {
@@ -15,7 +16,8 @@ class ResultButton extends ConsumerWidget {
   final bool isLarge;
   final ButtonFunction onPressed;
 
-  void testAgain(BuildContext context) {
+  void testAgain(BuildContext context, WidgetRef ref) {
+    ref.read(currentPageProvider.notifier).initState();
     Navigator.pushNamedAndRemoveUntil(
       context,
       '/quiz',
@@ -58,7 +60,7 @@ class ResultButton extends ConsumerWidget {
         child: ElevatedButton(
           onPressed: () {
             if (onPressed == ButtonFunction.testAgain) {
-              return testAgain(context);
+              return testAgain(context, ref);
             }
             if (onPressed == ButtonFunction.showMissedOnly) {
               return showMissedOnly(ref);
