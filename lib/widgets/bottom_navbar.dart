@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/screens/add_wordbook_page.dart';
 import 'package:notion_wordbook/screens/home_page.dart';
-import 'package:notion_wordbook/screens/hook_test_page.dart';
-import 'package:notion_wordbook/screens/review_page.dart';
-import 'package:notion_wordbook/screens/test_result/test_result_page.dart';
-import 'package:notion_wordbook/screens/user_page.dart';
 
 class NavigatedPages extends StatefulWidget {
   const NavigatedPages({Key? key}) : super(key: key);
@@ -21,11 +17,11 @@ class _State extends State<NavigatedPages> {
   int _navIndex = 0;
   final List<Widget> screens = <Widget>[
     const HomePage(),
-    const ReviewPage(),
-    const TestResultPage(),
+    // const ReviewPage(),
+    // const TestResultPage(),
     AddWordbookPage(),
-    const HookPage(),
-    const MyPageScreen(),
+    // const HookPage(),
+    // const MyPageScreen(),
   ];
 
   @override
@@ -34,16 +30,16 @@ class _State extends State<NavigatedPages> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.folder), label: '単語帳一覧'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mode_edit_outline),
-            label: '復習',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.auto_graph),
-            label: '学習データ',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.mode_edit_outline),
+          //   label: '復習',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.auto_graph),
+          //   label: '学習データ',
+          // ),
           BottomNavigationBarItem(icon: Icon(Icons.plus_one), label: '単語帳追加'),
-          BottomNavigationBarItem(icon: Icon(Icons.face), label: 'マイページ'),
+          // BottomNavigationBarItem(icon: Icon(Icons.face), label: 'マイページ'),
         ],
         type: BottomNavigationBarType.fixed,
         onTap: (int index) {
