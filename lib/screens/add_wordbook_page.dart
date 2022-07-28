@@ -47,6 +47,9 @@ class AddWordbookPage extends HookConsumerWidget {
                   ),
                   InkWell(
                     onTap: () {
+                      if (dbNameController.text.isEmpty) {
+                        return;
+                      }
                       ref
                           .read(wordbookInfoProvider.notifier)
                           .setDBName(dbNameController.text);
