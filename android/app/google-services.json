@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "502817425127",
+    "project_id": "notion-wordbook-5caef",
+    "storage_bucket": "notion-wordbook-5caef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502817425127:android:5ce6def94bf206c103c442",
+        "android_client_info": {
+          "package_name": "com.norihanda.notion_wordbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502817425127-ql6qkqht3032muss4hrj2g3qbgd5qjmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHVSmXyUxPNfWwhI_IKPrOTgnjVW_6s1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502817425127-ql6qkqht3032muss4hrj2g3qbgd5qjmo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
