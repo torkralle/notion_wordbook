@@ -50,6 +50,7 @@ class AddWordbookPage extends HookConsumerWidget {
                       ref
                           .read(wordbookInfoProvider.notifier)
                           .setDBName(dbNameController.text);
+                      dbNameController.clear();
                       Navigator.of(context).pushNamed('/connecting');
                     },
                     child: const CustomButton(
