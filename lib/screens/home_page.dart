@@ -48,27 +48,30 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(
-              padding: topPadding,
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed('/add_wordbook');
-                },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 16,
-                    horizontal: 88,
-                  ),
-                  color: const Color.fromARGB(255, 233, 225, 240),
-                  child: Text(
-                    '単語帳を追加',
-                    style: Theme.of(context).textTheme.titleLarge,
+            Center(
+              child: Padding(
+                padding: topPadding,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/add_wordbook');
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 88,
+                    ),
+                    color: const Color.fromARGB(255, 233, 225, 240),
+                    child: Text(
+                      '単語帳を追加',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ),
                 ),
               ),
             ),
             wordbooks.when(
-              data: (List<dynamic> data) => ListView.builder(
+              data: (List<dynamic> data) => data.isNotEmpty
+                  ? ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: data.length,
@@ -78,7 +81,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                     wordbooks: data,
                   );
                 },
-              ),
+                    )
+                  : const Padding(
+                      padding: EdgeInsets.all(40),
+                      child: Center(
+                        child: Text(
+                          'Connect a word book from Notion with the button above.',
+                        ),
+                      ),
+                    ),
               error: (Object error, StackTrace? s) => Center(
                 child: SizedBox(
                   height: 48,
