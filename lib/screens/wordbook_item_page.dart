@@ -21,7 +21,7 @@ class WordBookItemPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('単語帳'),
+        title: const Text('(experimental) 単語帳'),
       ),
       body: SingleChildScrollView(
         child: Container(

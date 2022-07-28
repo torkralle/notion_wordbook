@@ -219,7 +219,7 @@ class _BookCardState extends ConsumerState<BookCard> {
                 Navigator.pop(context); // TODO: 単語帳一覧を表示
                 Navigator.of(context).pushNamed('/wordbook_item');
               },
-              child: const Text('単語一覧'),
+              child: const Text('(experimental) 単語一覧'),
             ),
             SimpleDialogOption(
               onPressed: () async {
