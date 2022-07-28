@@ -96,3 +96,21 @@ final FutureProvider<List<Word>> wordsListFutureProvider =
 
   return wordList;
 });
+
+
+/// [previousCorrectCountProvider] は前回のテストで正解した単語の数を状態として持つ
+class PreviousCorrectCountNotifier extends StateNotifier<int> {
+  PreviousCorrectCountNotifier() : super(0);
+
+  void initState(WidgetRef ref) {
+    final List<Word> wordList = ref.read(wordsListProvider);
+    state = wordList.where((Word word) => word.correct == true).length;
+  }
+}
+
+final StateNotifierProvider<PreviousCorrectCountNotifier, int>
+    previousCorrectCountProvider =
+    StateNotifierProvider<PreviousCorrectCountNotifier, int>(
+  (StateNotifierProviderRef<PreviousCorrectCountNotifier, int> ref) =>
+      PreviousCorrectCountNotifier(),
+);

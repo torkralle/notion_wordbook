@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 class InterruptMessage extends StatelessWidget {
   const InterruptMessage({
     Key? key,
+    this.title,
+    this.message,
+    this.closeMessage,
   }) : super(key: key);
+
+  final String? title;
+  final String? message;
+  final String? closeMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +21,7 @@ class InterruptMessage extends StatelessWidget {
         ),
       ),
       title: Text(
-        '中断',
+        title ?? '中断',
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.titleMedium,
       ),
@@ -28,9 +35,9 @@ class InterruptMessage extends StatelessWidget {
             ),
           ),
         ),
-        child: const Text(
-          'ここまでの内容は保存せずにホームに戻ってもいいですか？',
-          style: TextStyle(
+        child: Text(
+          message ?? 'ここまでの内容は保存せずにホームに戻ってもいいですか？',
+          style: const TextStyle(
             fontSize: 16,
           ),
         ),
@@ -43,9 +50,9 @@ class InterruptMessage extends StatelessWidget {
             left: 32,
           ),
           child: TextButton(
-            child: const Text(
-              '続ける',
-              style: TextStyle(
+            child: Text(
+              closeMessage ?? '続ける',
+              style: const TextStyle(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,
               ),
@@ -61,7 +68,7 @@ class InterruptMessage extends StatelessWidget {
           ),
           child: TextButton(
             child: Text(
-              '中断する',
+              title ?? '中断する',
               style: TextStyle(
                 fontSize: 19,
                 fontWeight: FontWeight.bold,

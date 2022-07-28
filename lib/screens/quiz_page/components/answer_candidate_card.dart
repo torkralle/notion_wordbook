@@ -7,8 +7,9 @@ import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
+import 'package:notion_wordbook/viewmodels/words_learned_controller.dart';
 
-class AnswerCandidateCard extends ConsumerWidget {
+class AnswerCandidateCard extends ConsumerStatefulWidget {
   const AnswerCandidateCard({
     Key? key,
     required this.index,
@@ -25,7 +26,12 @@ class AnswerCandidateCard extends ConsumerWidget {
   final Word correctWord;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  AnswerCandidateCardState createState() => AnswerCandidateCardState();
+}
+
+class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       height: 75,
       child: Card(
@@ -40,35 +46,55 @@ class AnswerCandidateCard extends ConsumerWidget {
           ),
         ),
         child: InkWell(
-          onTap: () {
+          onTap: () async {
+            if (widget.currentPage >= widget.maxPage) {
+              final List<Word> wordList = ref.read(wordsListProvider);
+              // ここで学んだ単語数をロードする。
+              await ref
+                  .read(wordsLearnedProvider.notifier)
+                  .update(wordList.length);
+              if (!mounted) return;
+              Navigator.of(context).pushNamed('/result');
+              return;
+            }
             ref.read(currentPageProvider.notifier).pageCount();
-            final int nextPage = currentPage + 1;
+            final int nextPage = widget.currentPage + 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
             Navigator.of(context).pushNamed('/quiz');
           },
           child: ListTile(
             title: Text(
-              word[index],
+              widget.word[widget.index],
               style: Theme.of(context).textTheme.titleLarge,
             ),
-            onTap: () {
+            onTap: () async {
+              if (widget.currentPage >= widget.maxPage) {
+                final List<Word> wordList = ref.read(wordsListProvider);
+                // ここで学んだ単語数をロードする。
+                await ref
+                    .read(wordsLearnedProvider.notifier)
+                    .update(wordList.length);
+                if (!mounted) return;
+                Navigator.of(context).pushNamed('/result');
+                return;
+              }
               ref.read(currentPageProvider.notifier).pageCount();
-              final int nextPage = currentPage + 1;
+              final int nextPage = widget.currentPage + 1;
 
               /// 次ページの選択肢をランダムに取得
               ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
 
               /// 正誤判定してNotionDBを更新
               ref.read(wordsListProvider.notifier).updateIsCorrect(
-                    currentPage - 1,
-                    word[index] == correctWord.spelling,
+                    widget.currentPage - 1,
+                    widget.word[widget.index] == widget.correctWord.spelling,
                   );
               Navigator.of(context).pushNamed('/quiz');
             },
             leading: Padding(
               padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 6),
               child: Text(
-                (index + 1).toString(),
+                (widget.index + 1).toString(),
                 style: const TextStyle(
                   fontSize: 20,
                   color: Color.fromARGB(255, 169, 169, 169),
