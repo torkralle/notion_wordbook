@@ -28,11 +28,11 @@ class WordbookInfoListViewModel
   /// リストからデータを削除する。
   /// 一旦 SharedPreferences に保存されているデータを全部取ってきて、それをパースして List にしてから
   /// またエンコードして保存し直す。 StateNotifier の state にも保存することでちゃんと描画されるようにする。
-  Future<void> removeFromList(String apiKey) async {
+  Future<void> removeFromList(String dbName) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     List<dynamic> storedData =
         json.decode(prefs.getString('wordbooks')!)['wordbooks'];
-    storedData.removeWhere((dynamic item) => item['api_key'] == apiKey);
+    storedData.removeWhere((dynamic item) => item['db_name'] == dbName);
     state = AsyncValue<List<dynamic>>.data(storedData);
     prefs.setString(
       'wordbooks',

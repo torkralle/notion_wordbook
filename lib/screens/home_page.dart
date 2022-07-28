@@ -215,7 +215,7 @@ class _BookCardState extends ConsumerState<BookCard> {
                 Navigator.pop(context);
                 await ref
                     .read(wordbookInfoListProvider.notifier)
-                    .removeFromList(widget.wordbooks[widget.index]['api_key']);
+                    .removeFromList(widget.wordbooks[widget.index]['db_name']);
               },
               child: const Text(
                 '削除',
