@@ -48,19 +48,21 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
         child: InkWell(
           onTap: () async {
             if (widget.currentPage >= widget.maxPage) {
-              final List<Word> wordList = ref.read(wordsListProvider);
+              final wordList = ref.read(wordsListProvider);
               // ここで学んだ単語数をロードする。
               await ref
                   .read(wordsLearnedProvider.notifier)
                   .update(wordList.length);
-              if (!mounted) return;
-              Navigator.of(context).pushNamed('/result');
+              if (!mounted) {
+                return;
+              }
+              await Navigator.of(context).pushNamed('/result');
               return;
             }
             ref.read(currentPageProvider.notifier).pageCount();
-            final int nextPage = widget.currentPage + 1;
+            final nextPage = widget.currentPage + 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
-            Navigator.of(context).pushNamed('/quiz');
+            await Navigator.of(context).pushNamed('/quiz');
           },
           child: ListTile(
             title: Text(
@@ -69,17 +71,19 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
             ),
             onTap: () async {
               if (widget.currentPage >= widget.maxPage) {
-                final List<Word> wordList = ref.read(wordsListProvider);
+                final wordList = ref.read(wordsListProvider);
                 // ここで学んだ単語数をロードする。
                 await ref
                     .read(wordsLearnedProvider.notifier)
                     .update(wordList.length);
-                if (!mounted) return;
-                Navigator.of(context).pushNamed('/result');
+                if (!mounted) {
+                  return;
+                }
+                await Navigator.of(context).pushNamed('/result');
                 return;
               }
               ref.read(currentPageProvider.notifier).pageCount();
-              final int nextPage = widget.currentPage + 1;
+              final nextPage = widget.currentPage + 1;
 
               /// 次ページの選択肢をランダムに取得
               ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
@@ -89,10 +93,10 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
                     widget.currentPage - 1,
                     widget.word[widget.index] == widget.correctWord.spelling,
                   );
-              Navigator.of(context).pushNamed('/quiz');
+              await Navigator.of(context).pushNamed('/quiz');
             },
             leading: Padding(
-              padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 6),
+              padding: const EdgeInsets.only(top: 12, bottom: 12, left: 6),
               child: Text(
                 (widget.index + 1).toString(),
                 style: const TextStyle(

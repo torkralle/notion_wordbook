@@ -32,15 +32,15 @@ class HookPageState extends State<HookPage> {
   }
 
   Future<void> _getDataFromSP() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     setState(() {
       _counter = prefs.getInt('counter') ?? 0;
     });
   }
 
-  void _setCounterValue() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('counter', _counter);
+  Future<void> _setCounterValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('counter', _counter);
   }
 
   void _incrementCounter() {

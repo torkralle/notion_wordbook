@@ -26,7 +26,7 @@ class ResultButton extends ConsumerWidget {
   void showMissedOnly(WidgetRef ref) {
     ref
         .read(resultListModeProvider.notifier)
-        .update(((ResultListMode state) => state = ResultListMode.incorrect));
+        .update((ResultListMode state) => state = ResultListMode.incorrect);
   }
 
   void showAll(WidgetRef ref) {
@@ -51,7 +51,7 @@ class ResultButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5),
       child: SizedBox(
         width: isLarge ? 300 : 145,
         height: 50,
@@ -75,7 +75,6 @@ class ResultButton extends ConsumerWidget {
                 ? Theme.of(context).colorScheme.secondary
                 : Colors.white,
             side: const BorderSide(
-              color: Colors.black,
               width: 0.5,
             ),
             shape: const StadiumBorder(),

@@ -16,7 +16,7 @@ Future<HttpResult> callGetMethod(String url) async {
 
 Future<HttpResult> callPostMethod(String path, String apiKey) async {
   try {
-    http.Response response = await http.post(
+    final response = await http.post(
       Uri.parse(baseURL + path),
       headers: <String, String>{
         'Authorization': 'Bearer $apiKey',
@@ -40,7 +40,7 @@ Future<HttpResult> callPatchMethod(
   Map<dynamic, dynamic> payload,
 ) async {
   try {
-    http.Response response = await http.patch(
+    final response = await http.patch(
       Uri.parse(pageURL + path),
       headers: <String, String>{
         'Authorization': 'Bearer $apiKey',
@@ -60,8 +60,8 @@ Future<HttpResult> callPatchMethod(
 }
 
 class HttpResult {
+  HttpResult.failure(this.error, {this.response});
+  HttpResult.success(this.response, {this.error});
   final http.Response? response;
   final Object? error;
-  HttpResult.success(this.response, {this.error});
-  HttpResult.failure(this.error, {this.response});
 }

@@ -14,12 +14,11 @@ class ResultListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
             color: Theme.of(context).colorScheme.outline,
-            width: 1.0,
           ),
         ),
       ),
@@ -41,7 +40,7 @@ class ResultListItem extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      top: 5.0,
+                      top: 5,
                     ),
                     child: Text(
                       meaning,

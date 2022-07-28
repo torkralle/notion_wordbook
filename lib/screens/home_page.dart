@@ -21,7 +21,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     super.initState();
-    Future<void>.microtask(() => _loadWordList());
+    Future<void>.microtask(_loadWordList);
   }
 
   @override
@@ -30,15 +30,15 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Future<void> _loadWordList() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     ref.read(wordbookInfoListProvider.notifier).getWordbookList(prefs);
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<void>.microtask(() => _loadWordList());
+    Future<void>.microtask(_loadWordList);
 
-    final AsyncValue<List<dynamic>> wordbooks =
+    final wordbooks =
         ref.watch(wordbookInfoListProvider);
     return Scaffold(
       appBar: AppBar(
@@ -68,7 +68,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
             ),
             wordbooks.when(
-              data: (List<dynamic> data) => ListView.builder(
+              data: (List<Map<String, String>> data) => ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: data.length,
@@ -114,7 +114,7 @@ class BookCard extends ConsumerStatefulWidget {
   }) : super(key: key);
 
   final int index;
-  final List<dynamic> wordbooks;
+  final List<Map<String, String>> wordbooks;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _BookCardState();
@@ -132,22 +132,24 @@ class _BookCardState extends ConsumerState<BookCard> {
         ),
         child: InkWell(
           onTap: () async {
-            ref.read(loadingStateProvider.notifier).update(true);
+            ref.read(loadingStateProvider.notifier).startLoading();
             ref.read(maxPageProvider.notifier).getListLength();
             ref.read(wordbookInfoProvider.notifier).updateDBInfo(
-                  widget.wordbooks[widget.index]['db_name'],
-                  widget.wordbooks[widget.index]['api_key'],
-                  widget.wordbooks[widget.index]['db_id'],
+                  widget.wordbooks[widget.index]['db_name']!,
+                  widget.wordbooks[widget.index]['api_key']!,
+                  widget.wordbooks[widget.index]['db_id']!,
                 );
             await ref.read(wordsListProvider.notifier).initState();
             ref.read(currentPageProvider.notifier).initState();
-            const int firstPage = 1;
+            const firstPage = 1;
             ref.read(wordChoicesProvider.notifier).setRandomChoices(firstPage);
 
             /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
-            if (!mounted) return;
-            Navigator.of(context).pushNamed('/quiz');
-            ref.read(loadingStateProvider.notifier).update(false);
+            if (!mounted) {
+              return;
+            }
+            await Navigator.of(context).pushNamed('/quiz');
+            ref.read(loadingStateProvider.notifier).stopLoading();
           },
           onLongPress: () {
             longPressDialog(context, ref);
@@ -156,7 +158,7 @@ class _BookCardState extends ConsumerState<BookCard> {
             padding: smallPadding,
             child: ListTile(
               title: Text(
-                widget.wordbooks[widget.index]['db_name'],
+                widget.wordbooks[widget.index]['db_name']!,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               subtitle: Padding(
@@ -167,7 +169,7 @@ class _BookCardState extends ConsumerState<BookCard> {
                 ),
               ),
               leading: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
+                padding: EdgeInsets.symmetric(vertical: 16),
                 child: Icon(
                   Icons.circle_sharp,
                   color: Colors.white,
@@ -177,9 +179,9 @@ class _BookCardState extends ConsumerState<BookCard> {
               trailing: InkWell(
                 onTap: () {
                   ref.read(wordbookInfoProvider.notifier).updateDBInfo(
-                        widget.wordbooks[widget.index]['db_name'],
-                        widget.wordbooks[widget.index]['api_key'],
-                        widget.wordbooks[widget.index]['db_id'],
+                        widget.wordbooks[widget.index]['db_name']!,
+                        widget.wordbooks[widget.index]['api_key']!,
+                        widget.wordbooks[widget.index]['db_id']!,
                       );
                   Navigator.of(context).pushNamed('/wordbook_item');
                 },

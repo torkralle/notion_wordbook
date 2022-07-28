@@ -1,7 +1,5 @@
 // 📦 Package imports:
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// 🌎 Project imports:
-import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
 class MaxPageNotifier extends StateNotifier<int> {
@@ -9,7 +7,7 @@ class MaxPageNotifier extends StateNotifier<int> {
   Ref ref;
 
   void getListLength() {
-    final List<Word> wordList = ref.read(wordsListProvider);
+    final wordList = ref.read(wordsListProvider);
     state = wordList.length;
   }
 }

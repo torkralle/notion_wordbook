@@ -15,30 +15,29 @@ class TestResultPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Word> wordList = ref.read(wordsListProvider);
-    final List<Word> incorrectList =
+    final wordList = ref.read(wordsListProvider);
+    final incorrectList =
         wordList.where((Word word) => word.correct == false).toList();
-    final int correctCount =
+    final correctCount =
         wordList.where((Word word) => word.correct == true).length;
 
     /// 学習状況を更新して、 [wordsLearned] に保存する。
-    final int wordsLearned = ref.read(wordsLearnedProvider);
+    final wordsLearned = ref.read(wordsLearnedProvider);
 
-    ResultListMode resultListMode = ref.watch(resultListModeProvider);
+    final resultListMode = ref.watch(resultListModeProvider);
     return Scaffold(
       appBar: AppBar(
         shape: Border(
           bottom: BorderSide(
             color: Theme.of(context).colorScheme.outline,
-            width: 1.0,
           ),
         ),
-        elevation: 0.0,
+        elevation: 0,
         backgroundColor: Colors.transparent,
         leading: Padding(
           padding: const EdgeInsets.only(
             left: 20,
-            top: 5.0,
+            top: 5,
           ),
           child: IconButton(
             onPressed: () {
@@ -71,7 +70,7 @@ class TestResultPage extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 5.0,
+                top: 5,
               ),
               child: Text(
                 '${wordsLearned - wordList.length}→$wordsLearned単語',
@@ -143,9 +142,8 @@ class TestResultPage extends ConsumerWidget {
                         : resultListMode == ResultListMode.incorrect
                             ? incorrectList[index].meaning ?? ''
                             : '',
-                    isMissed: resultListMode == ResultListMode.all
-                        ? !wordList[index].correct
-                        : true,
+                    isMissed: resultListMode != ResultListMode.all ||
+                        !wordList[index].correct,
                   );
                 },
               ),

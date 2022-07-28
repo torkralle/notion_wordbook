@@ -8,8 +8,7 @@ import 'package:notion_wordbook/core/http/main.dart';
 /// MapからListへの変換はhelper/words/new_list.dartでやってる
 Future<ApiResult> getWordsData(String databaseID, String apiKey) async {
   try {
-    final HttpResult response =
-        await callPostMethod('$databaseID/query', apiKey);
+    final response = await callPostMethod('$databaseID/query', apiKey);
 
     // 取ってきた HttpResult がエラーの可能性があるので、それを管理。
     if (response.error != null) {
@@ -19,17 +18,17 @@ Future<ApiResult> getWordsData(String databaseID, String apiKey) async {
         json.decode(response.response!.body),
       ); //json->Map
     }
-  } catch (e) {
+  } on Exception catch (e) {
     return ApiResult.failure(e);
   }
 }
 
 Future<ApiResult> updateWordIsCorrect(
   String apiKey,
-  String pageId,
-  bool isCorrect,
-) async {
-  Map<String, dynamic> updatePayload = <String, dynamic>{
+  String pageId, {
+  required bool isCorrect,
+}) async {
+  final updatePayload = <String, dynamic>{
     'properties': <String, Map<String, bool>>{
       'Correct': <String, bool>{
         'checkbox': isCorrect,
@@ -37,17 +36,16 @@ Future<ApiResult> updateWordIsCorrect(
     }
   };
   try {
-    final HttpResult response =
-        await callPatchMethod(pageId, apiKey, updatePayload);
+    final response = await callPatchMethod(pageId, apiKey, updatePayload);
     return ApiResult.success(json.decode(response.response!.body)); //json->Map
-  } catch (e) {
+  } on Exception catch (e) {
     return ApiResult.failure(e);
   }
 }
 
 class ApiResult {
-  final Map<dynamic, dynamic>? body;
-  final Object? error;
-  ApiResult.success(this.body, {this.error});
   ApiResult.failure(this.error, {this.body});
+  ApiResult.success(this.body, {this.error});
+  final dynamic body;
+  final Object? error;
 }

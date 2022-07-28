@@ -3,17 +3,17 @@ import 'package:notion_wordbook/helper/words/retrieve.dart';
 import 'package:notion_wordbook/objects/models/word.dart';
 
 List<dynamic> extractWordsDataFromResponse(
-  Map<dynamic, dynamic> responseMap,
+dynamic responseMap,
 ) {
   return responseMap['results'].map((dynamic page) {
-    Map<String, dynamic> p = page['properties'];
+    final dynamic p = page['properties'];
     p.addAll(<String, dynamic>{'id': page['id']});
     return p;
   }).toList();
 }
 
 List<Word> newWordsList(Map<dynamic, dynamic> response) {
-  final List<dynamic> wordsData =
+  final wordsData =
       extractWordsDataFromResponse(response);
   return wordsData
       .map(

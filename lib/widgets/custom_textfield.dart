@@ -19,7 +19,7 @@ class CustomTextField extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool obscuritySwitch = ref.watch(obscuritySwitchProvider);
+    final obscuritySwitch = ref.watch(obscuritySwitchProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
       child: Column(
@@ -55,7 +55,7 @@ class CustomTextField extends HookConsumerWidget {
               labelStyle: const TextStyle(fontSize: 16),
               floatingLabelStyle: MaterialStateTextStyle.resolveWith(
                   (Set<MaterialState> states) {
-                final Color color = states.contains(MaterialState.error)
+                final color = states.contains(MaterialState.error)
                     ? Theme.of(context).errorColor
                     : Colors.purple;
                 return TextStyle(color: color, fontSize: 20);

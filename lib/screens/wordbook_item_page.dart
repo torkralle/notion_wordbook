@@ -17,7 +17,7 @@ class WordBookItemPage extends HookConsumerWidget {
       },
       <Object>[],
     );
-    final List<Word> wordsList = ref.read(wordsListProvider);
+    final wordsList = ref.read(wordsListProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +54,7 @@ class WordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: ListTile(
           title: Text(
             words[index].spelling,

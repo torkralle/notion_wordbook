@@ -5,21 +5,21 @@ class WordsLearnedNotifier extends StateNotifier<int> {
   WordsLearnedNotifier() : super(0);
 
   Future<void> loadState() async {
-    final DateTime today =
+    final today =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     state = prefs.getInt('wordsLearned$today') ?? 0;
   }
 
   Future<void> update(int numberOfWordsLearned) async {
-    final DateTime today =
+    final today =
         DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     // まず状態を今日の日付のものにする。
     await loadState();
 
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     state += numberOfWordsLearned;
-    prefs.setInt(
+    await prefs.setInt(
       'wordsLearned$today',
       state,
     );

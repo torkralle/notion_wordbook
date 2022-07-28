@@ -1,7 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 
@@ -12,9 +11,9 @@ class ProgressBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int currentPage = ref.read(currentPageProvider);
-    final List<Word> wordsList = ref.read(wordsListProvider);
-    final int maxPage = wordsList.length;
+    final currentPage = ref.read(currentPageProvider);
+    final wordsList = ref.read(wordsListProvider);
+    final maxPage = wordsList.length;
     return LinearProgressIndicator(
       value: currentPage / maxPage,
       minHeight: 5,

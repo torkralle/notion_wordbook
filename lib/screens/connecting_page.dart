@@ -10,11 +10,10 @@ import 'package:notion_wordbook/widgets/custom_textfield.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ConnectingPage extends StatelessWidget {
+  ConnectingPage({Key? key}) : super(key: key);
   final FocusNode _focusNode = FocusNode();
   final TextEditingController apiKeyController = TextEditingController();
   final TextEditingController dbIDController = TextEditingController();
-
-  ConnectingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Focus(
@@ -114,7 +113,8 @@ class ConnectButton extends ConsumerStatefulWidget {
     required this.apiKeyController,
     required this.dbIDController,
   }) : super(key: key);
-  final TextEditingController apiKeyController, dbIDController;
+  final TextEditingController apiKeyController;
+  final TextEditingController dbIDController;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ConnectButtonState();
@@ -130,7 +130,7 @@ class _ConnectButtonState extends ConsumerState<ConnectButton> {
         onTap: () async {
           // ロード中だよ
           ref.read(loadingNotifierProvider.notifier).start();
-          DBStatus dbStatus =
+          final dbStatus =
               await ref.read(wordbookInfoProvider.notifier).setDBInfo(
                     widget.apiKeyController.text,
                     widget.dbIDController.text,
@@ -145,7 +145,9 @@ class _ConnectButtonState extends ConsumerState<ConnectButton> {
             connectionResultMessage(null);
 
             /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
-            if (!mounted) return;
+            if (!mounted) {
+              return;
+            }
             Navigator.of(context).popUntil(ModalRoute.withName('/'));
             // ページ遷移につき初期化することで次回の入力の時にデータが残っていることを防ぐ。
             ref.read(wordbookInfoProvider.notifier).updateDBInfo('', '', '');
@@ -160,7 +162,9 @@ class _ConnectButtonState extends ConsumerState<ConnectButton> {
 
   void connectionResultMessage(DBStatus? dbStatus) {
     /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: dbStatus != null

@@ -12,29 +12,29 @@ import 'package:notion_wordbook/objects/models/notion_key.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class WordbookInfoListViewModel
-    extends StateNotifier<AsyncValue<List<dynamic>>> {
-  WordbookInfoListViewModel()
-      : super(const AsyncValue<List<dynamic>>.data(<dynamic>[]));
+    extends StateNotifier<AsyncValue<List<Map<String, String>>>> {
+  WordbookInfoListViewModel() : super(const AsyncValue.loading());
 
   void getWordbookList(SharedPreferences prefs) {
     if (!prefs.containsKey('wordbooks')) {
       return;
     }
-    List<dynamic> storedData =
-        json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
-    state = AsyncValue<List<dynamic>>.data(storedData);
+    final wordbookJson = prefs.getStringList('wordbooks') ?? [];
+    final List<Map<String, String>> storedData =
+        json.decode(wordbooks)['wordbooks'];
+    state = AsyncValue.data(storedData);
   }
 
   /// リストからデータを削除する。
   /// 一旦 SharedPreferences に保存されているデータを全部取ってきて、それをパースして List にしてから
   /// またエンコードして保存し直す。 StateNotifier の state にも保存することでちゃんと描画されるようにする。
   Future<void> removeFromList(String apiKey) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<dynamic> storedData =
+    final prefs = await SharedPreferences.getInstance();
+    final List<Object> storedData =
         json.decode(prefs.getString('wordbooks')!)['wordbooks'];
     storedData.removeWhere((dynamic item) => item['api_key'] == apiKey);
     state = AsyncValue<List<dynamic>>.data(storedData);
-    prefs.setString(
+    await prefs.setString(
       'wordbooks',
       json.encode(<String, dynamic>{'wordbooks': storedData}),
     );
@@ -42,8 +42,7 @@ class WordbookInfoListViewModel
 }
 
 final StateNotifierProvider<WordbookInfoListViewModel,
-        AsyncValue<List<dynamic>>>
-    wordbookInfoListProvider =
+        AsyncValue<List<dynamic>>> wordbookInfoListProvider =
     StateNotifierProvider<WordbookInfoListViewModel, AsyncValue<List<dynamic>>>(
         (
   StateNotifierProviderRef<WordbookInfoListViewModel, AsyncValue<List<dynamic>>>
@@ -72,11 +71,11 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
   }
 
   Future<DBStatus> setDBInfo(String apiKey, String dbId) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String dbName = state.dbName;
+    final prefs = await SharedPreferences.getInstance();
+    final dbName = state.dbName;
 
     // 入力された DB 情報がいい感じか判定するために結果を保存したい。
-    final ApiResult apiResult = await getWordsData(dbId, apiKey);
+    final apiResult = await getWordsData(dbId, apiKey);
 
     // エラーがあったらエラーだよってする
     if (apiResult.error != null) {
@@ -85,7 +84,7 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
         description: ErrorDescription.dbNotFoundOrConnectionError,
       );
     } else {
-      Map<String, String> dbInfo = <String, String>{
+      final dbInfo = <String, String>{
         'db_name': dbName,
         'api_key': apiKey,
         'db_id': dbId,
@@ -93,13 +92,13 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
 
       if (!prefs.containsKey('wordbooks')) {
         debugPrint('no wordbooks');
-        String data = json.encode(<String, List<Map<String, String>>>{
+        final data = json.encode(<String, List<Map<String, String>>>{
           'wordbooks': <Map<String, String>>[dbInfo]
         });
-        prefs.setString('wordbooks', data);
+        await prefs.setString('wordbooks', data);
       }
 
-      List<dynamic> storedData =
+      final List<dynamic> storedData =
           json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
       if (storedData
           .where((dynamic element) => element['db_name'] == dbName)
@@ -107,7 +106,7 @@ class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
         return const DBStatus(Status.success);
       }
       storedData.add(dbInfo);
-      prefs.setString(
+      await prefs.setString(
         'wordbooks',
         json.encode(<String, dynamic>{'wordbooks': storedData}),
       );
@@ -126,9 +125,9 @@ final StateNotifierProvider<WordbookInfoViewModel, WordbookInfo>
 /// エラーの時はエラーの内容を、成功の時はnullを返す。
 @immutable
 class DBStatus {
+  const DBStatus(this.status, {this.description});
   final Status status;
   final ErrorDescription? description;
-  const DBStatus(this.status, {this.description});
 }
 
 enum Status {

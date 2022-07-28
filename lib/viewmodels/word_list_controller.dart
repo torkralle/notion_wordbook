@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notion_wordbook/client/words/main.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/helper/words/new_list.dart';
-import 'package:notion_wordbook/objects/models/notion_key.dart';
 import 'package:notion_wordbook/objects/models/word.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 
@@ -13,22 +12,23 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
   Ref ref;
 
   Future<void> initState() async {
-    final WordbookInfo wordbookInfo = ref.read(wordbookInfoProvider);
-    final ApiResult result =
-        await getWordsData(wordbookInfo.dbID, wordbookInfo.apiKey);
+    final wordbookInfo = ref.read(wordbookInfoProvider);
+    final result = await getWordsData(wordbookInfo.dbID, wordbookInfo.apiKey);
     state = newWordsList(result.body!);
   }
 
   List<String> getRandomWords(int currentPage) {
-    final int maxPage = state.length;
+    final maxPage = state.length;
 
     // TODO: maxPageを超えたときの挙動を考える
     // TODO: 同じ文字列の単語が入ったときの挙動を考える
-    if (currentPage > maxPage) return <String>['above', 'max', 'error', 'w'];
+    if (currentPage > maxPage) {
+      return <String>['above', 'max', 'error', 'w'];
+    }
 
     /// 単語帳内の単語の総数が4つ未満だったら指定の単語を選択肢として表示する
     if (maxPage < 4) {
-      List<String> choices = <String>[
+      final choices = <String>[
         state[currentPage - 1].spelling,
         'notion',
         'abstract',
@@ -39,16 +39,16 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
     }
 
     /// 単語帳内の単語から今のページの答えを除いて、シャッフルする
-    List<int> list = <int>[];
-    for (int i = 0; i < maxPage; i++) {
-      if (currentPage == i + 1) continue;
+    final list = <int>[];
+    for (var i = 0; i < maxPage; i++) {
+      if (currentPage == i + 1) {}
       list.add(i + 1);
     }
     list.shuffle();
 
     /// シャッフルした配列から前3つを取り出して、現在の答えの単語を追加する
-    List<String> choices = <String>[state[currentPage - 1].spelling];
-    for (int i = 0; i < 3; i++) {
+    final choices = <String>[state[currentPage - 1].spelling];
+    for (var i = 0; i < 3; i++) {
       choices.add(state[list[i] - 1].spelling);
     }
 
@@ -56,10 +56,10 @@ class WordsListViewModel extends StateNotifier<List<Word>> {
   }
 
   void updateIsCorrect(int indexNumber, bool isCorrect) {
-    final WordbookInfo wordbookInfo = ref.read(wordbookInfoProvider);
+    final wordbookInfo = ref.read(wordbookInfoProvider);
 
-    List<Word> updatedState = <Word>[];
-    for (int i = 0; i < state.length; i++) {
+    final updatedState = <Word>[];
+    for (var i = 0; i < state.length; i++) {
       if (i != indexNumber) {
         updatedState.add(state[i]);
       } else {
@@ -89,21 +89,20 @@ final StateNotifierProvider<WordsListViewModel, List<Word>> wordsListProvider =
 
 final FutureProvider<List<Word>> wordsListFutureProvider =
     FutureProvider<List<Word>>((FutureProviderRef<List<Word>> ref) async {
-  final WordbookInfo wordbookInfo = ref.read(wordbookInfoProvider);
-  final ApiResult wordListResult =
+  final wordbookInfo = ref.read(wordbookInfoProvider);
+  final wordListResult =
       await getWordsData(wordbookInfo.dbID, wordbookInfo.apiKey);
-  final List<Word> wordList = newWordsList(wordListResult.body!);
+  final wordList = newWordsList(wordListResult.body!);
 
   return wordList;
 });
-
 
 /// [previousCorrectCountProvider] は前回のテストで正解した単語の数を状態として持つ
 class PreviousCorrectCountNotifier extends StateNotifier<int> {
   PreviousCorrectCountNotifier() : super(0);
 
   void initState(WidgetRef ref) {
-    final List<Word> wordList = ref.read(wordsListProvider);
+    final wordList = ref.read(wordsListProvider);
     state = wordList.where((Word word) => word.correct == true).length;
   }
 }
