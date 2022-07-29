@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:notion_wordbook/viewmodels/load_state_controller.dart';
 // 🌎 Project imports:
@@ -8,7 +9,6 @@ import 'package:notion_wordbook/viewmodels/word_choices_controller.dart';
 import 'package:notion_wordbook/viewmodels/word_list_controller.dart';
 import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/padding.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,8 +30,9 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Future<void> _loadWordList() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    ref.read(wordbookInfoListProvider.notifier).getWordbookList(prefs);
+    const FlutterSecureStorage secureStorage = FlutterSecureStorage();
+    final Map<String, String> secureData = await secureStorage.readAll();
+    ref.read(wordbookInfoListProvider.notifier).getWordbookList(secureData);
   }
 
   @override
@@ -72,15 +73,15 @@ class _HomePageState extends ConsumerState<HomePage> {
             wordbooks.when(
               data: (List<dynamic> data) => data.isNotEmpty
                   ? ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return BookCard(
-                    index: index,
-                    wordbooks: data,
-                  );
-                },
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return BookCard(
+                          index: index,
+                          wordbooks: data,
+                        );
+                      },
                     )
                   : const Padding(
                       padding: EdgeInsets.all(40),

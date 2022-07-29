@@ -16,12 +16,14 @@ class WordbookInfoListViewModel
   WordbookInfoListViewModel()
       : super(const AsyncValue<List<dynamic>>.data(<dynamic>[]));
 
-  void getWordbookList(SharedPreferences prefs) {
-    if (!prefs.containsKey('wordbooks')) {
+  void getWordbookList(Map<String, String> secureData) async {
+    final bool hasWordbook = secureData.containsKey('hasWordbook');
+    if (!hasWordbook) {
       return;
     }
     List<dynamic> storedData =
-        json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
+        json
+        .decode(secureData['wordbooks'] ?? '')['wordbooks'] as List<dynamic>;
     state = AsyncValue<List<dynamic>>.data(storedData);
   }
 
