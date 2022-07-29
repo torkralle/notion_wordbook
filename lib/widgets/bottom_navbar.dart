@@ -9,11 +9,11 @@ class NavigatedPages extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _State();
+    return _NavigatedPagesState();
   }
 }
 
-class _State extends State<NavigatedPages> {
+class _NavigatedPagesState extends State<NavigatedPages> {
   int _navIndex = 0;
   final List<Widget> screens = <Widget>[
     const HomePage(),
