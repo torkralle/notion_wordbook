@@ -1,5 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class VersionChecker {
@@ -34,3 +35,10 @@ class VersionCheckStatus {
     required this.exception,
   }) : isSupported = null;
 }
+
+final FutureProvider<VersionCheckStatus> versionCheckStatusProvider =
+    FutureProvider<VersionCheckStatus>(
+        (FutureProviderRef<VersionCheckStatus> ref) async {
+  final VersionChecker versionChecker = VersionChecker();
+  return versionChecker.checkIfSupported();
+});
