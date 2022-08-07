@@ -4,7 +4,7 @@ import 'package:notion_wordbook/screens/learning_data_page/stat_box.dart';
 
 class LearningDataPage extends StatelessWidget {
   const LearningDataPage({Key? key}) : super(key: key);
-  static const titleStrs = [
+  static const List<String> titleStrs = [
     '現在の連続日数',
     '最長連続日数',
     '学習した日数',
@@ -13,17 +13,21 @@ class LearningDataPage extends StatelessWidget {
     '本日の学習時間',
     '合計学習時間'
   ];
-  static const unitStrs = ['日', '日', '日', '単語', '単語', '秒', '秒'];
+  static const List<String> unitStrs = ['日', '日', '日', '単語', '単語', '秒', '秒'];
   @override
   Widget build(BuildContext context) {
     //const String newmoColor = 'ffe3e3ed';
     //TODO: DBから取得
-    var dataArr = [3, 2, 2, 19, 21, 15, 72];
+    final List<int> dataArr = [3, 2, 2, 19, 21, 15, 72];
     return Scaffold(
-      drawer: const Hamburger(),
+      drawer: const HamburgerMenu(),
       appBar: AppBar(
         title: const Text(
           '学習データ',
+        ),
+        leading: const Icon(
+          Icons.menu,
+          color: Colors.white,
         ),
       ),
       body: Container(
@@ -55,8 +59,8 @@ class LearningDataPage extends StatelessWidget {
   }
 }
 
-class Hamburger extends StatelessWidget {
-  const Hamburger({
+class HamburgerMenu extends StatelessWidget {
+  const HamburgerMenu({
     Key? key,
   }) : super(key: key);
 
