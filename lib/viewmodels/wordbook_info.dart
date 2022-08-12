@@ -42,8 +42,7 @@ class WordbookInfoListViewModel
 }
 
 final StateNotifierProvider<WordbookInfoListViewModel,
-        AsyncValue<List<dynamic>>>
-    wordbookInfoListProvider =
+        AsyncValue<List<dynamic>>> wordbookInfoListProvider =
     StateNotifierProvider<WordbookInfoListViewModel, AsyncValue<List<dynamic>>>(
         (
   StateNotifierProviderRef<WordbookInfoListViewModel, AsyncValue<List<dynamic>>>
@@ -55,8 +54,19 @@ final StateNotifierProvider<WordbookInfoListViewModel,
 class WordbookInfoViewModel extends StateNotifier<WordbookInfo> {
   WordbookInfoViewModel() : super(const WordbookInfo('', '', ''));
 
-  void setDBName(String dbName) {
+  Future<DBStatus> setDBName(String dbName) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<dynamic> storedData =
+        json.decode(prefs.getString('wordbooks') ?? '')['wordbooks'];
+    // 既存の単語帳名とのダブリを調査する
+    if (storedData.where((dynamic db) => db['db_name'] == dbName).isNotEmpty) {
+      return const DBStatus(
+        Status.error,
+        description: ErrorDescription.duplicatedDBNameError,
+      );
+    }
     state = WordbookInfo(dbName, '', '');
+    return const DBStatus(Status.success);
   }
 
   void updateDBId(String dbId) {
@@ -138,5 +148,6 @@ enum Status {
 
 enum ErrorDescription {
   dbNotFoundOrConnectionError,
-  wordbookKeyNotFound,
+  wordbookKeyNotFoundError,
+  duplicatedDBNameError
 }

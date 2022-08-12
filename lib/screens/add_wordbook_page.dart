@@ -9,6 +9,7 @@ import 'package:notion_wordbook/viewmodels/wordbook_info.dart';
 import 'package:notion_wordbook/widgets/custom_button.dart';
 import 'package:notion_wordbook/widgets/custom_textfield.dart';
 import 'package:notion_wordbook/widgets/padding.dart';
+import 'package:notion_wordbook/viewmodels/loading_controller.dart';
 
 class AddWordbookPage extends HookConsumerWidget {
   AddWordbookPage({Key? key}) : super(key: key);
@@ -41,30 +42,77 @@ class AddWordbookPage extends HookConsumerWidget {
               child: Column(
                 children: <Widget>[
                   CustomTextField(
-                    labelName: '新しく追加する\n単語帳名を入力',
+                    labelName: '新しく追加する\n単語帳名を入力\n(同名の単語帳は不可)',
                     controller: dbNameController,
                     obscure: false,
                   ),
-                  InkWell(
-                    onTap: () {
-                      if (dbNameController.text.isEmpty) {
-                        return;
-                      }
-                      ref
-                          .read(wordbookInfoProvider.notifier)
-                          .setDBName(dbNameController.text);
-                      dbNameController.clear();
-                      Navigator.of(context).pushNamed('/connecting');
-                    },
-                    child: const CustomButton(
-                      buttonLabel: '次へ',
-                    ),
-                  ),
+                  NextButton(dbNameController: dbNameController)
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class NextButton extends ConsumerStatefulWidget {
+  const NextButton({
+    Key? key,
+    required this.dbNameController,
+  }) : super(key: key);
+  final TextEditingController dbNameController;
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _NextButtonState();
+}
+
+class _NextButtonState extends ConsumerState<NextButton> {
+  @override
+  Widget build(BuildContext context) {
+    return AbsorbPointer(
+      // ローディング中はボタンタップを無効化する
+      absorbing: ref.watch(loadingNotifierProvider),
+      child: InkWell(
+        onTap: () async {
+          // ロード中だよ
+          ref.read(loadingNotifierProvider.notifier).start();
+          DBStatus dbStatus = await ref
+              .read(wordbookInfoProvider.notifier)
+              .setDBName(widget.dbNameController.text);
+          // ロード終わったよ
+          ref.read(loadingNotifierProvider.notifier).stop();
+          if (dbStatus.status == Status.error) {
+            // 連携失敗のメッセージ
+            resultMessage(dbStatus);
+          } else {
+            // 連携成功のメッセージ
+            resultMessage(null);
+
+            /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
+            if (!mounted) return;
+            Navigator.of(context).pushNamed('/connecting');
+            // ページ遷移につき初期化することで次回の入力の時にデータが残っていることを防ぐ。
+            // ref.read(wordbookInfoProvider.notifier).updateDBInfo('', '', '');
+          }
+        },
+        child: const CustomButton(
+          buttonLabel: '次へ',
+        ),
+      ),
+    );
+  }
+
+  void resultMessage(DBStatus? dbStatus) {
+    /// `context` が存在するか確認してから `Navigator.of(context)` を使うようにする。
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: dbStatus != null
+            ? Text(
+                '不適切な単語帳名です。 ${dbStatus.description!}',
+              )
+            : const Text('続いてAPIキーとDBのIDを入力して下さい。'),
       ),
     );
   }
