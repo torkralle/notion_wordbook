@@ -13,48 +13,48 @@ class MyPageScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 50),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(right: 20),
-                      height: 70,
-                      width: 70,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            'https://ca.slack-edge.com/T02PHQ48CBC-U02PL2L6804-7e740657a6c3-512',
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Text(
-                      'ほしこ',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              IconText(
-                icon: const Icon(Icons.settings_outlined),
-                listName: '設定',
-                onTap: () {
-                  Navigator.of(context).pushNamed('/wordbook_item');
-                },
-              ),
-              IconText(
-                icon: const Icon(Icons.notifications_none),
-                listName: 'お知らせ',
-                onTap: () {
-                  Navigator.of(context).pushNamed('/wordbook_item');
-                },
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(bottom: 50),
+              //   child: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: <Widget>[
+              //       Container(
+              //         margin: const EdgeInsets.only(right: 20),
+              //         height: 70,
+              //         width: 70,
+              //         decoration: const BoxDecoration(
+              //           shape: BoxShape.circle,
+              //           image: DecorationImage(
+              //             fit: BoxFit.fill,
+              //             image: NetworkImage(
+              //               'https://ca.slack-edge.com/T02PHQ48CBC-U02PL2L6804-7e740657a6c3-512',
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       const Text(
+              //         'ほしこ',
+              //         style: TextStyle(
+              //           fontSize: 25,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // IconText(
+              //   icon: const Icon(Icons.settings_outlined),
+              //   listName: '設定',
+              //   onTap: () {
+              //     Navigator.of(context).pushNamed('/wordbook_item');
+              //   },
+              // ),
+              // IconText(
+              //   icon: const Icon(Icons.notifications_none),
+              //   listName: 'お知らせ',
+              //   onTap: () {
+              //     Navigator.of(context).pushNamed('/wordbook_item');
+              //   },
+              // ),
               IconText(
                 icon: const Icon(Icons.contact_support_outlined),
                 listName: 'お問い合わせ',
