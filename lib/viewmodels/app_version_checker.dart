@@ -2,23 +2,29 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:version/version.dart';
 
 class VersionChecker {
-  Future<VersionCheckStatus> checkIfSupported() async {
-    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    final int installedVersion = int.parse(packageInfo.buildNumber);
+  Future<VersionCheckStatus> checkIfSupported({
+    required PackageInfo packageInfo,
+  }) async {
+    final Version installedVersion = Version.parse(packageInfo.buildNumber);
     final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
 
     try {
       await remoteConfig.fetchAndActivate();
-      final int minimumVersion =
-          int.parse(remoteConfig.getString('minimum_supported_version'));
+      final Version minimumVersion =
+          Version.parse(remoteConfig.getString('minimum_supported_version'));
       if (installedVersion >= minimumVersion) {
-        return const VersionCheckStatus.onOheckCompleted(isSupported: true);
+        // FIXME: バージョンの取得がどっちもうまくなってないンゴ
+        debugPrint('いいよ 📲 $installedVersion 🔥→ $minimumVersion');
+        return const VersionCheckStatus.onCheckCompleted(isSupported: true);
       } else {
-        return const VersionCheckStatus.onOheckCompleted(isSupported: false);
+        debugPrint('だめだよ $installedVersion $minimumVersion');
+        return const VersionCheckStatus.onCheckCompleted(isSupported: false);
       }
     } on Exception catch (exception) {
+      debugPrint('あれれ $exception');
       return VersionCheckStatus.onException(exception: exception);
     }
   }
@@ -28,7 +34,7 @@ class VersionChecker {
 class VersionCheckStatus {
   final bool? isSupported;
   final Exception? exception;
-  const VersionCheckStatus.onOheckCompleted({
+  const VersionCheckStatus.onCheckCompleted({
     required this.isSupported,
   }) : exception = null;
   const VersionCheckStatus.onException({
@@ -40,5 +46,6 @@ final FutureProvider<VersionCheckStatus> versionCheckStatusProvider =
     FutureProvider<VersionCheckStatus>(
         (FutureProviderRef<VersionCheckStatus> ref) async {
   final VersionChecker versionChecker = VersionChecker();
-  return versionChecker.checkIfSupported();
+  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  return await versionChecker.checkIfSupported(packageInfo: packageInfo);
 });
