@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyPageScreen extends StatelessWidget {
   const MyPageScreen({Key? key}) : super(key: key);
@@ -40,21 +41,37 @@ class MyPageScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const IconText(
-                icon: Icon(Icons.settings_outlined),
+              IconText(
+                icon: const Icon(Icons.settings_outlined),
                 listName: '設定',
+                onTap: () {
+                  Navigator.of(context).pushNamed('/wordbook_item');
+                },
               ),
-              const IconText(
-                icon: Icon(Icons.notifications_none),
+              IconText(
+                icon: const Icon(Icons.notifications_none),
                 listName: 'お知らせ',
+                onTap: () {
+                  Navigator.of(context).pushNamed('/wordbook_item');
+                },
               ),
-              const IconText(
-                icon: Icon(Icons.contact_support_outlined),
+              IconText(
+                icon: const Icon(Icons.contact_support_outlined),
                 listName: 'お問い合わせ',
+                onTap: () {
+                  Navigator.of(context).pushNamed('/wordbook_item');
+                },
               ),
-              const IconText(
-                icon: Icon(Icons.format_list_bulleted),
+              IconText(
+                icon: const Icon(Icons.format_list_bulleted),
                 listName: '利用規約',
+                onTap: () async {
+                  await launchUrl(
+                    Uri.parse(
+                      'https://www.notion.so/torkralle/cf2e0a9a52a74afa9da5c430b666bb63',
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -67,21 +84,22 @@ class IconText extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.listName,
+    required this.onTap,
   }) : super(key: key);
 
   final Icon icon;
   final String listName;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.of(context).pushNamed('/wordbook_item');
-      },
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             icon,
             const SizedBox(width: 10),
