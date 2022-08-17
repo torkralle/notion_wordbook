@@ -12,6 +12,9 @@ environment:
 dependencies:
   change_app_package_name: ^1.1.0
   cupertino_icons: ^1.0.2
+  firebase_analytics: ^9.3.0
+  firebase_core: ^1.20.0
+  firebase_remote_config: ^2.0.13
   flutter:
     sdk: flutter
   flutter_hooks: ^0.18.5+1
@@ -20,8 +23,10 @@ dependencies:
   http: ^0.13.4
   import_sorter: ^4.6.0
   json_annotation: ^4.4.0
+  package_info_plus: ^1.4.3
   shared_preferences: ^2.0.13
   url_launcher: ^6.0.20
+  version: ^3.0.2
 
 dev_dependencies:
   flutter_lints: ^2.0.1
