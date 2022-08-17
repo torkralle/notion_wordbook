@@ -1,4 +1,4 @@
-package com.norihanda.notion_wordbook
+package com.nstudents.NotionWordbook
 
 import io.flutter.embedding.android.FlutterActivity
 

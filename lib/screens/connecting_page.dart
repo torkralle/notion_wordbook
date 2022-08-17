@@ -52,7 +52,7 @@ class ConnectingPage extends StatelessWidget {
                         onTap: () async {
                           await launchUrl(
                             Uri.parse(
-                              'https://torkralle.notion.site/Notion-Wordbook-d93132a576d846b0b3b5c10aa0c24908',
+                              'https://www.notion.so/torkralle/Notion-Wordbook-Integration-fec74dd7125349be91a0d66c1a56bf05',
                             ),
                           );
                         },
