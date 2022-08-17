@@ -58,8 +58,12 @@ class MyPageScreen extends StatelessWidget {
               IconText(
                 icon: const Icon(Icons.contact_support_outlined),
                 listName: 'お問い合わせ',
-                onTap: () {
-                  Navigator.of(context).pushNamed('/wordbook_item');
+                onTap: () async {
+                  await launchUrl(
+                    Uri.parse(
+                      'https://tally.so/r/w81E1x',
+                    ),
+                  );
                 },
               ),
               IconText(
