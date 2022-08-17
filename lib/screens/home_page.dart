@@ -1,6 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:notion_wordbook/viewmodels/app_version_checker.dart';
 import 'package:notion_wordbook/viewmodels/load_state_controller.dart';
 // 🌎 Project imports:
 import 'package:notion_wordbook/viewmodels/page_controllers.dart';
@@ -18,17 +19,6 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    Future<void>.microtask(() => _loadWordList());
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   Future<void> _loadWordList() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     ref.read(wordbookInfoListProvider.notifier).getWordbookList(prefs);
@@ -36,7 +26,22 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Future<void>.microtask(() => _loadWordList());
+    final AsyncValue<VersionCheckStatus> versionChecker =
+        ref.watch(versionCheckStatusProvider);
+    versionChecker.when(
+      data: (VersionCheckStatus data) {
+        if (data.isSupported == null) {
+          return showUpdateDialog();
+        }
+        data.isSupported!
+            ? Future<void>.microtask(() => _loadWordList())
+            : showUpdateDialog();
+      },
+      error: (_, __) => showUpdateDialog(), // FIXME: ダイアログが違うので変える。
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
+    );
+    // Future<void>.microtask(() => _loadWordList());
 
     final AsyncValue<List<dynamic>> wordbooks =
         ref.watch(wordbookInfoListProvider);
@@ -72,15 +77,15 @@ class _HomePageState extends ConsumerState<HomePage> {
             wordbooks.when(
               data: (List<dynamic> data) => data.isNotEmpty
                   ? ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return BookCard(
-                    index: index,
-                    wordbooks: data,
-                  );
-                },
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return BookCard(
+                          index: index,
+                          wordbooks: data,
+                        );
+                      },
                     )
                   : const Padding(
                       padding: EdgeInsets.all(40),
@@ -113,6 +118,16 @@ class _HomePageState extends ConsumerState<HomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  void showUpdateDialog() {
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) => const AlertDialog(),
+    // );
+    const Scaffold(
+      body: Text('アップデートしてね'),
     );
   }
 }

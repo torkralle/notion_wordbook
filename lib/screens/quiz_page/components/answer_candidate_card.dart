@@ -32,6 +32,7 @@ class AnswerCandidateCard extends ConsumerStatefulWidget {
 class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
   @override
   Widget build(BuildContext context) {
+    final String chosenWord = widget.word[widget.index];
     return SizedBox(
       height: 75,
       child: Card(
@@ -64,10 +65,11 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
           },
           child: ListTile(
             title: Text(
-              widget.word[widget.index],
+              chosenWord,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             onTap: () async {
+              final bool isCorrect = chosenWord == widget.correctWord.spelling;
               if (widget.currentPage >= widget.maxPage) {
                 final List<Word> wordList = ref.read(wordsListProvider);
                 // ここで学んだ単語数をロードする。
@@ -75,7 +77,7 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
                     .read(wordsLearnedProvider.notifier)
                     .update(wordList.length);
                 if (!mounted) return;
-                Navigator.of(context).pushNamed('/result');
+                isCorrectDialog(context, isCorrect, chosenWord, '/result');
                 return;
               }
               ref.read(currentPageProvider.notifier).pageCount();
@@ -85,11 +87,11 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
               ref.read(wordChoicesProvider.notifier).setRandomChoices(nextPage);
 
               /// 正誤判定してNotionDBを更新
+              isCorrectDialog(context, isCorrect, chosenWord, '/quiz');
               ref.read(wordsListProvider.notifier).updateIsCorrect(
                     widget.currentPage - 1,
-                    widget.word[widget.index] == widget.correctWord.spelling,
+                    chosenWord == widget.correctWord.spelling,
                   );
-              Navigator.of(context).pushNamed('/quiz');
             },
             leading: Padding(
               padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 6),
@@ -104,6 +106,71 @@ class AnswerCandidateCardState extends ConsumerState<AnswerCandidateCard> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<dynamic> isCorrectDialog(
+    BuildContext context,
+    bool isCorrect,
+    String chosenWord,
+    String nextRoute,
+  ) {
+    return showDialog<Widget>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(isCorrect ? '正解' : '不正解'),
+          content: RichText(
+            text: TextSpan(
+              children: isCorrect
+                  ? <TextSpan>[
+                      TextSpan(
+                        text: 'Nice job!',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      )
+                    ]
+                  : <TextSpan>[
+                      TextSpan(
+                        text: 'You chose ',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      TextSpan(
+                        text: chosenWord,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(color: Colors.red),
+                      ),
+                      TextSpan(
+                        text: ',\n but ',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                      TextSpan(
+                        text: widget.correctWord.spelling,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium!
+                            .copyWith(color: Colors.red),
+                      ),
+                      TextSpan(
+                        text: ' was the right one.\nCan be better next time!',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      ),
+                    ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Go on to the next word'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(nextRoute);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
